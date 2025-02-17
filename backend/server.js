@@ -2,11 +2,17 @@ import express from 'express';
 import specimensRouter from './routes/specimens.js';
 import mongoose from 'mongoose'; // used to interfact with db
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config(); // load environment variables
 
 const app = express();
 const PORT = process.env.PORT;
+
+//allow cross origin script requests for all routes (for development purposes)
+app.use(cors({
+    origin: "*"
+}));
 
 // middleware: log requests to the console
 app.use((req, res, next) => {
