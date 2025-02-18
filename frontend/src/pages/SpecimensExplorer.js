@@ -3,9 +3,12 @@ import { useEffect, useState} from 'react';
 const SpecimensExplorer = () => {
     const [specimens, setSpecimens] = useState(null);
 
+    const API_PORT = process.env.REACT_APP_API_PORT;
+    const API_BASE_URL = `http://localhost:${API_PORT}`;
+
     useEffect(() => {
         const fetchSpecimens = async () => {
-            const response = await fetch('http://localhost:3001/api/specimens');
+            const response = await fetch(`${API_BASE_URL}/api/specimens`);
             const json = await response.json();
 
             if (response.ok) {
@@ -14,7 +17,7 @@ const SpecimensExplorer = () => {
         }
 
         fetchSpecimens()
-    }, []);
+    });
 
     return (
         <div className="dashboard">
