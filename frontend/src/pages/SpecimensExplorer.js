@@ -17,7 +17,7 @@ const SpecimensExplorer = () => {
         }
 
         fetchSpecimens()
-    });
+    }, []);
 
     return (
         <div className="dashboard">
