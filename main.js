@@ -3,10 +3,13 @@ import { spawn } from 'child_process';
 import path from 'path';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import kill from 'tree-kill';
 
 // ES module workaround for CJS __dirname
 const getDirname = (metaUrl) => dirname(fileURLToPath(metaUrl));
 const __dirname = getDirname(import.meta.url);
+
+console.log(__dirname);
 
 let mainWindow;
 let frontendServer;
@@ -24,7 +27,7 @@ async function createWindow() {
   startFrontendServer();
 
   // small delay to allow for startup
-  setTimeout(() => mainWindow.loadURL('http://localhost:5173'), 2000);
+  setTimeout(() => mainWindow.loadURL('http://localhost:3000'), 2000);
 }
 
 function startFrontendServer() {
@@ -43,10 +46,13 @@ function startApiServer() {
 
 app.whenReady().then(createWindow);
 
+app.on('quit', () => {
+  kill(frontendServer.pid);
+  kill(apiServer.pid);
+});
+
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    apiServer?.kill();
-    frontendServer?.kill();
     app.quit();
   }
 });
