@@ -1,23 +1,42 @@
 import mongoose from 'mongoose';
+import { type } from 'os';
 
 const Schema = mongoose.Schema;
-
 const specimenSchema = new Schema({
-    name: {
+    scientificName: {
         type: String,
         required: true
     },
-    commonName: {
+    nickName: {
         type: String,
-        required: false
+        
     },
-    description: {
-        type: String
+    anthropologist: {
+        type: String,
+        required: true
     },
-    id: {
+    activeValue: {
         type: Number,
         required: true
+    },
+    paidValue: {
+    type: Number,
+    required: true
+
+    },
+    locatedCountryRegion:{
+        type: String,
+        
+    },
+    locationId:{
+        type: String,
+        required: true
+    },
+    description:{
+        type: String,
+        
     }
+
 }, { timestamps: true });
 
 const Specimen = mongoose.model('Specimen', specimenSchema);
