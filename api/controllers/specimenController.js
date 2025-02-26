@@ -12,11 +12,13 @@ export const getAllSpecimens = async (req, res) => {
 
 // create a new specimen
 export const createSpecimen = async (req, res) => {
-    const { name, commonName, description, id } = req.body;
+    const { scientificName, nickName, anthropologist, activeValue, paidValue, locatedCountryRegion, locationId, description
+    } = req.body;
 
     // add doc to db
     try {
-        const specimen = await Specimen.create({name, commonName, description, id});
+        const specimen = await Specimen.create({ scientificName, nickName, anthropologist, activeValue, paidValue, locatedCountryRegion, locationId,
+            description});
         res.status(200);
         res.json(specimen);
     } catch (error) {
@@ -26,5 +28,7 @@ export const createSpecimen = async (req, res) => {
 }
 
 // delete a specimen
+
+
 
 // update a specimen
