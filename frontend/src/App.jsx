@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // pages & components
 import NavBar from "./components/Navbar.jsx";
-import Dashboard from "./pages/dashboard.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
 import SpecimensExplorer from "./pages/SpecimensExplorer.jsx";
 
 function App() {
