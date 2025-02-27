@@ -8,7 +8,6 @@ import pottery from "../images/test-pottery.jpg"
 const Dashboard = () => {
     return (
         <section id="dashboard">
-            <h1>GRC Anthropology</h1>
             <DashboardWidget
                 identifier={"collection-financials"}
                 title={"Collection Financials"}
@@ -30,8 +29,8 @@ const Dashboard = () => {
                 title={"Manage Inventory"}
                 content={
                     <div id="inventory-content">
-                        <button id="view-btn">view</button>
-                        <button id="add-btn">add</button>
+                        <a id="view-btn" href="/SpecimensExplorer">View</a>
+                        <a id="add-btn" href="/AddProduct">Add</a>
                     </div>  
                 }
             />
