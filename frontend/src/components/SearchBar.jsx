@@ -57,13 +57,14 @@ const SearchBar = () => {
 
     return (
         <div>
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form id="searchbar"
+            onSubmit={(e) => e.preventDefault()}>
                 <div>
                     <input
                         type="text"
                         value={searchTerm}
                         onChange={handleInputChange}
-                        placeholder="Search the database"
+                        placeholder="Search the inventory..."
                     />
                     <div>
                         <button type="submit">
