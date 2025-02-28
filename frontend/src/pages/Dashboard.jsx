@@ -1,9 +1,10 @@
-import ArtifactCard from "../components/ArtifactCard";
-import DashboardWidget from "../components/DashboardWidget";
+import DashArtifactCard from "../components/dashboard-components/DashArtifactCard";
+import DashboardWidget from "../components/dashboard-components/DashboardWidget";
 import {PieChart} from "@mui/x-charts";
 import skull from "../images/test-skull.jpeg";
 import hand from "../images/test-hand.jpg"
 import pottery from "../images/test-pottery.jpg"
+import SearchBar from "../components/SearchBar";
 
 const Dashboard = () => {
     return (
@@ -31,6 +32,15 @@ const Dashboard = () => {
                     <div id="inventory-content">
                         <a id="view-btn" href="/SpecimensExplorer">View</a>
                         <a id="add-btn" href="/AddProduct">Add</a>
+                    </div>  
+                }
+            />
+            <DashboardWidget
+                identifier={"search-inventory"}
+                title={"Search Inventory"}
+                content={
+                    <div>
+                        <SearchBar></SearchBar>
                     </div>  
                 }
             />
@@ -66,17 +76,17 @@ const Dashboard = () => {
                 title={"Recently Added"}
                 content={
                     <div id="recently-added-artifacts">
-                        <ArtifactCard
+                        <DashArtifactCard
                             imgSrc={skull}
                             scientificName={"Skull"}
                             id={"TEST01"}
                         />
-                        <ArtifactCard
+                        <DashArtifactCard
                             imgSrc={hand}
                             scientificName={"Hand"}
                             id={"TEST02"}
                         />
-                        <ArtifactCard
+                        <DashArtifactCard
                             imgSrc={pottery}
                             scientificName={"Pottery"}
                             id={"TEST03"}
