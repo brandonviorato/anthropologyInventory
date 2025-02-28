@@ -20,9 +20,8 @@ const specimenSchema = new Schema({
         required: true
     },
     paidValue: {
-    type: Number,
-    required: true
-
+        type: Number,
+        required: true
     },
     locatedCountryRegion:{
         type: String,
@@ -35,7 +34,8 @@ const specimenSchema = new Schema({
     description:{
         type: String,
         
-    }
+    },
+    images: [{type: String}] // array containing relative image paths
 
 }, { timestamps: true });
 
