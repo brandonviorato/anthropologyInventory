@@ -1,4 +1,6 @@
 import Specimen from '../models/specimen.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 // get all specimens
 export const getAllSpecimens = async (req, res) => {
@@ -24,7 +26,35 @@ export const getSingleSpecimenById = async (req, res) => {
 
 // create a new specimen
 export const createSpecimen = async (req, res) => {
-    const { scientificName, nickName, anthropologist, activeValue, paidValue, locatedCountryRegion, locationId, description, images
+    // handle file upload
+    let image;
+    let uploadPath;
+    let images;
+
+    // check if any images in req
+    if (!req.files || Object.keys(req.files).length === 0) {
+        images = '';
+    } else {
+        const __filename = fileURLToPath(import.meta.url);
+        const __dirname = path.dirname(__filename);
+
+        console.log(req.files.image);
+
+        image = req.files.image;
+        uploadPath = path.join(__dirname, '..', 'uploads', image.name);
+
+        await new Promise((resolve, reject) => {
+            image.mv(uploadPath, (err) => {
+                if (err) return reject(err);
+                resolve();
+            });
+        });
+
+        // store image path
+        images = '/api/uploads/' + image.name;
+    }
+
+    const { scientificName, nickName, anthropologist, activeValue, paidValue, locatedCountryRegion, locationId, description
     } = req.body;
 
     // add doc to db
