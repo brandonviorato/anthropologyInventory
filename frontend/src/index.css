@@ -321,3 +321,99 @@ body {
 
     cursor: pointer;
 }
+/* View Product
+========================================================================== */
+
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end; 
+    gap: 0%; 
+    margin: 0%; 
+    padding-left: 10%;
+  
+  }
+  
+  
+  .card {
+   
+    margin: 5%; 
+    width: 100%; 
+    max-width: 70%; 
+    box-sizing: border-box; 
+    transition: transform 0.3s ease;
+  }
+ 
+
+  .card:hover {
+    transform: scale(1.05); 
+  }
+  
+  
+  .card-media {
+    height: 250px; 
+    object-fit: cover; 
+ 
+  }
+  
+  
+  .card-content {
+    padding: 16px;
+  }
+  
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  
+  .card-description {
+    font-size: 0.875rem;
+    color: #555;
+  }
+  
+ 
+  @media (max-width: 768px) {
+    .card-container {
+      justify-content: flex-start;
+    }
+  
+    .card {
+      width: 100%;
+      max-width: 100%; 
+    }
+  }
+ 
+.sidebar {
+    background-color: white;
+    color: black;
+    left: 0; 
+    width: 350px; 
+    height: 100vh; 
+    border: 2px solid #5e5959; 
+    position: sticky;
+    top: 1px; 
+    padding: 0px;
+    z-index: 1000; 
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); 
+  }
+  
+  
+  @media (max-width: 768px) {
+    .sidebar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+      padding: 10px; 
+    }
+    
+    .searchBar_view {
+      font-size: 0.9rem; 
+      padding: 10px 15px; 
+    }
+  }
