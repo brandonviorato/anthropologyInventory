@@ -5,6 +5,7 @@ import NavBar from "./components/Navbar.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import SpecimensExplorer from "./pages/SpecimensExplorer.jsx";
 import AddProduct from "./components/AddProduct.jsx";
+import SpecimenDetail from "./pages/SpecimenDetail.jsx";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                         <Route path="/" element={<Dashboard />} />
                         <Route path="/Dashboard" element={<Dashboard />} />
                         <Route path="/SpecimensExplorer" element={<SpecimensExplorer />}/>
+                        <Route path="/specimen/:id" element={<SpecimenDetail />}/>
                         <Route path="/AddProduct" element={<AddProduct />} />
                     </Routes>
                 </div>
