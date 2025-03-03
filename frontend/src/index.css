@@ -330,8 +330,8 @@ body {
     flex-wrap: wrap;
     justify-content: flex-end; 
     gap: 0%; 
-    margin: 0%; 
-    padding-left: 10%;
+    margin: 10%; 
+    padding-left: 5%;
   
   }
   
@@ -341,7 +341,6 @@ body {
     margin: 5%; 
     width: 100%; 
     max-width: 70%; 
-    box-sizing: border-box; 
     transition: transform 0.3s ease;
   }
  
