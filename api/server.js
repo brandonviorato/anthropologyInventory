@@ -1,4 +1,5 @@
 import express from 'express';
+import fileUpload from 'express-fileupload';
 import specimensRouter from './routes/specimens.js';
 import mongoose from 'mongoose'; // used to interfact with db
 import dotenv from 'dotenv';
@@ -13,6 +14,9 @@ const PORT = process.env.PORT;
 app.use(cors({
     origin: "*"
 }));
+
+// default options
+app.use(fileUpload());
 
 // middleware: log requests to the console
 app.use((req, res, next) => {

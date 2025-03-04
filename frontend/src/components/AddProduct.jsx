@@ -111,6 +111,7 @@ const AddProduct = () => {
                     </label>
                     <input
                         type="file"
+                        name="image"
                         id="fileInput"
                         onChange={handleFileChange}
                         hidden
