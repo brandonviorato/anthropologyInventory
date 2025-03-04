@@ -74,7 +74,8 @@ const specimenSchema = new Schema({
     notes:{
         type: String,
         required: false
-    }
+    },
+    images: [{type: String}] // array containing relative image paths
 
 }, { timestamps: true });
 
