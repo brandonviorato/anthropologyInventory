@@ -5,8 +5,18 @@ import skull from "../images/test-skull.jpeg";
 import hand from "../images/test-hand.jpg"
 import pottery from "../images/test-pottery.jpg"
 import SearchBar from "../components/SearchBar";
+import { useEffect, useState } from "react";
+import { fetchTotalRecords, fetchTotalCost } from "../utils/api";
 
 const Dashboard = () => {
+    const [totalCount, setTotalCount] = useState(0);
+    const [totalCost, setTotalCost] = useState(0);
+
+    useEffect(() => {
+        fetchTotalRecords().then(setTotalCount);
+        fetchTotalCost().then(setTotalCost);
+    }, []);
+
     return (
         <section id="dashboard">
             <DashboardWidget
@@ -14,11 +24,11 @@ const Dashboard = () => {
                 title={"Collection Financials"}
                 content={
                     <div>
-                        <p>$10,000
+                        <p>${totalCost}
                             <br/>
                             <small>Collection Cost</small>
                         </p>
-                        <p>$17,500
+                        <p>$-----
                             <br/>
                             <small>Collection Value</small>
                         </p>
@@ -64,7 +74,7 @@ const Dashboard = () => {
                             height={200}
                         />
                         <div id="total-artifacts">
-                            <p>55</p>
+                            <p>{totalCount}</p>
                             <small>Total Artifacts</small>
                         </div>
                     </div>
