@@ -54,13 +54,11 @@ export const createSpecimen = async (req, res) => {
         images = '/api/uploads/' + image.name;
     }
 
-    const { scientificName, nickName, anthropologist, activeValue, paidValue, locatedCountryRegion, locationId, description
-    } = req.body;
+    const { Genus, Species, nickName, specimenId, material, manufacturerId, manufacturer, countryManufactured, anthropologist, activeValue, paidValue, dateOfPurchase, purchaser, regionFound, countryFound, locationId, description, notes } = req.body;
 
     // add doc to db
     try {
-        const specimen = await Specimen.create({ scientificName, nickName, anthropologist, activeValue, paidValue, locatedCountryRegion, locationId,
-            description, images});
+        const specimen = await Specimen.create({ Genus, Species, nickName, specimenId, material, manufacturerId, manufacturer, countryManufactured, anthropologist, activeValue, paidValue, dateOfPurchase, purchaser, regionFound, countryFound, locationId, description, notes });
         res.status(200);
         res.json(specimen);
     } catch (error) {
@@ -96,3 +94,30 @@ export const updateSpecimen = async (req, res) => {
         res.json({error: error.message});
     }
 }
+
+// Total number of records in the db
+// for the dashboard
+export const getRecordCount = async (req, res) => {
+    try {
+        const count = await Specimen.countDocuments();
+        res.status(200).json({"count": count});
+    } catch (error) {
+        console.error("Error with record count", error);
+        res.status(404).json({error: error.message});
+    }
+}
+
+// Get the total collection cost
+export const getTotalCost = async (req, res) => {
+    try {
+        const results = await Specimen.find({paidValue: {$gt: 1}}, { _id: 0, paidValue: 1});
+        const values = results.map(artifact => artifact.paidValue);
+        const totalCost = values.reduce((sum, value) => sum + value, 0);
+        res.status(200).json({"totalCost": totalCost});
+    } catch (error) {
+        console.error("Error with total cost", error);
+        res.status(404).json({error: error.message});
+    }
+}
+
+// Get the most recently added artifacts

@@ -3,13 +3,37 @@ import { type } from 'os';
 
 const Schema = mongoose.Schema;
 const specimenSchema = new Schema({
-    scientificName: {
+    Genus: {
+        type: String,
+        required: true
+    },
+    Species: {
         type: String,
         required: true
     },
     nickName: {
         type: String,
-        
+        required: false
+    },
+    specimenId: {
+        type: String,
+        required: true
+    },
+    material: {
+        type: String,
+        required: true
+    },
+    manufacturerId: {
+        type: String,
+        required: false
+    },
+    manufacturer: {
+        type: String,
+        required: false
+    },
+    countryManufactured: {
+        type: String,
+        required: false
     },
     anthropologist: {
         type: String,
@@ -23,9 +47,21 @@ const specimenSchema = new Schema({
         type: Number,
         required: true
     },
-    locatedCountryRegion:{
+    dateOfPurchase: {
         type: String,
-        
+        required: false
+    },
+    purchaser: {
+        type: String,
+        required: false
+    },
+    regionFound:{
+        type: String,
+        required: false
+    },
+    countryFound:{
+        type: String,
+        required: false
     },
     locationId:{
         type: String,
@@ -33,7 +69,11 @@ const specimenSchema = new Schema({
     },
     description:{
         type: String,
-        
+        required: false
+    },
+    notes:{
+        type: String,
+        required: false
     },
     images: [{type: String}] // array containing relative image paths
 
