@@ -54,11 +54,11 @@ export const createSpecimen = async (req, res) => {
         images = '/api/uploads/' + image.name;
     }
 
-    const { Genus, Species, nickName, specimenId, material, manufacturerId, manufacturer, countryManufactured, anthropologist, activeValue, paidValue, dateOfPurchase, purchaser, regionFound, countryFound, locationId, description, notes } = req.body;
+    const { genus, species, nickName, specimenId, material, manufacturerId, manufacturer, countryManufactured, anthropologist, activeValue, paidValue, dateOfPurchase, purchaser, regionFound, countryFound, locationId, description, notes } = req.body;
 
     // add doc to db
     try {
-        const specimen = await Specimen.create({ Genus, Species, nickName, specimenId, material, manufacturerId, manufacturer, countryManufactured, anthropologist, activeValue, paidValue, dateOfPurchase, purchaser, regionFound, countryFound, locationId, description, notes });
+        const specimen = await Specimen.create({ genus, species, nickName, specimenId, material, manufacturerId, manufacturer, countryManufactured, anthropologist, activeValue, paidValue, dateOfPurchase, purchaser, regionFound, countryFound, locationId, description, notes });
         res.status(200);
         res.json(specimen);
     } catch (error) {

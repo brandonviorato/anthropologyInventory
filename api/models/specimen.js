@@ -3,11 +3,11 @@ import { type } from 'os';
 
 const Schema = mongoose.Schema;
 const specimenSchema = new Schema({
-    Genus: {
+    genus: {
         type: String,
         required: true
     },
-    Species: {
+    species: {
         type: String,
         required: true
     },
