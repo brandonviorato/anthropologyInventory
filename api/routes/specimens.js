@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAllSpecimens, createSpecimen, getSingleSpecimenById, updateSpecimen, getRecordCount, getTotalCost } from '../controllers/specimenController.js';
+import { getAllSpecimens, createSpecimen, getSingleSpecimenById, updateSpecimen, getRecordCount, getTotalCost, deleteSpecimen } from '../controllers/specimenController.js';
 
 const specimensRouter = Router();
 
@@ -20,5 +20,8 @@ specimensRouter.post('/', createSpecimen);
 
 // PATCH a specimen by id
 specimensRouter.patch('/:id', updateSpecimen);
+
+// DELETE a specimen by id
+specimensRouter.delete('/:id', deleteSpecimen);
 
 export default specimensRouter;

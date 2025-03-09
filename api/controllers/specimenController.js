@@ -54,11 +54,11 @@ export const createSpecimen = async (req, res) => {
         images = '/api/uploads/' + image.name;
     }
 
-    const { Genus, Species, nickName, specimenId, material, manufacturerId, manufacturer, countryManufactured, anthropologist, activeValue, paidValue, dateOfPurchase, purchaser, regionFound, countryFound, locationId, description, notes } = req.body;
+    const { genus, species, nickName, specimenId, material, manufacturerId, manufacturer, countryManufactured, anthropologist, activeValue, paidValue, dateOfPurchase, purchaser, regionFound, countryFound, locationId, description, notes } = req.body;
 
     // add doc to db
     try {
-        const specimen = await Specimen.create({ Genus, Species, nickName, specimenId, material, manufacturerId, manufacturer, countryManufactured, anthropologist, activeValue, paidValue, dateOfPurchase, purchaser, regionFound, countryFound, locationId, description, notes });
+        const specimen = await Specimen.create({ genus, species, nickName, specimenId, material, manufacturerId, manufacturer, countryManufactured, anthropologist, activeValue, paidValue, dateOfPurchase, purchaser, regionFound, countryFound, locationId, description, notes });
         res.status(200);
         res.json(specimen);
     } catch (error) {
@@ -67,7 +67,27 @@ export const createSpecimen = async (req, res) => {
     }
 }
 
-// delete a specimen
+// delete a specimen | NOTE: does not delete images from 'uploads' folder
+export const deleteSpecimen = async (req, res) => {
+    const specimenId = req.params.id;
+    try {
+        const deletedSpecimen = await Specimen.findOneAndDelete({ _id: specimenId });
+
+        if (!deletedSpecimen) {
+            return res.status(404).json({ message: "Specimen not found" });
+        }
+
+        res.status(200);
+        res.json({
+            message: "Successfully deleted specimen",
+            data: deletedSpecimen
+        });
+    } catch (error) {
+        res.status(500);
+        res.json({ error: error.message });
+    }
+};
+
 
 
 
