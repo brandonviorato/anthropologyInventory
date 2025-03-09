@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import SpecimenCard from "./SpecimenCard";
 import SpecimenRow from "./SpecimenRow";
-import { Link } from "react-router-dom";
 
-const CollectionView = ({ specimens, viewType }) => {
+const CollectionView = ({ specimens, viewType, onDelete }) => {
     // Sorting settings
     const [sortConfig, setSortConfig] = useState({
         key: null,
@@ -61,12 +60,9 @@ const CollectionView = ({ specimens, viewType }) => {
     return viewType === "grid" ? (
         <div className="grid-view">
             {sortedSpecimens.map((specimen) => (
-                <Link
-                    className="specimen-link"
-                    to={`/specimen/${specimen._id}`}
-                >
-                    <SpecimenCard key={specimen._id} specimen={specimen} />
-                </Link>
+                <div key={specimen._id} className="specimen-card-container">
+                    <SpecimenCard specimen={specimen} onDelete={onDelete} />
+                </div>
             ))}
         </div>
     ) : (

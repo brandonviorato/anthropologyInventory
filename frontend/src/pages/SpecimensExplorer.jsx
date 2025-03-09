@@ -56,6 +56,13 @@ export default function View() {
         setViewType((prev) => (prev === "grid" ? "list" : "grid"));
     };
 
+    // HandlesDelete so that when a user deletes a card it will update the page and remove it :)
+    const handleDelete = (id) => {
+        setSpecimens((prevSpecimens) =>
+            prevSpecimens.filter((specimen) => specimen._id !== id)
+        );
+    };
+
     return (
         <div className="view-page">
             <Sidebar specimens={specimens} setSearchTerm={setSearchTerm} />
@@ -100,6 +107,7 @@ export default function View() {
                     <CollectionView
                         specimens={filteredSpecimens}
                         viewType={viewType}
+                        onDelete={handleDelete}
                     />
                 )}
             </div>
