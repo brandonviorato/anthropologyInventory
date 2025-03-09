@@ -1,97 +1,108 @@
-import 'react';
-import { Link } from 'react-router-dom';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import CardActionArea from '@mui/material/CardActionArea';
-import Grid from '@mui/material/Grid';
-import SearchBar from '../components/SearchBar';
-import skull from "../images/test-skull.jpeg";
-import hand from "../images/test-hand.jpg"
-import child from "../images/taungChild.png";
-import lucy from "../images/lucy-skull.png";
-import '../index.css'; 
+import React, { useEffect, useState } from "react";
+
+// Components
+import Sidebar from "../components/viewpage-components/Sidebar";
+import CollectionView from "../components/viewpage-components/CollectionView";
+
+// CSS
+import "../index.css";
+import "../../styles/specimensExplorer.css";
+import { Link } from "react-router-dom";
+
 export default function View() {
- 
-  const specimens = [
-    {
-      id: "1", 
-      image: lucy,
-      scientificName: "Lucy",
-      description: "The fossilized skull of Lucy, one of the most famous early human ancestors, discovered in Ethiopia in 1974. It provided crucial evidence of bipedalism in early hominins",
-    },
-    {
-      id: "2",
-      image: child,
-      scientificName: " Taung Child",
-      description: "The Taung Child is the first early hominin fossil discovered in Africa, providing key insights into human evolution. It is a well-preserved juvenile skull.",
-    },
-    {
-      id: "3",
-      image: skull,
-      scientificName: "Example 3",
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
-    },
-    {
-      id: "4",
-      image: hand,
-      scientificName: "Example 4",
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
-    },
-    {
-      id: "5",
-      image: hand,
-      scientificName: "Example 5",
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
-    },
-    {
-      id: "6",
-      image: skull,
-      scientificName: "Example 6",
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
-    }
-  ];
+    const [searchTerm, setSearchTerm] = useState(""); // For inventory search bar
+    const [viewType, setViewType] = useState("grid"); // Grid or list
+    const [specimens, setSpecimens] = useState([]); // specimens which we will fetch from the database
+    const [fetchError, setFetchError] = useState(null);
 
-  return (
-    
-    <Grid container spacing={9.5}>
-      <Grid item xs={2.5} className="sidebar">
-        <Typography variant="h6">Search</Typography>
-        <Typography variant="body2">
-          <SearchBar className="searchBar_view"></SearchBar>
-        </Typography>
-      </Grid>
+    // Load up will fetches for the specimens which should return a json for us to use and show to the view page
+    useEffect(() => {
+        const fetchSpecimens = async () => {
+            // try to get a response from the api
+            try {
+                const response = await fetch(
+                    "http://localhost:3001/api/specimens"
+                );
+                if (!response.ok) {
+                    throw new Error("Failed to fetch specimens");
+                }
+                const data = await response.json();
+                setSpecimens(data);
+                setFetchError(null); // If there is an error, we'll reset since it's now fixed
+            } catch (error) {
+                // otherwise we'll use a default which might be removed later and display an error
+                console.error(
+                    "Error fetching specimens, using default data:",
+                    error
+                );
+                setFetchError(
+                    "Failed to load specimens. Please try again later."
+                );
+            }
+        };
+        fetchSpecimens();
+    }, []);
 
+    // Filters each specimens if it includes the search bar value,
+    // Should work with any column
+    const filteredSpecimens = specimens.filter((item) =>
+        Object.values(item).some((value) =>
+            value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+        )
+    );
 
-      <Grid item xs={8}>
-        <Grid container spacing={0} className="card-container">
-          {specimens.map((specimen, index) => (
-            <Grid item xs={6} key={index}>
-              <Card className="card">
-                <CardActionArea>
-                  <Link to={`/specimen/${specimen.id}`} style={{ textDecoration: "none" }}>
-                    <CardMedia
-                      component="img"
-                      className="card-media"
-                      image={specimen.image}
-                      alt={specimen.scientificName}
+    // Toggles grid or list view
+    const toggleView = () => {
+        setViewType((prev) => (prev === "grid" ? "list" : "grid"));
+    };
+
+    return (
+        <div className="view-page">
+            <Sidebar specimens={specimens} setSearchTerm={setSearchTerm} />
+
+            <div className="specimens-view-container">
+                <div className="view-add-btn">
+                    <Link to={`/AddProduct`}>Add Product</Link>
+                </div>
+
+                <div className="view-controls">
+                    <input
+                        type="text"
+                        placeholder="Inventory Search..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                     />
-                    <CardContent className="card-content">
-                      <Typography className="card-title" variant="h5">
-                        {specimen.scientificName}
-                      </Typography>
-                      <Typography className="card-description" variant="body2">
-                        {specimen.description}
-                      </Typography>
-                    </CardContent>
-                  </Link>
-                </CardActionArea>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Grid>
-    </Grid>
-  );
+
+                    <button
+                        id="grid-list-toggle"
+                        type="button"
+                        onClick={toggleView}
+                    >
+                        <img
+                            src="../svg/grid.svg"
+                            alt="Grid Icon"
+                            id="grid-view"
+                            className={viewType === "grid" ? "active" : ""}
+                        />
+                        <img
+                            src="../svg/list.svg"
+                            alt="List Icon"
+                            id="list-view"
+                            className={viewType === "list" ? "active" : ""}
+                        />
+                    </button>
+                </div>
+
+                {/* error message if fetch fails */}
+                {fetchError ? (
+                    <h1 className="error">{fetchError}</h1>
+                ) : (
+                    <CollectionView
+                        specimens={filteredSpecimens}
+                        viewType={viewType}
+                    />
+                )}
+            </div>
+        </div>
+    );
 }
