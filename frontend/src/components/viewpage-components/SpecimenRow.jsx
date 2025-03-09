@@ -10,7 +10,7 @@ const SpecimenRow = ({ specimen, tableColumns }) => {
         >
             <td className="specimen-image">
                 <img
-                    src={specimen.image || "../img/img-not-found.png"}
+                    src={specimen.images?.[0] || "src/images/lucy-skull.png"}
                     alt="Specimen"
                     className="table-img"
                 />

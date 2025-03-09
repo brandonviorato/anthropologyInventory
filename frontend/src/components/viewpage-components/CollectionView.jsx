@@ -61,8 +61,11 @@ const CollectionView = ({ specimens, viewType }) => {
     return viewType === "grid" ? (
         <div className="grid-view">
             {sortedSpecimens.map((specimen) => (
-                <Link className="specimen-link" to={`/specimen/${specimen.id}`}>
-                    <SpecimenCard key={specimen.id} specimen={specimen} />
+                <Link
+                    className="specimen-link"
+                    to={`/specimen/${specimen._id}`}
+                >
+                    <SpecimenCard key={specimen._id} specimen={specimen} />
                 </Link>
             ))}
         </div>
@@ -77,6 +80,7 @@ const CollectionView = ({ specimens, viewType }) => {
                             className={key}
                             onClick={() => handleSort(key)}
                         >
+                            {/* replaces underline to space */}
                             {key
                                 .replace(/_/g, " ")
                                 .replace(/\b\w/g, (char) =>
@@ -94,7 +98,7 @@ const CollectionView = ({ specimens, viewType }) => {
             <tbody>
                 {sortedSpecimens.map((specimen) => (
                     <SpecimenRow
-                        key={specimen.id}
+                        key={specimen._id}
                         specimen={specimen}
                         tableColumns={tableColumns}
                     />

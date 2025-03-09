@@ -7,21 +7,35 @@ const Sidebar = ({ specimens, setSearchTerm }) => {
     const [isOpen, setIsOpen] = React.useState({ cat1: true, cat2: true });
 
     // getUniqueValues since some fossils might have the same category like stone tool for example
-    const getUniqueValues = (key) => [
-        ...new Set(specimens.map((specimen) => specimen[key])),
-    ];
+    const getUniqueValues = (keys) => {
+        // Ensure the keys is always treated as an array in case a category combines a couple of specimens column
+        const keyArray = Array.isArray(keys) ? keys : [keys];
 
-    // Here are hard coded categories I have choosen
-    const locatedCountries = getUniqueValues("locatedCountry");
+        // get all the values from the provided keys map and flatten them (you can also join them if you liked it that way)
+        const values = specimens.flatMap((specimen) =>
+            keyArray.map((key) => specimen?.[key] || null)
+        );
+
+        // return unique values that's not null
+        return [...new Set(values.filter(Boolean))];
+    };
+
+    // Here are hard coded categories I have chosen
+    const countries = getUniqueValues([
+        "countryManufactured",
+        "locatedCountryRegion",
+    ]);
     const species = getUniqueValues("species");
 
     // filter the categories where the category includes the searchTerm
     const filterValues = (values) =>
         values.filter((value) =>
-            value.toLowerCase().includes(searchTerm.toLowerCase())
+            (value?.toString().toLowerCase() || "").includes(
+                searchTerm.toLowerCase()
+            )
         );
 
-    const filteredCountries = filterValues(locatedCountries);
+    const filteredCountries = filterValues(countries);
     const filteredSpecies = filterValues(species);
 
     // Show or hide targeted category
@@ -48,7 +62,7 @@ const Sidebar = ({ specimens, setSearchTerm }) => {
             </div>
 
             {/* Categories list where the values will be added to the category you set */}
-            {Object.entries({ cat1: "Located Countries", cat2: "Species" }).map(
+            {Object.entries({ cat1: "Countries", cat2: "Species" }).map(
                 ([key, label]) => (
                     <div key={key} className="categories">
                         <button

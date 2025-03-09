@@ -84,6 +84,12 @@
     cursor: pointer;
 }
 
+.error {
+    text-align: center;
+
+    font-size: 2rem;
+}
+
 @media screen and (max-width: 880px) {
     .view-page {
         display: flex;
@@ -168,13 +174,19 @@
     filter: brightness(1.2);
 }
 
+@media screen and (max-width: 460px) {
+    .view-controls {
+        flex-direction: column;
+    }
+}
+
 /* grid-view
 ========================================= */
 .grid-view {
     display: grid;
     justify-content: center;
     align-items: center;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
 }
 
@@ -198,6 +210,7 @@
 .specimen-card img {
     width: 100%;
     height: 100%;
+    aspect-ratio: 1/1;
 
     object-fit: cover;
 }
@@ -233,9 +246,19 @@
     margin: 0;
 
     font-size: 1.3rem;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1500px) {
+    .grid-view {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 1200px) {
     .grid-view {
         grid-template-columns: repeat(2, 1fr);
     }
