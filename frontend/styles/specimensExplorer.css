@@ -190,15 +190,40 @@
     gap: 1rem;
 }
 
-.specimen-link {
-    color: black;
-    text-decoration: none;
+.specimen-card-container {
+    position: relative;
 
     transition: 200ms ease-in-out;
 }
 
-.grid-view .specimen-link:hover {
+.specimen-card-container:hover {
     box-shadow: 0 0 10px 1px black;
+}
+
+.specimen-card-menu {
+    position: absolute;
+    bottom: 5rem;
+    right: 0;
+
+    z-index: 1000;
+}
+
+.specimen-card-menu button {
+    background: none;
+    border: none;
+
+    width: 4rem;
+
+    cursor: pointer;
+}
+
+.specimen-card-menu img:hover {
+    filter: invert(42%) sepia(88%) saturate(1000%) hue-rotate(160deg);
+}
+
+.specimen-link {
+    color: black;
+    text-decoration: none;
 }
 
 .specimen-card {
@@ -221,25 +246,6 @@
     gap: 0.5rem;
 
     padding: 0.5rem;
-}
-
-.specimen-img {
-    position: relative;
-}
-
-.specimen-img button {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-
-    background: none;
-    border: none;
-
-    z-index: 1000;
-}
-
-.specimen-img button img {
-    width: 5rem;
 }
 
 .specimen-info p {
