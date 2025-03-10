@@ -136,7 +136,7 @@ className="sd-img"
             <TableCell>{specimen.countryFound || "N/A"}</TableCell>
             <TableCell>{specimen.regionFound || "N/A"}</TableCell>
             <TableCell>{specimen.locationId || "N/A"}</TableCell>
-            <TableCell>{specimen.madeIn || "N/A"}</TableCell>
+            <TableCell>{specimen.countryManufactured || "N/A"}</TableCell>
           </TableRow>
 
           <TableHead>
@@ -152,11 +152,11 @@ className="sd-img"
             </TableRow>
           </TableHead>
           <TableRow>
-            <TableCell>{specimen.manufacturerID || "N/A"}</TableCell>
+            <TableCell>{specimen.manufacturerId || "N/A"}</TableCell>
             <TableCell>{specimen.specimenId || "N/A"}</TableCell>
             <TableCell>{specimen.genus || "N/A"}</TableCell>
             <TableCell>{specimen.species || "N/A"}</TableCell>
-            <TableCell>{specimen.purchased || "N/A"}</TableCell>
+            <TableCell>{specimen.dateOfPurchase || "N/A"}</TableCell>
             <TableCell>{specimen.purchaser || "N/A"}</TableCell>
             <TableCell>{specimen.manufacturer || "N/A"}</TableCell>
             <TableCell>{specimen.material || "N/A"}</TableCell>
