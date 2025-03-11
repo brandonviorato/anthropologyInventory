@@ -377,8 +377,6 @@ textarea {
   }
   
   .sd-back-btn {
-    margin-top: 10px;
-    padding-bottom: 16px;
     background-color : rgb(10, 10, 21) !important;
   
   }
@@ -417,9 +415,4 @@ textarea {
   }
   
  
-.save-notes{
-    background-color: #055e22 !important;
-}
-.edit-notes{
-    background-color: orange !important;
-} 
+ 
