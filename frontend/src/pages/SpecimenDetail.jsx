@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Card, CardContent, Typography, Table, TableCell, TableRow, TableContainer, TableHead, Paper, Button, TextareaAutosize, Snackbar, Alert } from "@mui/material";
-import { fetchSpecimenById, saveNotesToLocalStorage } from '../utils/api'; 
+import { fetchSpecimenById } from '../utils/api'; 
 import "../index.css";
 
 export default function SpecimenDetail() {
@@ -11,22 +11,21 @@ export default function SpecimenDetail() {
   const [notes, setNotes] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarMessage] = useState("");
 
   useEffect(() => {
     const fetchSpecimen = async () => {
       const data = await fetchSpecimenById(id); 
-      setSpecimen(data);
+      if (data) {
+        setSpecimen(data);
+        setNotes(data.notes || "");  
+      }
       setLoading(false);
     };
-
+  
     fetchSpecimen();
-
-    const savedNotes = localStorage.getItem(`notes-${id}`);
-    if (savedNotes) {
-      setNotes(savedNotes);
-    }
   }, [id]);
+  
 
   const handleNotesChange = (event) => {
     setNotes(event.target.value);
@@ -34,14 +33,6 @@ export default function SpecimenDetail() {
 
   const handleEditClick = () => {
     setIsEditing(true);
-  };
-
-  const handleSaveClick = () => {
-    saveNotesToLocalStorage(id, notes);
-    setIsEditing(false);
-
-    setSnackbarMessage("Notes saved successfully!");
-    setOpenSnackbar(true);
   };
 
   const handleCloseSnackbar = () => {
@@ -94,18 +85,14 @@ className="sd-img"
           <TextareaAutosize
             className="sd-notes-box"
             minRows={6}
-            placeholder="Write your notes here..."
+            placeholder="N/A"
             value={notes}
             onChange={handleNotesChange}
             readOnly={!isEditing}
           />
           <div className="sd-notes-buttons">
-            {isEditing ? (
-              <Button variant="contained" className="save-notes" onClick={handleSaveClick}>
-                Save
-              </Button>
-            ) : (
-              <Button variant="contained" className="edit-notes" onClick={handleEditClick}>
+            {isEditing && (
+              <Button variant="contained" className="save-notes" onClick={handleEditClick}>
                 Edit
               </Button>
             )}
@@ -170,4 +157,3 @@ className="sd-img"
     </div>
   );
 }
-
