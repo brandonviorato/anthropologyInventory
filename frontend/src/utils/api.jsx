@@ -56,6 +56,7 @@ export const addArtifact = async (formData) => {
     }
 }
 
+
 export const getArtifactById = async (id) => {
     try {
         const response = await fetch(API_URI + id, {
@@ -95,3 +96,23 @@ export const updateArtifact = async (id, formData) => {
         return null;
     }
 };
+
+// DetailsPage
+export const fetchSpecimenById = async (id) => {
+    try {
+      const response = await fetch(`${API_URI}${id}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch specimen');
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching specimen:', error);
+      return null;
+    }
+  };
+  
+  export const saveNotesToLocalStorage = (id, notes) => {
+    localStorage.setItem(`notes-${id}`, notes);
+  };
+  

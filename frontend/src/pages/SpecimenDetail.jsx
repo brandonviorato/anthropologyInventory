@@ -1,142 +1,173 @@
-import "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import child from "../images/taungChild.png";
-import lucy from "../images/lucy-skull.png";
-import { Card, CardContent, Typography, Table, TableCell, TableRow, TableContainer, TableHead, Paper, Button} from "@mui/material";
-import "../index.css"; 
-
-const specimens = [
-  {
-    id: "1",
-    image: lucy,
-    scientificName: "Australopithecus afarensis",
-    nickName: "Lucy",
-    description: "The fossilized skull of Lucy, one of the most famous early human ancestors, discovered in Ethiopia in 1974. It provided crucial evidence of bipedalism in early hominins.",
-    anthropologist: "Donald Johanson",
-    activeValue: "2300",
-    paidValue: "2100",
-    locatedCountry: "Ethiopia",
-    locatedRegion: "Afar",
-    manufacturerID: "001", 
-    specimenID: "AL 288-1",
-    genus: "Australopithecus",
-    species: "Afarensis",
-    purchased: "11/24/2018",
-    purchaser: "unknown",
-    manufacturer: "N/A",
-    material: "Reproduction",
-    madeIn: "Africa",
-  },
-  {
-    id: "2",
-    image: child,
-    scientificName: "Australopithecus africanus",
-    nickName: "Taung Child",
-    description: "The Taung Child is the first early hominin fossil discovered in Africa, providing key insights into human evolution. It is a well-preserved juvenile skull.",
-    anthropologist: "Raymond Dart",
-    activeValue: "500",
-    paidValue: "400",
-    locatedCountry: "South Africa",
-    locatedRegion: "North West Province",
-    manufacturerID: "002", 
-    specimenID: "AL 45-l",
-    genus: "Australopithecus",
-    species: "Africanus",
-    purchased: "02/02/2019",
-    purchaser: "unknown",
-    manufacturer: "USA",
-    material: "Reproduction",
-    madeIn: "Africa",
-  }
-];
+import { Card, CardContent, Typography, Table, TableCell, TableRow, TableContainer, TableHead, Paper, Button, TextareaAutosize, Snackbar, Alert } from "@mui/material";
+import { fetchSpecimenById, saveNotesToLocalStorage } from '../utils/api'; 
+import "../index.css";
 
 export default function SpecimenDetail() {
-    const { id } = useParams(); 
-    const specimen = specimens.find((s) => s.id === id);
-  
-    if (!specimen) {
-      return <h2>Specimen not found</h2>;
-    }
-  
-    return (
-      <div className="sd-container">
-        <div className="sd-flex-container">
-          <Card className="sd-card">
-            <Typography variant="h4" gutterBottom>
-              {specimen.scientificName}
-            </Typography>
-            <img
-              src={specimen.image}
-              alt={specimen.scientificName}
-              className="sd-img"
-            />
-            <CardContent>
-              <Typography variant="body1" className="sd-desc">
-                {specimen.description}
-              </Typography>
-            </CardContent>
-          </Card>
-  
-        
-          <TableContainer component={Paper} className="sd-table-container">
-            <Table>
-              <TableHead>
-                
-                <TableRow>
-                  <TableCell className="sd-table-bold">Scientific Name</TableCell>
-                  <TableCell className="sd-table-bold">Nick Name</TableCell>
-                  <TableCell className="sd-table-bold">Anthropologist</TableCell>
-                  <TableCell className="sd-table-bold">Active Value</TableCell>
-                  <TableCell className="sd-table-bold">Paid Value</TableCell>
-                 
-                  <TableCell className="sd-table-bold">Country</TableCell>
-                  <TableCell className="sd-table-bold">Region</TableCell>
-                  <TableCell className="sd-table-bold">Made In</TableCell>
-                </TableRow>
-              </TableHead>
-                <TableRow>
-                  <TableCell>{specimen.scientificName}</TableCell>
-                  <TableCell>{specimen.nickName}</TableCell>
-                  <TableCell>{specimen.anthropologist}</TableCell>
-                  <TableCell>{specimen.activeValue}</TableCell>
-                  <TableCell>{specimen.paidValue}</TableCell>
-                  <TableCell>{specimen.locatedCountry}</TableCell>
-                  <TableCell>{specimen.locatedRegion}</TableCell>
-                  <TableCell>{specimen.madeIn}</TableCell>
-                </TableRow>
-                
-                <TableHead>
-                <TableRow>
-                  <TableCell className="sd-table-bold">Manufacturer ID</TableCell>
-                  <TableCell className="sd-table-bold">Specimen ID</TableCell>
-                  <TableCell className="sd-table-bold">Genus</TableCell>
-                  <TableCell className="sd-table-bold">Species</TableCell>
-                  <TableCell className="sd-table-bold">Purchased</TableCell>
-                  <TableCell className="sd-table-bold">Purchaser</TableCell>
-                  <TableCell className="sd-table-bold">Manufacturer</TableCell>
-                  <TableCell className="sd-table-bold">Material</TableCell>
-                </TableRow>
-              </TableHead>
-                <TableRow>
-                  <TableCell>{specimen.manufacturerID}</TableCell>
-                  <TableCell>{specimen.specimenID}</TableCell>
-                  <TableCell>{specimen.genus}</TableCell>
-                  <TableCell>{specimen.species}</TableCell>
-                  <TableCell>{specimen.purchased}</TableCell>
-                  <TableCell>{specimen.purchaser}</TableCell>
-                  <TableCell>{specimen.manufacturer}</TableCell>
-                  <TableCell>{specimen.material}</TableCell>
-                </TableRow>
+  const { id } = useParams();
+  const [specimen, setSpecimen] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [notes, setNotes] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
-                
-            </Table>
-          </TableContainer>
-        </div>
-  
-       
-        <Button variant="contained" className="sd-back-btn" component={Link} to="/SpecimensExplorer">
-          Back to Specimens
-        </Button>
-      </div>
-    );
+  useEffect(() => {
+    const fetchSpecimen = async () => {
+      const data = await fetchSpecimenById(id); 
+      setSpecimen(data);
+      setLoading(false);
+    };
+
+    fetchSpecimen();
+
+    const savedNotes = localStorage.getItem(`notes-${id}`);
+    if (savedNotes) {
+      setNotes(savedNotes);
+    }
+  }, [id]);
+
+  const handleNotesChange = (event) => {
+    setNotes(event.target.value);
+  };
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleSaveClick = () => {
+    saveNotesToLocalStorage(id, notes);
+    setIsEditing(false);
+
+    setSnackbarMessage("Notes saved successfully!");
+    setOpenSnackbar(true);
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
+
+  if (loading) {
+    return <h2>Loading...</h2>;
   }
+
+  if (!specimen) {
+    return <h2>Specimen not found</h2>;
+  }
+
+  return (
+    <div className="sd-container">
+      <div className="sd-flex-container">
+        {/* Image & Info Card */}
+        <Card className="sd-card">
+        <img
+  src={specimen.images && specimen.images.length > 0 ? specimen.images[0] : "fallback-image.jpg"}
+  alt={specimen.nickName || "Specimen Image"}
+className="sd-img"
+/>
+
+          <CardContent>
+            <Typography variant="body1" className="sd-desc">
+              {specimen.description}
+            </Typography>
+          </CardContent>
+        </Card>
+
+        {/* Snackbar for Notification */}
+        <Snackbar
+          open={openSnackbar}
+          autoHideDuration={3000} 
+          onClose={handleCloseSnackbar}
+        >
+          <Alert onClose={handleCloseSnackbar} severity="success">
+            {snackbarMessage}
+          </Alert>
+        </Snackbar>
+
+        {/* Notes Section */}
+        <div className="sd-notes-container">
+          <Typography variant="h4" gutterBottom>
+            {specimen.nickName}
+          </Typography>
+          <Typography variant="h6">Notes</Typography>
+          <TextareaAutosize
+            className="sd-notes-box"
+            minRows={6}
+            placeholder="Write your notes here..."
+            value={notes}
+            onChange={handleNotesChange}
+            readOnly={!isEditing}
+          />
+          <div className="sd-notes-buttons">
+            {isEditing ? (
+              <Button variant="contained" className="save-notes" onClick={handleSaveClick}>
+                Save
+              </Button>
+            ) : (
+              <Button variant="contained" className="edit-notes" onClick={handleEditClick}>
+                Edit
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Table of Details */}
+      <TableContainer component={Paper} className="sd-table-container">
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell className="sd-table-bold">Nick Name</TableCell>
+              <TableCell className="sd-table-bold">Anthropologist</TableCell>
+              <TableCell className="sd-table-bold">Active Value</TableCell>
+              <TableCell className="sd-table-bold">Paid Value</TableCell>
+              <TableCell className="sd-table-bold">Country</TableCell>
+              <TableCell className="sd-table-bold">Region</TableCell>
+              <TableCell className="sd-table-bold">Location ID</TableCell>
+              <TableCell className="sd-table-bold">Made In</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableRow>
+            <TableCell>{specimen.nickName || "N/A"}</TableCell>
+            <TableCell>{specimen.anthropologist || "N/A"}</TableCell>
+            <TableCell>{specimen.activeValue || "N/A"}</TableCell>
+            <TableCell>{specimen.paidValue || "N/A"}</TableCell>
+            <TableCell>{specimen.countryFound || "N/A"}</TableCell>
+            <TableCell>{specimen.regionFound || "N/A"}</TableCell>
+            <TableCell>{specimen.locationId || "N/A"}</TableCell>
+            <TableCell>{specimen.countryManufactured || "N/A"}</TableCell>
+          </TableRow>
+
+          <TableHead>
+            <TableRow>
+              <TableCell className="sd-table-bold">Manufacturer ID</TableCell>
+              <TableCell className="sd-table-bold">Specimen ID</TableCell>
+              <TableCell className="sd-table-bold">Genus</TableCell>
+              <TableCell className="sd-table-bold">Species</TableCell>
+              <TableCell className="sd-table-bold">Purchased</TableCell>
+              <TableCell className="sd-table-bold">Purchaser</TableCell>
+              <TableCell className="sd-table-bold">Manufacturer</TableCell>
+              <TableCell className="sd-table-bold">Material</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableRow>
+            <TableCell>{specimen.manufacturerId || "N/A"}</TableCell>
+            <TableCell>{specimen.specimenId || "N/A"}</TableCell>
+            <TableCell>{specimen.genus || "N/A"}</TableCell>
+            <TableCell>{specimen.species || "N/A"}</TableCell>
+            <TableCell>{specimen.dateOfPurchase || "N/A"}</TableCell>
+            <TableCell>{specimen.purchaser || "N/A"}</TableCell>
+            <TableCell>{specimen.manufacturer || "N/A"}</TableCell>
+            <TableCell>{specimen.material || "N/A"}</TableCell>
+          </TableRow>
+        </Table>
+      </TableContainer>
+
+      <Button variant="contained" className="sd-back-btn" component={Link} to="/SpecimensExplorer"> 
+        Back to Specimens
+      </Button>
+    </div>
+  );
+}
+
