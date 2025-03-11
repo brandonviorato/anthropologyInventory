@@ -70,6 +70,11 @@ const SpecimenCard = ({ specimen, onDelete }) => {
                     <button onClick={handleDelete} disabled={isDeleting}>
                         <img src="../../../svg/trash.svg" alt="" />
                     </button>
+                    <Link to={`/UpdateProduct/${specimen._id}`}>
+                        <button>
+                            <img src="../../../svg/edit.svg" alt="" />
+                        </button>
+                    </Link>
                 </div>
             ) : (
                 <div className="specimen-card-menu">

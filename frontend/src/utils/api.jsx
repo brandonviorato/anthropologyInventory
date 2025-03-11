@@ -56,6 +56,47 @@ export const addArtifact = async (formData) => {
     }
 }
 
+
+export const getArtifactById = async (id) => {
+    try {
+        const response = await fetch(API_URI + id, {
+            method: "GET",
+            headers: { Accept: "application/json" },
+        });
+        if (!response.ok) {
+            console.log("Error fetching artifact with ID:", id);
+            return null;
+        }
+        return await response.json();
+    } catch (error) {
+        console.log("Error fetching artifact:", error);
+        return null;
+    }
+};
+
+export const updateArtifact = async (id, formData) => {
+    try {
+        const response = await fetch(API_URI + id, {
+            method: "PATCH",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) {
+            console.log("Error updating artifact with ID:", id);
+            return null;
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.log("Error updating artifact:", error);
+        return null;
+    }
+};
+
 // DetailsPage
 export const fetchSpecimenById = async (id) => {
     try {
