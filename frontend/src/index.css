@@ -253,7 +253,8 @@ body {
     margin: 0 auto 40px auto;
 }
 
-#add-form input, textarea {
+#add-form input,
+textarea {
     border: solid 1px gray;
     padding: 6px;
     border-radius: 6px;
@@ -263,7 +264,7 @@ body {
     margin-bottom: 10px;
 }
 
-#specimen-info, 
+#specimen-info,
 #discovery-details,
 #description-notes,
 #manufacturing-details,
@@ -287,9 +288,10 @@ body {
     }
 }
 
-#description-div, #notes-div {
+#description-div,
+#notes-div {
     grid-row: 3/4;
-    
+
     textarea {
         height: 100px;
         resize: none;
@@ -315,7 +317,7 @@ body {
 
 .file-label:hover {
     cursor: pointer;
-    border: solid  #759ffc 2px;
+    border: solid #759ffc 2px;
     background-color: #b6b6b6;
     /* box-shadow: 0 0 20px 5px #c3d6ff; */
 }
@@ -348,7 +350,6 @@ body {
     border-radius: 4px;
     cursor: pointer;
 }
-
 
 /* SpecimenDetail
 ========================================================================== */
