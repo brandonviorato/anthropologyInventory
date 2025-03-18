@@ -2,12 +2,11 @@
 This app is built to help Green River College's Anthropology department in organizing and tracking their artifact inventory.
 
 #### Tools used & Links:
-- [Vite](https://vite.dev/): Used to improve frontend performance.
+- [Electron-Vite](https://evite.netlify.app): Used to create a lightweight app with Electron and Vite.
 - [React](https://react.dev/): Helped to reduce redundancy through the use of components.
 - [Node.js](https://nodejs.org/en): For the backend API.
 - [Express.js](https://expressjs.com/): Framework for Node.js, helped streamline development.
 - [MongoDB](https://www.mongodb.com/): Opted for Mongo due to the clients budget constraint and desire to keep application local.
-- [Electron](https://www.electronjs.org/): Enabled us to build a desktop app with react.
 
 ## Table of contents:
 - [How to contribute](#how-to-contribute)
