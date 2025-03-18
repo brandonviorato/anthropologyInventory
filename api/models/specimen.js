@@ -1,5 +1,4 @@
-import mongoose from 'mongoose';
-import { type } from 'os';
+const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 const specimenSchema = new Schema({
@@ -81,4 +80,4 @@ const specimenSchema = new Schema({
 
 const Specimen = mongoose.model('Specimen', specimenSchema);
 
-export default Specimen;
+module.exports = Specimen;

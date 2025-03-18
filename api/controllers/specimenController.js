@@ -1,9 +1,8 @@
-import Specimen from '../models/specimen.js';
-import path from 'path';
-import { fileURLToPath } from 'url';
+const Specimen = require('../models/specimen.js');
+const path = require("path");
 
 // get all specimens
-export const getAllSpecimens = async (req, res) => {
+const getAllSpecimens = async (req, res) => {
     const specimens = await Specimen.find({}).sort({createdAt: -1})
 
     res.status(200);
@@ -11,7 +10,7 @@ export const getAllSpecimens = async (req, res) => {
 }
 
 // get a single specimen by id
-export const getSingleSpecimenById = async (req, res) => {
+const getSingleSpecimenById = async (req, res) => {
     const specimenId = req.params.id;
 
     try {
@@ -25,7 +24,7 @@ export const getSingleSpecimenById = async (req, res) => {
 }
 
 // create a new specimen
-export const createSpecimen = async (req, res) => {
+const createSpecimen = async (req, res) => {
     // handle file upload
     let image;
     let uploadPath;
@@ -35,13 +34,8 @@ export const createSpecimen = async (req, res) => {
     if (!req.files || Object.keys(req.files).length === 0) {
         images = '';
     } else {
-        const __filename = fileURLToPath(import.meta.url);
-        const __dirname = path.dirname(__filename);
-
-        console.log(req.files.image);
-
         image = req.files.image;
-        uploadPath = path.join(__dirname, '..', 'uploads', image.name);
+        uploadPath = path.join('../uploads', image.name); // path needs to be hardcoded for deployment
 
         await new Promise((resolve, reject) => {
             image.mv(uploadPath, (err) => {
@@ -51,14 +45,14 @@ export const createSpecimen = async (req, res) => {
         });
 
         // store image path
-        images = '/api/uploads/' + image.name;
+        images = '/uploads/' + image.name;
     }
 
     const { genus, species, nickName, specimenId, material, manufacturerId, manufacturer, countryManufactured, anthropologist, activeValue, paidValue, dateOfPurchase, purchaser, regionFound, countryFound, locationId, description, notes } = req.body;
 
     // add doc to db
     try {
-        const specimen = await Specimen.create({ genus, species, nickName, specimenId, material, manufacturerId, manufacturer, countryManufactured, anthropologist, activeValue, paidValue, dateOfPurchase, purchaser, regionFound, countryFound, locationId, description, notes });
+        const specimen = await Specimen.create({ genus, species, nickName, specimenId, material, manufacturerId, manufacturer, countryManufactured, anthropologist, activeValue, paidValue, dateOfPurchase, purchaser, regionFound, countryFound, locationId, description, notes, images });
         res.status(200);
         res.json(specimen);
     } catch (error) {
@@ -68,7 +62,7 @@ export const createSpecimen = async (req, res) => {
 }
 
 // delete a specimen | NOTE: does not delete images from 'uploads' folder
-export const deleteSpecimen = async (req, res) => {
+const deleteSpecimen = async (req, res) => {
     const specimenId = req.params.id;
     try {
         const deletedSpecimen = await Specimen.findOneAndDelete({ _id: specimenId });
@@ -88,11 +82,8 @@ export const deleteSpecimen = async (req, res) => {
     }
 };
 
-
-
-
 // update a specimen | NOTE: currently works, but can only update fields that exist in the current schema.
-export const updateSpecimen = async (req, res) => {
+const updateSpecimen = async (req, res) => {
     const filter = { _id: req.params.id };
     const update = { $set: req.body };
     const options = { new: true, runValidators: true };
@@ -117,7 +108,7 @@ export const updateSpecimen = async (req, res) => {
 
 // Total number of records in the db
 // for the dashboard
-export const getRecordCount = async (req, res) => {
+const getRecordCount = async (req, res) => {
     try {
         const count = await Specimen.countDocuments();
         res.status(200).json({"count": count});
@@ -128,7 +119,7 @@ export const getRecordCount = async (req, res) => {
 }
 
 // Get the total collection cost
-export const getTotalCost = async (req, res) => {
+const getTotalCost = async (req, res) => {
     try {
         const results = await Specimen.find({paidValue: {$gt: 1}}, { _id: 0, paidValue: 1});
         const values = results.map(artifact => artifact.paidValue);
@@ -141,3 +132,29 @@ export const getTotalCost = async (req, res) => {
 }
 
 // Get the most recently added artifacts
+const getRecentSpecimens = async (req, res) => {
+    const NUMBER_OF_SPECIMENS = 3;
+
+    try {
+        const recentSpecimens = await Specimen.find({}).sort({ createdAt: -1 }).limit(NUMBER_OF_SPECIMENS);
+        res.status(200);
+        res.json({
+            message: 'Found specimens',
+            data: recentSpecimens
+        });
+    } catch (error) {
+        console.error("Error fetching recent specimens", error);
+        res.status(404).json({error: error.message});
+    }
+}
+
+module.exports = { 
+    getAllSpecimens,
+    getSingleSpecimenById,
+    createSpecimen,
+    deleteSpecimen,
+    updateSpecimen,
+    getRecordCount,
+    getTotalCost,
+    getRecentSpecimens
+};
