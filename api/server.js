@@ -8,7 +8,7 @@ const dotenv = require("dotenv");
 dotenv.config(); // load environment variables
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = 3001;
 
 //allow cross origin script requests for all routes (for development purposes)
 app.use(cors({
