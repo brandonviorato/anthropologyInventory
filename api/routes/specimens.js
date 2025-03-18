@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import { getAllSpecimens, createSpecimen, getSingleSpecimenById, updateSpecimen, getRecordCount, getTotalCost, deleteSpecimen } from '../controllers/specimenController.js';
+const express = require("express");
+const { getAllSpecimens, createSpecimen, getSingleSpecimenById, updateSpecimen, getRecordCount, getTotalCost, deleteSpecimen, getRecentSpecimens, } = require('../controllers/specimenController');
 
-const specimensRouter = Router();
+const specimensRouter = express.Router();
 
 // GET all specimens
 specimensRouter.get('/', getAllSpecimens);
@@ -11,6 +11,9 @@ specimensRouter.get('/totalRecords', getRecordCount);
 
 // GET total collection cost
 specimensRouter.get('/totalCost', getTotalCost);
+
+// GET recent specimens (3)
+specimensRouter.get('/recent', getRecentSpecimens);
 
 // GET specimen by id
 specimensRouter.get('/:id', getSingleSpecimenById);
@@ -24,4 +27,4 @@ specimensRouter.patch('/:id', updateSpecimen);
 // DELETE a specimen by id
 specimensRouter.delete('/:id', deleteSpecimen);
 
-export default specimensRouter;
+module.exports = specimensRouter;

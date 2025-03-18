@@ -1,9 +1,9 @@
-import express from 'express';
-import fileUpload from 'express-fileupload';
-import specimensRouter from './routes/specimens.js';
-import mongoose from 'mongoose'; // used to interfact with db
-import dotenv from 'dotenv';
-import cors from 'cors';
+const express = require("express");
+const fileUpload = require("express-fileupload");
+const specimensRouter = require('./routes/specimens.js');
+const mongoose = require("mongoose");
+const cors = require("cors");
+const dotenv = require("dotenv");
 
 dotenv.config(); // load environment variables
 
@@ -26,6 +26,12 @@ app.use((req, res, next) => {
 
 // middleware to parse JSON request bodies
 app.use(express.json());
+
+// serve the uploads folder statically at /uploads
+app.use("/uploads", express.static("../uploads")); // path needs to be hardcoded for deployment
+
+// serve the svg folder statically at /svg
+app.use("/svg", express.static("../svg")); // path needs to be hardcoded for deployment
 
 // routes
 app.use('/api/specimens', specimensRouter);
