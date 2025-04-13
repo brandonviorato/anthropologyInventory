@@ -7,7 +7,7 @@ This app is built to help Green River College's Anthropology department in organ
 - [Node.js](https://nodejs.org/en): For the backend API.
 - [Express.js](https://expressjs.com/): Framework for Node.js, helped streamline development.
 - [MongoDB](https://www.mongodb.com/): Opted for Mongo due to the clients budget constraint and desire to keep application local.
-- [concurrently](https://www.npmjs.com/package/concurrently): Used to run both front and backend simultaneously with one script.
+- [npm-run-all](https://www.npmjs.com/package/npm-run-all): Used to run both front and backend simultaneously with one script.
 
 ## Table of contents:
 - [How to contribute](#how-to-contribute)
