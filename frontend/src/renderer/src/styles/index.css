@@ -254,10 +254,14 @@ body {
 }
 
 #add-form input,
+#add-form select,
 textarea {
-    border: solid 1px gray;
     padding: 6px;
     border-radius: 6px;
+}
+
+input {
+    border: solid 1px gray;
 }
 
 #add-form label {
@@ -276,8 +280,8 @@ textarea {
     background-color: #cccccc;
     padding: 0 20px 20px;
     border-radius: 10px;
+    border: none;
     width: 75%;
-    min-width: fit-content;
 
     div {
         display: grid;
@@ -319,7 +323,6 @@ textarea {
     cursor: pointer;
     border: solid #759ffc 2px;
     background-color: #b6b6b6;
-    /* box-shadow: 0 0 20px 5px #c3d6ff; */
 }
 
 .file-placeholder {
@@ -349,6 +352,24 @@ textarea {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.tooltip {
+    color: rgb(75, 75, 75);
+    margin-top: 6px;
+}
+
+.validation-err {
+    color: rgb(202, 0, 0);
+    margin-top: 10px;
+}
+
+.invalid {
+    border-color: red;
+}
+
+.valid {
+    border-color: green;
 }
 
 /* SpecimenDetail

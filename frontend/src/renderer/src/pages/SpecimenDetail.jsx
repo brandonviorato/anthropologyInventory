@@ -1,50 +1,63 @@
-import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
-import { Card, CardContent, Typography, Table, TableCell, TableRow, TableContainer, TableHead, Paper, Button, TextareaAutosize, Snackbar, Alert } from "@mui/material";
-import { fetchSpecimenById } from '../utils/api'; 
-import "../index.css";
+import { useState, useEffect } from 'react'
+import { useParams, Link } from 'react-router-dom'
+import {
+  Card,
+  CardContent,
+  Typography,
+  Table,
+  TableCell,
+  TableRow,
+  TableContainer,
+  TableHead,
+  Paper,
+  Button,
+  TextareaAutosize,
+  Snackbar,
+  Alert
+} from '@mui/material'
+import { fetchSpecimenById } from '../utils/api'
+import '../styles/index.css'
 
 export default function SpecimenDetail() {
-  const { id } = useParams();
-  const [specimen, setSpecimen] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [notes, setNotes] = useState("");
-  const [isEditing, setIsEditing] = useState(false);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [snackbarMessage] = useState("");
+  const { id } = useParams()
+  const [specimen, setSpecimen] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [notes, setNotes] = useState('')
+  const [isEditing, setIsEditing] = useState(false)
+  const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [snackbarMessage] = useState('')
 
   useEffect(() => {
     const fetchSpecimen = async () => {
-      const data = await fetchSpecimenById(id); 
+      const data = await fetchSpecimenById(id)
       if (data) {
-        setSpecimen(data);
-        setNotes(data.notes || "");  
+        setSpecimen(data)
+        setNotes(data.notes || '')
       }
-      setLoading(false);
-    };
-  
-    fetchSpecimen();
-  }, [id]);
-  
+      setLoading(false)
+    }
+
+    fetchSpecimen()
+  }, [id])
 
   const handleNotesChange = (event) => {
-    setNotes(event.target.value);
-  };
+    setNotes(event.target.value)
+  }
 
   const handleEditClick = () => {
-    setIsEditing(true);
-  };
+    setIsEditing(true)
+  }
 
   const handleCloseSnackbar = () => {
-    setOpenSnackbar(false);
-  };
+    setOpenSnackbar(false)
+  }
 
   if (loading) {
-    return <h2>Loading...</h2>;
+    return <h2>Loading...</h2>
   }
 
   if (!specimen) {
-    return <h2>Specimen not found</h2>;
+    return <h2>Specimen not found</h2>
   }
 
   return (
@@ -52,11 +65,15 @@ export default function SpecimenDetail() {
       <div className="sd-flex-container">
         {/* Image & Info Card */}
         <Card className="sd-card">
-        <img
-  src={specimen.images && specimen.images.length > 0 ? `http://localhost:3001${specimen.images[0]}` : "fallback-image.jpg"}
-  alt={specimen.nickName || "Specimen Image"}
-className="sd-img"
-/>
+          <img
+            src={
+              specimen.images && specimen.images.length > 0
+                ? `http://localhost:3001${specimen.images[0]}`
+                : 'fallback-image.jpg'
+            }
+            alt={specimen.nickName || 'Specimen Image'}
+            className="sd-img"
+          />
 
           <CardContent>
             <Typography variant="body1" className="sd-desc">
@@ -66,11 +83,7 @@ className="sd-img"
         </Card>
 
         {/* Snackbar for Notification */}
-        <Snackbar
-          open={openSnackbar}
-          autoHideDuration={3000} 
-          onClose={handleCloseSnackbar}
-        >
+        <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
           <Alert onClose={handleCloseSnackbar} severity="success">
             {snackbarMessage}
           </Alert>
@@ -116,14 +129,14 @@ className="sd-img"
             </TableRow>
           </TableHead>
           <TableRow>
-            <TableCell>{specimen.nickName || "N/A"}</TableCell>
-            <TableCell>{specimen.anthropologist || "N/A"}</TableCell>
-            <TableCell>{specimen.activeValue || "N/A"}</TableCell>
-            <TableCell>{specimen.paidValue || "N/A"}</TableCell>
-            <TableCell>{specimen.countryFound || "N/A"}</TableCell>
-            <TableCell>{specimen.regionFound || "N/A"}</TableCell>
-            <TableCell>{specimen.locationId || "N/A"}</TableCell>
-            <TableCell>{specimen.countryManufactured || "N/A"}</TableCell>
+            <TableCell>{specimen.nickName || 'N/A'}</TableCell>
+            <TableCell>{specimen.anthropologist || 'N/A'}</TableCell>
+            <TableCell>{specimen.activeValue || 'N/A'}</TableCell>
+            <TableCell>{specimen.paidValue || 'N/A'}</TableCell>
+            <TableCell>{specimen.countryFound || 'N/A'}</TableCell>
+            <TableCell>{specimen.regionFound || 'N/A'}</TableCell>
+            <TableCell>{specimen.locationId || 'N/A'}</TableCell>
+            <TableCell>{specimen.countryManufactured || 'N/A'}</TableCell>
           </TableRow>
 
           <TableHead>
@@ -139,21 +152,21 @@ className="sd-img"
             </TableRow>
           </TableHead>
           <TableRow>
-            <TableCell>{specimen.manufacturerId || "N/A"}</TableCell>
-            <TableCell>{specimen.specimenId || "N/A"}</TableCell>
-            <TableCell>{specimen.genus || "N/A"}</TableCell>
-            <TableCell>{specimen.species || "N/A"}</TableCell>
-            <TableCell>{specimen.dateOfPurchase || "N/A"}</TableCell>
-            <TableCell>{specimen.purchaser || "N/A"}</TableCell>
-            <TableCell>{specimen.manufacturer || "N/A"}</TableCell>
-            <TableCell>{specimen.material || "N/A"}</TableCell>
+            <TableCell>{specimen.manufacturerId || 'N/A'}</TableCell>
+            <TableCell>{specimen.specimenId || 'N/A'}</TableCell>
+            <TableCell>{specimen.genus || 'N/A'}</TableCell>
+            <TableCell>{specimen.species || 'N/A'}</TableCell>
+            <TableCell>{specimen.dateOfPurchase || 'N/A'}</TableCell>
+            <TableCell>{specimen.purchaser || 'N/A'}</TableCell>
+            <TableCell>{specimen.manufacturer || 'N/A'}</TableCell>
+            <TableCell>{specimen.material || 'N/A'}</TableCell>
           </TableRow>
         </Table>
       </TableContainer>
 
-      <Button variant="contained" className="sd-back-btn" component={Link} to="/SpecimensExplorer"> 
+      <Button variant="contained" className="sd-back-btn" component={Link} to="/SpecimensExplorer">
         Back to Specimens
       </Button>
     </div>
-  );
+  )
 }

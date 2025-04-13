@@ -24,7 +24,13 @@ export default [
     },
     rules: {
       ...eslintPluginReactHooks.configs.recommended.rules,
-      ...eslintPluginReactRefresh.configs.vite.rules
+      ...eslintPluginReactRefresh.configs.vite.rules,
+      'prettier/prettier': [
+        'error',
+        {
+          endOfLine: 'auto'
+        }
+      ]
     }
   },
   eslintConfigPrettier

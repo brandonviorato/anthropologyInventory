@@ -115,4 +115,3 @@ export const fetchSpecimenById = async (id) => {
   export const saveNotesToLocalStorage = (id, notes) => {
     localStorage.setItem(`notes-${id}`, notes);
   };
-  
