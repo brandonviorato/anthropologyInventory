@@ -17,18 +17,17 @@ This app is built to help Green River College's Anthropology department in organ
 1) To contribute first create a branch and name it according to the feature/update you'll be working on.
    - This branch is where you'll be pushing your changes.  
 2) In your development environment of choice, create a copy of the repo.
-   - **Prior to coding, ensure you're working within the correct branch**.  
-3) Next you'll need to change directories into the __`frontend`__ folder.
-   - From here you'll run __`npm install`__ in the console.
-   - A link should then display in the terminal, allowing you to view the frontend running on your local machine.
-4) Similarly to step 3, you'll now need to change directories to the __`api`__ folder.
-   - Again, run __`npm install`__ in the console.
-   - Unlike the frontend, we'll need to follow a few more steps to get the backend working properly.
-5) In the __`api`__ folder, create a __`.env`__ file.
-   - Within the file include:
+   - **Prior to coding, ensure you're working within the correct branch**.
+3) From the main folder:
+   - run __`npm run install`__ to install all dependencies needed.
+4) Next, change directories into the __`api`__ folder:
+   - Within the folder is a __`.env.example`_ file, use this to create a __`.env`__ file.
+   - The file should include:
      - __`PORT=____`__ where you specify a port for the api to run, this should be different from the frontend.
      - __`MONGO_URI=___`__ this variable will need to be requested and shouldn't be shared.
      - Lastly, __ensure the `.env` file is added into the `.gitignore file`__. This is important in maintaining security.
+5) After, change directiories back to the main using __`cd .. `__
+   - run __`npm run dev`__ and both the frontend and backend will be started.
 
 
 ## Credits
