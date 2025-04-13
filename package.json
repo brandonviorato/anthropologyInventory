@@ -1,0 +1,7 @@
+{
+    "scripts": {
+        "start": "concurrently \"npm run frontend\" \"npm run backend\"",
+        "frontend": "cd frontend && npm run dev",
+        "backend": "cd api && npm run dev"
+    }
+}
