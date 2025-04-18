@@ -1,405 +1,372 @@
 /* Sidebar
 ============================================================= */
 .sidebar {
-    position: sticky;
-    top: 1px;
+  position: sticky;
+  top: 1px;
 
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
-    padding: 1rem;
-    min-width: 350px;
-    max-width: 100%;
-    height: 100vh;
+  padding: 1rem;
+  min-width: 350px;
+  max-width: 100%;
+  height: 100vh;
 
-    background-color: white;
-    border: 2px solid #5e5959;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
+  background-color: white;
+  border: 2px solid #5e5959;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 
-    z-index: 1000;
-    overflow: hidden;
+  z-index: 1000;
+  overflow: hidden;
 }
 
 /* category search bar */
 .categories-search-bar,
 .view-controls {
-    width: 100%;
-    padding: 0.5rem;
+  width: 100%;
+  padding: 0.5rem;
 
-    font-size: 1.5rem;
-    border: 2px solid black;
-    border-radius: 20px;
-    box-sizing: border-box;
+  font-size: 1.5rem;
+  border: 2px solid black;
+  border-radius: 20px;
+  box-sizing: border-box;
 }
 
 .categories,
 .categories button {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
-.categories ul {
-    margin: 0;
-    padding-left: 1rem;
+.categories {
+  margin: 0;
+  padding-left: 1rem;
 
-    list-style: none;
-    border-left: 2px solid black;
+  list-style: none;
+  border-left: 2px solid black;
 }
 
 .categories li {
-    padding: 0.5rem;
+  padding: 0.5rem;
 
-    border-bottom: 2px solid transparent;
+  border-bottom: 2px solid transparent;
 
-    transition: 200ms ease-in-out;
-    cursor: pointer;
+  transition: 200ms ease-in-out;
+  cursor: pointer;
 }
 
 .categories li:hover {
-    background: lightgray;
-    box-shadow: 0 5px 5px black;
+  background: lightgray;
+  box-shadow: 0 5px 5px black;
+}
+
+/* add-category */
+.add-category button {
+  padding: 0.5rem 3rem;
+
+  color: white;
+  font-size: 1.5rem;
+  text-decoration: none;
+  background: var(--primary);
+  border: none;
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+.add-category button:hover {
+  filter: brightness(1.2);
+}
+
+.add-category .btn-add-category {
+  width: 100%;
+}
+
+.create-category {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.create-category div {
+  display: flex;
+  gap: 1rem;
+}
+
+.create-category input {
+  flex: 1;
+
+  padding: 0.5rem;
+  width: auto;
+
+  font-size: 1.5rem;
+  background: transparent;
+  border: 2px solid black;
+  border-radius: 20px;
+}
+
+.create-category input:focus {
+  outline: none;
+}
+
+.add-category .btn-create,
+.add-category .btn-cancel {
+  padding: 0.3rem 1rem;
+  width: 100%;
+}
+
+.add-category .btn-cancel {
+  background: red;
+}
+
+.add-category .btn-cancel:hover {
+  filter: brightness(0.8);
 }
 
 @media screen and (max-width: 880px) {
-    .sidebar {
-        position: static;
-        height: fit-content;
-    }
+  .sidebar {
+    position: static;
+    height: fit-content;
+  }
 }
 
 /* View Page
 ============================================================= */
 .view-page {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: 1fr;
-    gap: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr;
+  gap: 1rem;
 }
 
 .category-toggle {
-    background: none;
-    border: none;
+  background: none;
+  border: none;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .error {
-    text-align: center;
+  text-align: center;
 
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 @media screen and (max-width: 880px) {
-    .view-page {
-        display: flex;
-        flex-direction: column;
+  .view-page {
+    display: flex;
+    flex-direction: column;
 
-        width: 100vw;
-    }
+    width: 100vw;
+  }
 }
 
 /* specimens-view-container
 ============================================================= */
 .specimens-view-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
-    padding: 1rem;
+  padding: 1rem;
 
-    overflow-x: auto;
+  overflow-x: auto;
 }
 
 /* inventory search bar 
 ========================================= */
 .view-controls {
-    display: flex;
+  display: flex;
 
-    background: white;
+  background: white;
 }
 
 .view-controls input {
-    flex: 1;
+  flex: 1;
 
-    width: auto;
+  width: auto;
 
-    font-size: 1.5rem;
-    background: transparent;
-    border: none;
+  font-size: 1.5rem;
+  background: transparent;
+  border: none;
 }
 
 .view-controls input:focus {
-    outline: none;
+  outline: none;
 }
 
 #grid-list-toggle {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    background: none;
-    border: none;
+  background: none;
+  border: none;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #grid-list-toggle .active {
-    filter: invert(61%) sepia(97%) saturate(500%) hue-rotate(170deg)
-        brightness(100%) contrast(95%);
+  filter: invert(61%) sepia(97%) saturate(500%) hue-rotate(170deg) brightness(100%) contrast(95%);
 }
 
 #grid-list-toggle img {
-    width: 3rem;
+  width: 3rem;
 }
 
 .view-add-btn {
-    display: flex;
-    justify-content: right;
+  display: flex;
+  justify-content: right;
 }
 
 .view-add-btn a {
-    padding: 0.5rem 3rem;
+  padding: 0.5rem 3rem;
 
-    color: white;
-    font-size: 1.5rem;
-    text-decoration: none;
-    background: var(--primary);
-    border: none;
-    border-radius: 10px;
+  color: white;
+  font-size: 1.5rem;
+  text-decoration: none;
+  background: var(--primary);
+  border: none;
+  border-radius: 10px;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .view-add-btn a:hover {
-    filter: brightness(1.2);
+  filter: brightness(1.2);
 }
 
 @media screen and (max-width: 460px) {
-    .view-controls {
-        flex-direction: column;
-    }
+  .view-controls {
+    flex-direction: column;
+  }
 }
 
 /* grid-view
 ========================================= */
 .grid-view {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
 }
 
 .specimen-card-container {
-    position: relative;
+  position: relative;
 
-    transition: 200ms ease-in-out;
+  transition: 200ms ease-in-out;
 }
 
 .specimen-card-container:hover {
-    box-shadow: 0 0 10px 1px black;
+  box-shadow: 0 0 10px 1px black;
 }
 
 .specimen-card-menu {
-    position: absolute;
-    bottom: 5rem;
-    right: 0;
+  position: absolute;
+  bottom: 5rem;
+  right: 0;
 
-    z-index: 1000;
+  z-index: 1000;
 }
 
 .specimen-card-menu button {
-    background: none;
-    border: none;
+  background: none;
+  border: none;
 
-    width: 4rem;
+  width: 4rem;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .specimen-card-menu img:hover {
-    filter: invert(42%) sepia(88%) saturate(1000%) hue-rotate(160deg);
+  filter: invert(42%) sepia(88%) saturate(1000%) hue-rotate(160deg);
 }
 
 .specimen-link {
-    color: black;
-    text-decoration: none;
+  color: black;
+  text-decoration: none;
 }
 
 .specimen-card {
-    background: lightgray;
+  background: lightgray;
 
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .specimen-card img {
-    width: 100%;
-    height: 100%;
-    aspect-ratio: 1/1;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1/1;
 
-    object-fit: cover;
+  object-fit: cover;
 }
 
 .specimen-card .specimen-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 
-    padding: 0.5rem;
+  padding: 0.5rem;
 }
 
 .specimen-info p {
-    margin: 0;
+  margin: 0;
 
-    font-size: 1.3rem;
+  font-size: 1.3rem;
 
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media screen and (max-width: 1500px) {
-    .grid-view {
-        grid-template-columns: repeat(3, 1fr);
-    }
+  .grid-view {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media screen and (max-width: 1200px) {
-    .grid-view {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .grid-view {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* list-view
 ========================================= */
 .list-view {
-    margin-top: 20px;
-    width: 100%;
+  margin-top: 20px;
+  width: 100%;
 
-    font-size: 16px;
-    border-collapse: collapse;
+  font-size: 16px;
+  border-collapse: collapse;
 }
 
 .list-view th,
 .list-view td {
-    padding: 0.5rem;
+  padding: 0.5rem;
 
-    text-align: left;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+  text-align: left;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .list-view th {
-    font-weight: bold;
-    background-color: snow;
+  font-weight: bold;
+  background-color: snow;
 }
 
 .list-view tr {
-    transition: background 0.3s;
+  transition: background 0.3s;
 }
 
 .list-view tr:hover {
-    background-color: lightgray;
+  background-color: lightgray;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .table-img {
-    width: 100px;
-    height: auto;
-    object-fit: contain;
+  width: 100px;
+  height: auto;
+  object-fit: contain;
 }
-
-/* The following are old styles taken from index.css and used as reference */
-/* View Product
-========================================================================== */
-/* .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end; 
-    gap: 0%; 
-    margin: 10%; 
-    padding-left: 5%;
-  
-  }
-  
-  
-  .card {
-   
-    margin: 5%; 
-    width: 100%; 
-    max-width: 70%; 
-    transition: transform 0.3s ease;
-  }
- 
-
-  .card:hover {
-    transform: scale(1.05); 
-  }
-  
-  
-  .card-media {
-    height: 250px; 
-    object-fit: cover; 
- 
-  }
-  
-  
-  .card-content {
-    padding: 16px;
-  }
-  
-  
-  .card-title {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
-  
-  
-  .card-description {
-    font-size: 0.875rem;
-    color: #555;
-  }
-  
- 
-  @media (max-width: 768px) {
-    .card-container {
-      justify-content: flex-start;
-    }
-  
-    .card {
-      width: 100%;
-      max-width: 100%; 
-    }
-  }
- 
-.sidebar {
-    background-color: white;
-    color: black;
-    left: 0; 
-    width: 350px; 
-    height: 100vh; 
-    border: 2px solid #5e5959; 
-    position: sticky;
-    top: 1px; 
-    padding: 0px;
-    z-index: 1000; 
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); 
-  }
-  
-  
-  @media (max-width: 768px) {
-    .sidebar {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: auto;
-      padding: 10px; 
-    }
-    
-    .searchBar_view {
-      font-size: 0.9rem; 
-      padding: 10px 15px; 
-    }
-  } */

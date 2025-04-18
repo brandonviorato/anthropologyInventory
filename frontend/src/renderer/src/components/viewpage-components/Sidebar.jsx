@@ -1,98 +1,85 @@
-import React from "react";
+import React from 'react'
 
 const Sidebar = ({ specimens, setSearchTerm }) => {
-    const [searchTerm, setLocalSearchTerm] = React.useState("");
-    // right now there is 2 categories, we can add more if we want later
-    // we can also make this dynamic
-    const [isOpen, setIsOpen] = React.useState({ cat1: true, cat2: true });
+  const [searchTerm, setLocalSearchTerm] = React.useState('')
+  // Here will be the categories the user created
+  const [categories, setCategories] = React.useState([])
+  // The following will create a popup with then the user can type what they want to add
+  const [showCreateCategory, setCreateCategory] = React.useState(false)
+  const [newCategoryName, setNewCategoryName] = React.useState('')
 
-    // getUniqueValues since some fossils might have the same category like stone tool for example
-    const getUniqueValues = (keys) => {
-        // Ensure the keys is always treated as an array in case a category combines a couple of specimens column
-        const keyArray = Array.isArray(keys) ? keys : [keys];
+  // addCategory creates a new category with the current categories
+  const addCategory = () => {
+    const trimmedName = newCategoryName.trim()
+    if (trimmedName && !categories.includes(trimmedName)) {
+      setCategories((prev) => [...prev, trimmedName])
+    }
+    setNewCategoryName('')
+    setCreateCategory(false)
+  }
 
-        // get all the values from the provided keys map and flatten them (you can also join them if you liked it that way)
-        const values = specimens.flatMap((specimen) =>
-            keyArray.map((key) => specimen?.[key] || null)
-        );
+  // filter the categories where the category includes the searchTerm
+  const filterValues = (values) =>
+    values.filter((value) =>
+      (value?.toString().toLowerCase() || '').includes(searchTerm.toLowerCase())
+    )
 
-        // return unique values that's not null
-        return [...new Set(values.filter(Boolean))];
-    };
+  // handleSearchSelection of the category search bar which setSearchTerm
+  const handleSearchSelection = (value) => {
+    setSearchTerm(value)
+  }
 
-    // Here are hard coded categories I have chosen
-    const countries = getUniqueValues([
-        "countryManufactured",
-        "locatedCountryRegion",
-    ]);
-    const species = getUniqueValues("species");
-
-    // filter the categories where the category includes the searchTerm
-    const filterValues = (values) =>
-        values.filter((value) =>
-            (value?.toString().toLowerCase() || "").includes(
-                searchTerm.toLowerCase()
-            )
-        );
-
-    const filteredCountries = filterValues(countries);
-    const filteredSpecies = filterValues(species);
-
-    // Show or hide targeted category
-    const toggleCategory = (category) => {
-        setIsOpen((prev) => ({ ...prev, [category]: !prev[category] }));
-    };
-
-    // handleSearchSelection of the category search bar which setSearchTerm
-    const handleSearchSelection = (value) => {
-        setSearchTerm(value);
-    };
-
-    return (
-        <div className="sidebar">
-            {/* Categories search bar */}
+  return (
+    <div className="sidebar">
+      <div className="add-category">
+        {!showCreateCategory ? (
+          <button className="btn-add-category" onClick={() => setCreateCategory(true)}>
+            + Add Category
+          </button>
+        ) : (
+          <></>
+        )}
+        {showCreateCategory && (
+          <div className="create-category">
+            <input
+              type="text"
+              value={newCategoryName}
+              onChange={(e) => setNewCategoryName(e.target.value)}
+              placeholder="New category name..."
+            />
             <div>
-                <input
-                    className="categories-search-bar"
-                    type="text"
-                    placeholder="Category Search..."
-                    value={searchTerm}
-                    onChange={(e) => setLocalSearchTerm(e.target.value)}
-                />
+              <button className="btn-create" onClick={addCategory}>
+                Create
+              </button>
+              <button className="btn-cancel" onClick={() => setCreateCategory(false)}>
+                Cancel
+              </button>
             </div>
+          </div>
+        )}
+      </div>
 
-            {/* Categories list where the values will be added to the category you set */}
-            {Object.entries({ cat1: "Countries", cat2: "Species" }).map(
-                ([key, label]) => (
-                    <div key={key} className="categories">
-                        <button
-                            className="category-toggle"
-                            onClick={() => toggleCategory(key)}
-                        >
-                            {label} {isOpen[key] ? "▲" : "▼"}
-                        </button>
-                        {isOpen[key] && (
-                            <ul>
-                                {(key === "cat1"
-                                    ? filteredCountries
-                                    : filteredSpecies
-                                ).map((value, i) => (
-                                    <li
-                                        key={`${key}-${i}`}
-                                        onClick={() =>
-                                            handleSearchSelection(value)
-                                        }
-                                    >
-                                        {value}
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
-                )
-            )}
-        </div>
-    );
-};
+      {/* Categories search bar */}
+      <div>
+        <input
+          className="categories-search-bar"
+          type="text"
+          placeholder="Category Search..."
+          value={searchTerm}
+          onChange={(e) => setLocalSearchTerm(e.target.value)}
+        />
+      </div>
 
-export default Sidebar;
+      {/* Categories list where the values will be added to the category you set */}
+      <ul className="categories">
+        {filterValues(categories).map((label, i) => (
+          <li key={i} onClick={() => handleSearchSelection(label)}>
+            {label}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+export default Sidebar
