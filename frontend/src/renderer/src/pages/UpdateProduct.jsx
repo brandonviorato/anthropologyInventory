@@ -167,23 +167,30 @@ const UpdateProduct = () => {
       <div id="description-notes">
         <h3>Description & Notes</h3>
         <div>
-          <label>Location ID:</label>
-          <input
-            type="text"
-            name="locationId"
-            placeholder="Location ID"
-            value={formData.locationId}
+          <label>Cabinet</label>
+          <select
+            id="locationId"
+            name="cabinet"
+            required
+            value={formData.cabinet}
             onChange={handleChange}
-          />
+          >
+            <option value="C1">C1</option>
+            <option value="C2">C2</option>
+            <option value="C3">C3</option>
+            <option value="C4">C4</option>
+          </select>
+          <small className="tooltip">Cabinet item is stored.</small>
         </div>
-        <div id="description-div">
-          <label>Description:</label>
-          <textarea
-            name="description"
-            placeholder="Description"
-            value={formData.description}
-            onChange={handleChange}
-          />
+        <div>
+          <label>Row</label>
+          <select id="locationId" name="row" required value={formData.row} onChange={handleChange}>
+            <option value="R1">R1</option>
+            <option value="R2">R2</option>
+            <option value="R3">R3</option>
+            <option value="R4">R4</option>
+          </select>
+          <small className="tooltip">Row in cabinet item is being stored.</small>
         </div>
         <div id="notes-div">
           <label>Notes:</label>

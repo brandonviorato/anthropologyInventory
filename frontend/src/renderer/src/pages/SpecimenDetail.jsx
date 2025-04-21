@@ -124,7 +124,8 @@ export default function SpecimenDetail() {
               <TableCell className="sd-table-bold">Paid Value</TableCell>
               <TableCell className="sd-table-bold">Country</TableCell>
               <TableCell className="sd-table-bold">Region</TableCell>
-              <TableCell className="sd-table-bold">Location ID</TableCell>
+              <TableCell className="sd-table-bold">Cabinet</TableCell>
+              <TableCell className="sd-table-bold">Row</TableCell>
               <TableCell className="sd-table-bold">Made In</TableCell>
             </TableRow>
           </TableHead>
@@ -135,7 +136,8 @@ export default function SpecimenDetail() {
             <TableCell>{specimen.paidValue || 'N/A'}</TableCell>
             <TableCell>{specimen.countryFound || 'N/A'}</TableCell>
             <TableCell>{specimen.regionFound || 'N/A'}</TableCell>
-            <TableCell>{specimen.locationId || 'N/A'}</TableCell>
+            <TableCell>{specimen.cabinet || 'N/A'}</TableCell>
+            <TableCell>{specimen.row || 'N/A'}</TableCell>
             <TableCell>{specimen.countryManufactured || 'N/A'}</TableCell>
           </TableRow>
 

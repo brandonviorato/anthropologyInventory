@@ -10,10 +10,10 @@ const AddProduct = () => {
     species: '',
     nickName: '',
     specimenId: '',
-    material: '',
+    material: 'Unknown',
     manufacturerId: '',
     manufacturer: '',
-    countryManufactured: '',
+    countryManufactured: 'Unknown',
     anthropologist: '',
     activeValue: '',
     paidValue: '',
@@ -21,10 +21,11 @@ const AddProduct = () => {
     purchaser: '',
     regionFound: '',
     countryFound: '',
-    locationId: '',
+    cabinet: 'C1',
+    row: 'R1',
     description: '',
     notes: '',
-    file: null
+    image: null
   })
   const [imgPreview, setImgPreview] = useState(null)
 
@@ -39,16 +40,20 @@ const AddProduct = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0]
     if (file) {
-      setFormData({ ...formData, file })
+      setFormData({ ...formData, image: file })
       setImgPreview(URL.createObjectURL(file))
     }
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const result = await addArtifact(formData)
+    if (Object.keys(errors).length > 0) {
+      console.log('Form has validation errors');
+      return // prevent form submission if errors exist
+    }
+    const result = await addArtifact(formData);
     if (result) {
-      console.log('Submitted Data:', formData)
+      console.log('Submitted Data:', formData);
     }
   }
 
@@ -408,9 +413,9 @@ const AddProduct = () => {
           <label>Cabinet</label>
           <select
             id="locationId"
-            name="locationId"
+            name="cabinet"
             required
-            value={formData.locationId}
+            value={formData.cabinet}
             onChange={handleChange}
           >
             <option value="C1">C1</option>
@@ -422,13 +427,7 @@ const AddProduct = () => {
         </div>
         <div>
           <label>Row</label>
-          <select
-            id="locationId"
-            name="locationId"
-            required
-            value={formData.locationId}
-            onChange={handleChange}
-          >
+          <select id="locationId" name="row" required value={formData.row} onChange={handleChange}>
             <option value="R1">R1</option>
             <option value="R2">R2</option>
             <option value="R3">R3</option>
@@ -507,6 +506,7 @@ const AddProduct = () => {
               !errors.countryManufactured && formData.countryManufactured != '' ? 'valid' : ''
             }
           >
+            <option value="Unknown">Unknown</option>
             <option value="Afghanistan">Afghanistan</option>
             <option value="Åland Islands">Åland Islands</option>
             <option value="Albania">Albania</option>
