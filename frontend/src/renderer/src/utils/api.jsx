@@ -36,26 +36,31 @@ export const fetchTotalCost = async () => {
 }
 
 export const addArtifact = async (formData) => {
-    try {
-        const response = await fetch(API_URI, {
-            method: "POST",
-            headers: { 
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData),
-        });
-        if(!response.ok) {
-            console.log("Error adding artifact");
-        }
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.log("Error fetching total cost");
-        return null;
-    }
-}
+  try {
+    const form = new FormData()
 
+    Object.keys(formData).forEach((key) => {
+      if (formData[key] !== null && formData[key] !== '') {
+        form.append(key, formData[key])
+      }
+    })
+
+    const response = await fetch(API_URI, {
+      method: 'POST',
+      body: form
+    })
+
+    if (!response.ok) {
+      console.log('Error adding artifact')
+    }
+
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.log('Error fetching total cost')
+    return null
+  }
+}
 
 export const getArtifactById = async (id) => {
     try {
