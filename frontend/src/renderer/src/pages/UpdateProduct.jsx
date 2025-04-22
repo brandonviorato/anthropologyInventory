@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { getArtifactById, updateArtifact } from '../utils/api'
+import { ToastContainer, toast, Bounce } from 'react-toastify'
 
 const UpdateProduct = () => {
   const { id } = useParams() // Get artifact ID from URL
@@ -55,27 +56,58 @@ const UpdateProduct = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setError(null)
-    setSuccess(false)
-    setLoading(true)
 
-    try {
-      console.log('Sending update request:', {
-        id,
-        formData
+    const updatedArtifact = await updateArtifact(id, formData)
+    if (updatedArtifact) {
+      toast.success('Artifact Updated 😄', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+        transition: Bounce
       })
-
-      const updatedArtifact = await updateArtifact(id, formData)
-      if (updatedArtifact) {
-        setSuccess('Artifact updated successfully!')
-      } else {
-        setError('Failed to update artifact.')
-      }
-    } catch (err) {
-      setError('An error occurred while updating.')
+    } else {
+      setError('Failed to update artifact.')
     }
 
-    setLoading(false)
+    // e.preventDefault()
+    // setError(null)
+    // setSuccess(false)
+    // setLoading(true)
+
+    // try {
+    //   console.log('Sending update request:', {
+    //     id,
+    //     formData
+    //   })
+
+    //   const updatedArtifact = await updateArtifact(id, formData)
+    //   if (updatedArtifact) {
+    //     setSuccess('Artifact updated successfully!')
+
+    //     toast.success('Artifact Updated 😄', {
+    //       position: 'top-right',
+    //       autoClose: 5000,
+    //       hideProgressBar: false,
+    //       closeOnClick: false,
+    //       pauseOnHover: true,
+    //       draggable: true,
+    //       progress: undefined,
+    //       theme: 'colored',
+    //       transition: Bounce
+    //     })
+    //   } else {
+    //     setError('Failed to update artifact.')
+    //   }
+    // } catch (err) {
+    //   setError('An error occurred while updating.')
+    // }
+
+    // setLoading(false)
   }
 
   if (loading) return <p>Loading artifact details...</p>
@@ -83,6 +115,8 @@ const UpdateProduct = () => {
 
   return (
     <form onSubmit={handleSubmit} id="update-form">
+      <ToastContainer />
+
       <h2 className="form-title">Update Artifact</h2>
 
       {error && <p className="error-message">{error}</p>}
