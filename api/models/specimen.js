@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 const specimenSchema = new Schema({
+    category: {
+        type: String,
+        required: true
+    },
     genus: {
         type: String,
         required: true
@@ -40,11 +44,11 @@ const specimenSchema = new Schema({
     },
     activeValue: {
         type: Number,
-        required: true
+        required: false
     },
     paidValue: {
         type: Number,
-        required: true
+        required: false
     },
     dateOfPurchase: {
         type: String,

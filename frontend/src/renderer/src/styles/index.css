@@ -242,6 +242,10 @@ body {
 
 /* Add Product
 ========================================================================== */
+#category-select {
+    justify-self: center;
+}
+
 #add-form {
     display: flex;
     justify-content: center;
@@ -255,6 +259,7 @@ body {
 
 #add-form input,
 #add-form select,
+#category-select select,
 textarea {
     padding: 6px;
     border-radius: 6px;
@@ -264,10 +269,12 @@ input {
     border: solid 1px gray;
 }
 
-#add-form label {
+#add-form label,
+#category-select label {
     margin-bottom: 10px;
 }
 
+#category-select,
 #specimen-info,
 #discovery-details,
 #description-notes,

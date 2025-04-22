@@ -1,10 +1,13 @@
 const express = require("express");
-const { getAllSpecimens, createSpecimen, getSingleSpecimenById, updateSpecimen, getRecordCount, getTotalCost, deleteSpecimen, getRecentSpecimens, } = require('../controllers/specimenController');
+const { getAllSpecimens, createSpecimen, getSingleSpecimenById, updateSpecimen, getRecordCount, getTotalCost, deleteSpecimen, getRecentSpecimens, getAllSpecimensByCategory, } = require('../controllers/specimenController');
 
 const specimensRouter = express.Router();
 
 // GET all specimens
 specimensRouter.get('/', getAllSpecimens);
+
+// GET all specimens by category
+specimensRouter.get('/totalByCategory/:cat', getAllSpecimensByCategory);
 
 // GET total number of records
 specimensRouter.get('/totalRecords', getRecordCount);
