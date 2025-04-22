@@ -6,15 +6,22 @@ import hand from '../assets/images/test-hand.jpg'
 import pottery from '../assets/images/test-pottery.jpg'
 import SearchBar from '../components/SearchBar'
 import { useEffect, useState } from 'react'
-import { fetchTotalRecords, fetchTotalCost } from '../utils/api'
+import { fetchTotalRecords, fetchTotalCost, fetchAllArtifactsByCategory } from '../utils/api'
+import { NavLink } from 'react-router-dom'
 
 const Dashboard = () => {
   const [totalCount, setTotalCount] = useState(0)
   const [totalCost, setTotalCost] = useState(0)
+  const [totalBones, setTotalBones] = useState(0)
+  const [totalTools, setTotalTools] = useState(0)
+  const [totalPottery, setTotalPottery] = useState(0)
 
   useEffect(() => {
     fetchTotalRecords().then(setTotalCount)
     fetchTotalCost().then(setTotalCost)
+    fetchAllArtifactsByCategory('Bone').then(setTotalBones)
+    fetchAllArtifactsByCategory('Tool').then(setTotalTools)
+    fetchAllArtifactsByCategory('Pottery').then(setTotalPottery)
   }, [])
 
   return (
@@ -42,12 +49,12 @@ const Dashboard = () => {
         title={'Manage Inventory'}
         content={
           <div id="inventory-content">
-            <a id="view-btn" href="/SpecimensExplorer">
+            <NavLink id="view-btn" to="/SpecimensExplorer">
               View
-            </a>
-            <a id="add-btn" href="/AddProduct">
+            </NavLink>
+            <NavLink id="add-btn" to="/AddProduct">
               Add
-            </a>
+            </NavLink>
           </div>
         }
       />
@@ -69,9 +76,9 @@ const Dashboard = () => {
               series={[
                 {
                   data: [
-                    { id: 0, value: 65, label: 'Bones' },
-                    { id: 1, value: 25, label: 'Pottery' },
-                    { id: 2, value: 10, label: 'Tools' }
+                    { id: 0, value: totalBones, label: 'Bones' },
+                    { id: 1, value: totalPottery, label: 'Pottery' },
+                    { id: 2, value: totalTools, label: 'Tools' }
                   ],
                   innerRadius: 2,
                   paddingAngle: 2,
