@@ -48,11 +48,11 @@ const createSpecimen = async (req, res) => {
         images = '/uploads/' + image.name;
     }
 
-    const { genus, species, nickName, specimenId, material, manufacturerId, manufacturer, countryManufactured, anthropologist, activeValue, paidValue, dateOfPurchase, purchaser, regionFound, countryFound, cabinet, row, description, notes } = req.body;
+    const { category, genus, species, nickName, specimenId, material, manufacturerId, manufacturer, countryManufactured, anthropologist, activeValue, paidValue, dateOfPurchase, purchaser, regionFound, countryFound, cabinet, row, description, notes } = req.body;
 
     // add doc to db
     try {
-        const specimen = await Specimen.create({ genus, species, nickName, specimenId, material, manufacturerId, manufacturer, countryManufactured, anthropologist, activeValue, paidValue, dateOfPurchase, purchaser, regionFound, countryFound, cabinet, row, description, notes, images });
+        const specimen = await Specimen.create({ category, genus, species, nickName, specimenId, material, manufacturerId, manufacturer, countryManufactured, anthropologist, activeValue, paidValue, dateOfPurchase, purchaser, regionFound, countryFound, cabinet, row, description, notes, images });
         res.status(200);
         res.json(specimen);
     } catch (error) {
@@ -131,6 +131,18 @@ const getTotalCost = async (req, res) => {
     }
 }
 
+// Get all the specimens within a specified category
+const getAllSpecimensByCategory = async (req, res) => {
+    try {
+        const requestedCategory = req.params.cat
+        const results = await Specimen.countDocuments({category: requestedCategory});
+        res.status(200).json({"count": results});
+    } catch (error) {
+        console.error("Error with getting all specimens by category", error);
+        res.status(404).json({error: error.message})
+    }
+}
+
 // Get the most recently added artifacts
 const getRecentSpecimens = async (req, res) => {
     const NUMBER_OF_SPECIMENS = 3;
@@ -156,5 +168,6 @@ module.exports = {
     updateSpecimen,
     getRecordCount,
     getTotalCost,
-    getRecentSpecimens
+    getRecentSpecimens,
+    getAllSpecimensByCategory
 };
