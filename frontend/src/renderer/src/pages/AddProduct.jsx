@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { addArtifact } from '../utils/api'
 import { validateInput } from '../utils/add_artifact_validation'
 import CategorySelect from '../components/addpage-components/CategorySelect.jsx'
+import { ToastContainer, toast, Bounce } from 'react-toastify'
 
 const AddProduct = () => {
   const [errors, setErrors] = useState({})
@@ -48,17 +49,31 @@ const AddProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (Object.keys(errors).length > 0) {
-      console.log('Form has validation errors');
+      console.log('Form has validation errors')
       return // prevent form submission if errors exist
     }
-    const result = await addArtifact(formData);
+    const result = await addArtifact(formData)
     if (result) {
-      console.log('Submitted Data:', formData);
+      console.log('Submitted Data:', formData)
+
+      toast.success('Artifact Added 😄', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+        transition: Bounce
+      })
     }
   }
 
   return (
     <form onSubmit={handleSubmit} id="add-form" autoComplete="on">
+      <ToastContainer />
+
       <h2 className="form-title">Add Artifact</h2>
       {/* <CategorySelect></CategorySelect> */}
       <fieldset id="specimen-info">
