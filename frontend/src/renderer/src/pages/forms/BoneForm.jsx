@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { addArtifact } from '../../utils/api'
 import { validateInput } from '../../utils/add_artifact_validation'
+import { ToastContainer, toast, Bounce } from 'react-toastify'
 
 const BoneForm = () => {
   const [errors, setErrors] = useState({})
@@ -53,13 +54,24 @@ const BoneForm = () => {
     }
     const result = await addArtifact(formData)
     if (result) {
-      console.log(formData.category)
       console.log('Submitted Data:', formData)
+      toast.success('Artifact Added 😄', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+        transition: Bounce
+      })
     }
   }
 
   return (
     <form onSubmit={handleSubmit} id="add-form" autoComplete="on">
+      <ToastContainer />
       <h2 className="form-title">Add Bone Artifact</h2>
       <fieldset id="specimen-info">
         <h3>Specimen Information</h3>
