@@ -1,12 +1,9 @@
 import DashArtifactCard from '../components/dashboard-components/DashArtifactCard'
 import DashboardWidget from '../components/dashboard-components/DashboardWidget'
 import { PieChart } from '@mui/x-charts'
-import skull from '../assets/images/test-skull.jpeg'
-import hand from '../assets/images/test-hand.jpg'
-import pottery from '../assets/images/test-pottery.jpg'
 import SearchBar from '../components/SearchBar'
 import { useEffect, useState } from 'react'
-import { fetchTotalRecords, fetchTotalCost, fetchAllArtifactsByCategory } from '../utils/api'
+import { fetchTotalRecords, fetchTotalCost, fetchAllArtifactsByCategory, fetchRecentSpecimens } from '../utils/api'
 import { NavLink } from 'react-router-dom'
 
 const Dashboard = () => {
@@ -15,6 +12,7 @@ const Dashboard = () => {
   const [totalBones, setTotalBones] = useState(0)
   const [totalTools, setTotalTools] = useState(0)
   const [totalPottery, setTotalPottery] = useState(0)
+  const [recentSpecimens, setRecentSpecimens] = useState([])
 
   useEffect(() => {
     fetchTotalRecords().then(setTotalCount)
@@ -22,6 +20,7 @@ const Dashboard = () => {
     fetchAllArtifactsByCategory('Bone').then(setTotalBones)
     fetchAllArtifactsByCategory('Tool').then(setTotalTools)
     fetchAllArtifactsByCategory('Pottery').then(setTotalPottery)
+    fetchRecentSpecimens().then(setRecentSpecimens)
   }, [])
 
   return (
@@ -80,8 +79,8 @@ const Dashboard = () => {
                     { id: 1, value: totalPottery, label: 'Pottery' },
                     { id: 2, value: totalTools, label: 'Tools' }
                   ],
-                  innerRadius: 2,
-                  paddingAngle: 2,
+                  innerRadius: 0,
+                  paddingAngle: 0,
                   cornerRadius: 4
                 }
               ]}
@@ -97,12 +96,13 @@ const Dashboard = () => {
       />
       <DashboardWidget
         identifier={'recently-added'}
-        title={'Recently Added'}
+        title={'Recent Updates'}
         content={
           <div id="recently-added-artifacts">
-            <DashArtifactCard imgSrc={skull} scientificName={'Skull'} id={'TEST01'} />
-            <DashArtifactCard imgSrc={hand} scientificName={'Hand'} id={'TEST02'} />
-            <DashArtifactCard imgSrc={pottery} scientificName={'Pottery'} id={'TEST03'} />
+            {recentSpecimens?.map((el, idx) => (
+              <DashArtifactCard key={idx} imgSrc={el.images[0]}
+              scientificName={el.genus + ' ' + el.species} id={el.specimenId} />
+            ))}
           </div>
         }
       />
