@@ -3,7 +3,12 @@ import DashboardWidget from '../components/dashboard-components/DashboardWidget'
 import { PieChart } from '@mui/x-charts'
 import SearchBar from '../components/SearchBar'
 import { useEffect, useState } from 'react'
-import { fetchTotalRecords, fetchTotalCost, fetchAllArtifactsByCategory, fetchRecentSpecimens } from '../utils/api'
+import {
+  fetchTotalRecords,
+  fetchTotalCost,
+  fetchAllArtifactsByCategory,
+  fetchRecentSpecimens
+} from '../utils/api'
 import { NavLink } from 'react-router-dom'
 
 const Dashboard = () => {
@@ -100,8 +105,12 @@ const Dashboard = () => {
         content={
           <div id="recently-added-artifacts">
             {recentSpecimens?.map((el, idx) => (
-              <DashArtifactCard key={idx} imgSrc={el.images[0]}
-              scientificName={el.genus + ' ' + el.species} id={el.specimenId} />
+              <DashArtifactCard
+                key={idx}
+                imgSrc={'http://localhost:3001' + el.images[0]}
+                scientificName={el.genus + ' ' + el.species}
+                id={el.specimenId}
+              />
             ))}
           </div>
         }
