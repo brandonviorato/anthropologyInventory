@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import BoneForm from './forms/BoneForm.jsx'
+import FossilForm from './forms/FossilForm.jsx'
 import PotteryForm from './forms/PotteryForm.jsx'
-import ToolForm from './forms/ToolForm.jsx'
+import StoneToolForm from './forms/StoneToolForm.jsx'
 
 export default function AddProduct() {
   const [selectedCategory, setSelectedCategory] = useState(null)
@@ -12,12 +12,12 @@ export default function AddProduct() {
 
   const renderForm = () => {
     switch (selectedCategory) {
-      case 'Bone':
-        return <BoneForm />
+      case 'Fossil':
+        return <FossilForm />
       case 'Pottery':
         return <PotteryForm />
-      case 'Tools':
-        return <ToolForm />
+      case 'Stone Tool':
+        return <StoneToolForm />
     }
   }
 
@@ -37,9 +37,11 @@ export default function AddProduct() {
             <option value="" disabled>
               Select a category
             </option>
-            <option value="Bone">Bone</option>
+            <option value="Fossil">Fossil</option>
             <option value="Pottery">Pottery</option>
-            <option value="Tools">Tools</option>
+            <option value="Stone Tool">Stone Tools</option>
+            <option value="Weaponry">Weaponry</option>
+            <option value="Tool (non-weaponry)">Tools (non-weaponry)</option>
           </select>
           <small className="tooltip">Category of item being added.</small>
         </div>

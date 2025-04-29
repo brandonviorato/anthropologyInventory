@@ -157,22 +157,29 @@ body {
     }
 
     .recently-added {
-        grid-column: 1/3;
-
+        grid-column: 3/4;
+        grid-row: 1/4;
+        
         #recently-added-artifacts {
-            display: flex;
-            column-gap: 28px;
-            overflow-x: scroll;
+            display: grid;
+            row-gap: 16px;
+            margin-top: 30px;
         }
     }
 
     .inventory-breakdown {
-        grid-column: 3/4;
-        grid-row: 1/4;
+        grid-column: 1/3;
+
+        div {
+            display: inline-flex;
+            min-width: fit-content;
+            width: 100%;
+        }
 
         #total-artifacts {
-            margin-top: 20px;
-            justify-self: center;
+            align-self: center;
+            display: block;
+            text-align: center;
             p {
                 font-size: 60px;
                 font-weight: 700;
@@ -200,14 +207,23 @@ body {
 ========================================================================== */
 
 #artifact-card {
-    p {
-        margin: 2px 0;
+    display: flex;
+    background-color: #eeeeee;
+    border-radius: 4px;
+
+    div {
+        margin-left: 10px;
+        font-size: 14px;
+    }
+
+    p:nth-child(1) {
+        font-weight: bold;
     }
 
     #artifact-img {
-        width: 100px;
-        height: 100px;
-        border-radius: 4px;
+        width: 75px;
+        height: 75px;
+        border-radius: 4px 0 0 4px;
         object-fit: cover;
     }
 }

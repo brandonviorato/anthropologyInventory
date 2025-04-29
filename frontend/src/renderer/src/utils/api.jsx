@@ -52,6 +52,23 @@ export const fetchTotalCost = async () => {
   }
 }
 
+export const fetchCurrentValue = async () => {
+  try {
+    const response = await fetch(API_URI + 'currentVal', {
+      method: 'GET',
+      headers: { Accept: 'application/json' }
+    })
+    if (!response.ok) {
+      console.log('Error fetching collection value')
+    }
+    const data = await response.json()
+    return data.currentVal
+  } catch (error) {
+    console.error('Error fetching collection value', error)
+    return 0
+  }
+}
+
 export const fetchRecentSpecimens = async () => {
   try {
     const response = await fetch(API_URI + 'recent', {

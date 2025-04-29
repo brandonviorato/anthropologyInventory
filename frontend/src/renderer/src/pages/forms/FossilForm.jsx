@@ -3,10 +3,10 @@ import { addArtifact } from '../../utils/api'
 import { validateInput } from '../../utils/add_artifact_validation'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 
-const BoneForm = () => {
+const FossilForm = () => {
   const [errors, setErrors] = useState({})
   const [formData, setFormData] = useState({
-    category: 'Bone',
+    category: 'Fossil',
     genus: '',
     species: '',
     nickName: '',
@@ -72,7 +72,7 @@ const BoneForm = () => {
   return (
     <form onSubmit={handleSubmit} id="add-form" autoComplete="on">
       <ToastContainer />
-      <h2 className="form-title">Add Bone Artifact</h2>
+      <h2 className="form-title">Add Fossil</h2>
       <fieldset id="specimen-info">
         <h3>Specimen Information</h3>
         <div>
@@ -842,4 +842,4 @@ const BoneForm = () => {
   )
 }
 
-export default BoneForm
+export default FossilForm
