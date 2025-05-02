@@ -1,24 +1,33 @@
 import DashArtifactCard from '../components/dashboard-components/DashArtifactCard'
 import DashboardWidget from '../components/dashboard-components/DashboardWidget'
-import { PieChart } from '@mui/x-charts'
+import { PieChart } from '@mui/x-charts/PieChart'
+import { cheerfulFiestaPalette } from '@mui/x-charts'
 import SearchBar from '../components/SearchBar'
 import { useEffect, useState } from 'react'
-import { fetchTotalRecords, fetchTotalCost, fetchAllArtifactsByCategory, fetchRecentSpecimens } from '../utils/api'
+import {
+  fetchTotalRecords,
+  fetchTotalCost,
+  fetchCurrentValue,
+  fetchAllArtifactsByCategory,
+  fetchRecentSpecimens
+} from '../utils/api'
 import { NavLink } from 'react-router-dom'
 
 const Dashboard = () => {
   const [totalCount, setTotalCount] = useState(0)
+  const [currentVal, setCurrentVal] = useState(0)
   const [totalCost, setTotalCost] = useState(0)
-  const [totalBones, setTotalBones] = useState(0)
-  const [totalTools, setTotalTools] = useState(0)
+  const [totalFossils, setTotalFossils] = useState(0)
+  const [totalStoneTools, setTotalStoneTools] = useState(0)
   const [totalPottery, setTotalPottery] = useState(0)
   const [recentSpecimens, setRecentSpecimens] = useState([])
 
   useEffect(() => {
     fetchTotalRecords().then(setTotalCount)
     fetchTotalCost().then(setTotalCost)
-    fetchAllArtifactsByCategory('Bone').then(setTotalBones)
-    fetchAllArtifactsByCategory('Tool').then(setTotalTools)
+    fetchCurrentValue().then(setCurrentVal)
+    fetchAllArtifactsByCategory('Fossil').then(setTotalFossils)
+    fetchAllArtifactsByCategory('Stone Tool').then(setTotalStoneTools)
     fetchAllArtifactsByCategory('Pottery').then(setTotalPottery)
     fetchRecentSpecimens().then(setRecentSpecimens)
   }, [])
@@ -31,12 +40,12 @@ const Dashboard = () => {
         content={
           <div>
             <p>
-              ${totalCost}
+              ${totalCost > 0 ? totalCost : '-----'}
               <br />
               <small>Collection Cost</small>
             </p>
             <p>
-              $-----
+              ${currentVal > 0 ? currentVal : '-----'}
               <br />
               <small>Collection Value</small>
             </p>
@@ -72,19 +81,21 @@ const Dashboard = () => {
         content={
           <div>
             <PieChart
+              colors={cheerfulFiestaPalette}
               series={[
                 {
                   data: [
-                    { id: 0, value: totalBones, label: 'Bones' },
+                    { id: 0, value: totalFossils, label: 'Fossils' },
                     { id: 1, value: totalPottery, label: 'Pottery' },
-                    { id: 2, value: totalTools, label: 'Tools' }
+                    { id: 2, value: totalStoneTools, label: 'Stone Tools' },
+                    { id: 3, value: 2, label: 'Weaponry' },
+                    { id: 4, value: 4, label: 'Tools (non-weaponry)' }
                   ],
-                  innerRadius: 0,
-                  paddingAngle: 0,
-                  cornerRadius: 4
+                  cornerRadius: 4,
+                  cx: 100
                 }
               ]}
-              width={300}
+              width={450}
               height={200}
             />
             <div id="total-artifacts">
@@ -94,14 +105,19 @@ const Dashboard = () => {
           </div>
         }
       />
+
       <DashboardWidget
         identifier={'recently-added'}
         title={'Recent Updates'}
         content={
           <div id="recently-added-artifacts">
             {recentSpecimens?.map((el, idx) => (
-              <DashArtifactCard key={idx} imgSrc={el.images[0]}
-              scientificName={el.genus + ' ' + el.species} id={el.specimenId} />
+              <DashArtifactCard
+                key={idx}
+                imgSrc={'http://localhost:3001' + el.images[0]}
+                scientificName={el.genus + ' ' + el.species}
+                id={el.specimenId}
+              />
             ))}
           </div>
         }

@@ -131,6 +131,19 @@ const getTotalCost = async (req, res) => {
     }
 }
 
+// Get the total collection value
+const getCurrentValue = async (req, res) => {
+    try {
+        const results = await Specimen.find({activeValue: {$gt: 1}}, { _id: 0, activeValue: 1});
+        const values = results.map(artifact => artifact.activeValue);
+        const currentVal = values.reduce((sum, value) => sum + value, 0);
+        res.status(200).json({"currentVal": currentVal});
+    } catch (error) {
+        console.error("Error with current value", error);
+        res.status(404).json({error: error.message});
+    }
+}
+
 // Get all the specimens within a specified category
 const getAllSpecimensByCategory = async (req, res) => {
     try {
@@ -168,6 +181,7 @@ module.exports = {
     updateSpecimen,
     getRecordCount,
     getTotalCost,
+    getCurrentValue,
     getRecentSpecimens,
     getAllSpecimensByCategory
 };
