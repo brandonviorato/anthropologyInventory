@@ -51,7 +51,7 @@ const Dashboard = () => {
             <NavLink id="view-btn" to="/SpecimensExplorer">
               View
             </NavLink>
-            <NavLink id="add-btn" to="/AddProduct">
+            <NavLink id="add-btn" to="/AddArtifact">
               Add
             </NavLink>
           </div>
