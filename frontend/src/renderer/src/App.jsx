@@ -19,7 +19,7 @@ function App() {
             <Route path="/Dashboard" element={<Dashboard />} />
             <Route path="/SpecimensExplorer" element={<SpecimensExplorer />} />
             <Route path="/specimen/:id" element={<SpecimenDetail />} />
-            <Route path="/AddProduct" element={<AddArtifact />} />
+            <Route path="/AddArtifact" element={<AddArtifact />} />
             <Route path="/UpdateProduct/:id" element={<UpdateProduct />} />
           </Routes>
         </div>

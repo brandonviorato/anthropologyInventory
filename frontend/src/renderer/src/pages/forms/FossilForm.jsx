@@ -3,6 +3,7 @@ import { addArtifact } from '../../utils/api'
 import { validateInput } from '../../utils/add_artifact_validation'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 
+
 import {
   manufacturerOptions,
   materialOptions,
@@ -18,6 +19,10 @@ import FormSelect from '../../components/form-components/FormSelect'
 import DiscoveryDetails from '../../components/form-components/form-sections/DiscoveryDetails'
 import DescriptionNotes from '../../components/form-components/form-sections/DescriptionNotes'
 import PhotoUpload from '../../components/form-components/PhotoUpload'
+=======
+import { manufacturerOptions, materialOptions, countryOptions } from '../../assets/forms/selectOptions'
+import { selectStyles } from '../../assets/forms/selectStyles'
+import Select from 'react-select'
 
 const FossilForm = () => {
   const [errors, setErrors] = useState({})
@@ -60,7 +65,6 @@ const FossilForm = () => {
 
     if (Object.keys(input).length === 0) {
       setFormData((prev) => ({ ...prev, [name]: selectedOption.value }))
-    }
   }
 
   const handleSubmit = async (e) => {
@@ -215,7 +219,7 @@ const FossilForm = () => {
         fields={[<PhotoUpload key={'photoupload'} formData={formData} setFormData={setFormData} />]}
       />
       <button type="submit" id="submit-btn">
-        Add to collection
+        Add to collection  
       </button>
     </form>
   )

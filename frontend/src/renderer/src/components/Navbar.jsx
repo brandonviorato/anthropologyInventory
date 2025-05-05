@@ -29,7 +29,7 @@ const NavBar = () => {
             <p>View Inventory</p>
           </div>
         </NavLink>
-        <NavLink to="/AddProduct">
+        <NavLink to="/AddArtifact">
           <div id="nav-link" className={({ isActive }) => (isActive ? 'active' : undefined)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
