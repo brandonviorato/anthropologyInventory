@@ -1,15 +1,16 @@
 export const categoryOptions = [
   { value: 'Fossil', label: 'Fossil' },
   { value: 'Pottery', label: 'Pottery' },
-  { value: 'Weaponry', label: 'Weaponry'},
-  { value: 'Tool (non-weaponry)', label: 'Tool (non-weaponry)'},
-  { value: 'Stone Tool', label: 'Stone Tool'}
+  { value: 'Weaponry', label: 'Weaponry' },
+  { value: 'Tool (non-weaponry)', label: 'Tool (non-weaponry)' },
+  { value: 'Stone Tool', label: 'Stone Tool' }
 ]
 
 export const manufacturerOptions = [
-    { value: 'Bones Clones', label: 'Bones Clones' },
-    { value: 'Skulls Unlimited', label: 'Skulls Unlimited' },
-    { value: 'Other', label: 'Other'}
+  { value: 'Bones Clones', label: 'Bones Clones' },
+  { value: 'Skulls Unlimited', label: 'Skulls Unlimited' },
+  { value: 'Other', label: 'Other' },
+  { value: 'Unknown', label: 'Unknown' }
 ]
 
 export const materialOptions = [
@@ -17,11 +18,11 @@ export const materialOptions = [
   { value: 'Plaster', label: 'Plaster' },
   { value: 'Polyurethane Resin', label: 'Polyurethane Resin' },
   { value: 'Polyester Resin', label: 'Polyester Resin' },
-  { value: 'Other', label: 'Other'}
+  { value: 'Other', label: 'Other' },
+  { value: 'Unknown', label: 'Unknown' }
 ]
 
 export const countryOptions = [
-  { value: 'Unknown', label: 'Unknown' },
   { value: 'Afghanistan', label: 'Afghanistan' },
   { value: 'Åland Islands', label: 'Åland Islands' },
   { value: 'Albania', label: 'Albania' },
@@ -254,5 +255,6 @@ export const countryOptions = [
   { value: 'Western Sahara', label: 'Western Sahara' },
   { value: 'Yemen', label: 'Yemen' },
   { value: 'Zambia', label: 'Zambia' },
-  { value: 'Zimbabwe', label: 'Zimbabwe' }
+  { value: 'Zimbabwe', label: 'Zimbabwe' },
+  { value: 'Unknown', label: 'Unknown' }
 ]

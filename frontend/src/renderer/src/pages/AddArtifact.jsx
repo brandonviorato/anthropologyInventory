@@ -30,16 +30,16 @@ export default function AddArtifact() {
         <h3>Category Select</h3>
         <section>
           <label>Category</label>
-          <Select 
+          <Select
             id="category"
             name="category"
             required
             onChange={handleChange}
-            value={categoryOptions.find(option => option.value === selectedCategory)}
+            value={categoryOptions.find((option) => option.value === selectedCategory)}
             options={categoryOptions}
             styles={selectStyles}
           />
-          <small className="tooltip">Category of item being added.</small>
+          <small className="hint">Category of artifact being added.</small>
         </section>
       </fieldset>
       {renderForm()}
