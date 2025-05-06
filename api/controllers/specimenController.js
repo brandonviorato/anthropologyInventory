@@ -1,12 +1,27 @@
+const mongoose = require('mongoose');
 const Specimen = require('../models/specimen.js');
 const path = require("path");
 
 // get all specimens
 const getAllSpecimens = async (req, res) => {
-    const specimens = await Specimen.find({}).sort({createdAt: -1})
+    const db = mongoose.connection.db;
 
-    res.status(200);
-    res.json(specimens);
+    try {
+        const collections = await db.listCollections().toArray();
+
+        let allData = [];
+
+        for (const coll of collections) {
+            const docs = await db.collection(coll.name).find({}).toArray();
+            allData = allData.concat(docs);
+        }
+
+        res.status(200);
+        res.json(allData);
+    } catch (error) {
+        res.status(404);
+        res.json({error: error.message});
+    }
 }
 
 // get a single specimen by id

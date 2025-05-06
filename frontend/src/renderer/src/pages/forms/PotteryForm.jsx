@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { addArtifact } from '../../utils/api'
+import { addPottery } from '../../utils/api'
 import { validateInput } from '../../utils/add_artifact_validation'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 
@@ -15,26 +15,17 @@ import PhotoUpload from '../../components/form-components/PhotoUpload'
 const PotteryForm = () => {
   const [errors, setErrors] = useState({})
   const [formData, setFormData] = useState({
-    category: 'Fossil',
-    genus: '',
-    species: '',
-    nickName: '',
-    specimenId: '',
-    material: '',
-    manufacturerId: '',
-    manufacturer: '',
-    countryManufactured: '',
+    category: 'Pottery',
     anthropologist: '',
+    regionFound: '',
+    countryFound: '',
+    location: '',
+    description: '',
+    notes: '',
     activeValue: 0,
     paidValue: 0,
     dateOfPurchase: '',
     purchaser: '',
-    regionFound: '',
-    countryFound: '',
-    cabinet: 'C1',
-    row: 'R1',
-    description: '',
-    notes: '',
     image: null
   })
 
@@ -62,7 +53,7 @@ const PotteryForm = () => {
       console.log('Form has validation errors')
       return // prevent form submission if errors exist
     }
-    const result = await addArtifact(formData)
+    const result = await addPottery(formData)
     if (result) {
       console.log('Submitted Data:', formData)
       toast.success('Artifact Added 😄', {

@@ -113,6 +113,34 @@ export const addArtifact = async (formData) => {
   }
 }
 
+// this is temporary as a proof of concept... will need to separate these out into own file
+export const addPottery = async (formData) => {
+  try {
+    const form = new FormData()
+
+    Object.keys(formData).forEach((key) => {
+      if (formData[key] !== null && formData[key] !== '') {
+        form.append(key, formData[key])
+      }
+    })
+
+    const response = await fetch('http://localhost:3001/api/potteries/', {
+      method: 'POST',
+      body: form
+    })
+
+    if (!response.ok) {
+      console.log('Error adding pottery')
+    }
+
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.log('Error fetching total cost')
+    return null
+  }
+}
+
 export const getArtifactById = async (id) => {
   try {
     const response = await fetch(API_URI + id, {
