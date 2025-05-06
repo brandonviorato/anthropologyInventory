@@ -10,16 +10,7 @@ const CollectionView = ({ specimens, viewType, onDelete }) => {
   })
 
   // tableColumns of which category we want to see for the list view as there are... A LOT of columns XD
-  const tableColumns = [
-    'manufacturerID',
-    'specimenID',
-    'genus',
-    'species',
-    'scientificName',
-    'nickName',
-    'anthropologist',
-    'locatedCountry'
-  ]
+  const tableColumns = ['nickName', 'genus', 'species', 'anthropologist', 'cabinet', 'row']
 
   // The default basic sort
   const sortedSpecimens = [...specimens].sort((a, b) => {

@@ -60,7 +60,7 @@ export default function View() {
 
       <div className="specimens-view-container">
         <div className="view-add-btn">
-          <Link to={`/AddProduct`}>Add Product</Link>
+          <Link to={`/AddArtifact`}>Add Product</Link>
         </div>
 
         <div className="view-controls">

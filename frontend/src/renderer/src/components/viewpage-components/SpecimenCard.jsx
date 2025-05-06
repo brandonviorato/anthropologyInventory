@@ -53,10 +53,22 @@ const SpecimenCard = ({ specimen, onDelete }) => {
       </Link>
       <div className="specimen-info">
         <p>{specimen.nickName ? specimen.nickName : 'N/A'}</p>
-        <p>{specimen.scientificName ? specimen.scientificName : 'N/A'}</p>
+
+        <div className="specimen-card-btns">
+          <button
+            className="specimen-card-btns-delete"
+            onClick={handleDelete}
+            disabled={isDeleting}
+          >
+            Delete
+          </button>
+          <Link className="specimen-card-btns-update" to={`/UpdateProduct/${specimen._id}`}>
+            <button>Update</button>
+          </Link>
+        </div>
       </div>
 
-      <div className="specimen-card-menu">
+      {/* <div className="specimen-card-menu">
         <button onClick={handleDelete} disabled={isDeleting}>
           <img src="http://localhost:3001/svg/trash.svg" alt="" />
         </button>
@@ -65,26 +77,7 @@ const SpecimenCard = ({ specimen, onDelete }) => {
             <img src="http://localhost:3001/svg/edit.svg" alt="" />
           </button>
         </Link>
-      </div>
-      {/* 
-            {showMenu ? (
-                <div className="specimen-card-menu">
-                    <button onClick={handleDelete} disabled={isDeleting}>
-                        <img src="http://localhost:3001/svg/trash.svg" alt="" />
-                    </button>
-                    <Link to={`/UpdateProduct/${specimen._id}`}>
-                        <button>
-                            <img src="http://localhost:3001/svg/edit.svg" alt="" />
-                        </button>
-                    </Link>
-                </div>
-            ) : (
-                <div className="specimen-card-menu">
-                    <button onClick={() => setShowMenu((prev) => !prev)}>
-                        <img src="http://localhost:3001/svg/dots.svg" alt="" />
-                    </button>
-                </div>
-            )} */}
+      </div> */}
     </div>
   )
 }
