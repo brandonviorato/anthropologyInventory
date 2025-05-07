@@ -2,17 +2,7 @@ import PropTypes from 'prop-types'
 import FormFieldset from '../FormFieldset'
 import FormInput from '../FormInput'
 
-function PurchaseInfo({
-  dateData,
-  dateErrors,
-  purchaserData,
-  purchaserErrors,
-  paidData,
-  paidErrors,
-  activeValData,
-  activeValErrors,
-  changeFunction
-}) {
+function PurchaseInfo({ dateData, purchaserData, paidData, activeValData, changeFunction }) {
   return (
     <FormFieldset
       fieldsetID={'purchase-info'}
@@ -24,10 +14,10 @@ function PurchaseInfo({
           inputType={'date'}
           inputName={'dateOfPurchase'}
           isRequired={false}
-          inputValue={dateData}
+          inputValue={dateData.value}
           changeFunc={changeFunction}
-          inputClass={dateData === '' ? '' : dateErrors ? 'invalid' : 'valid'}
-          validationErr={dateErrors}
+          inputClass={dateData.value === '' ? '' : dateData.errors ? 'invalid' : 'valid'}
+          validationErr={dateData.errors}
         />,
         <FormInput
           key={'purchaser'}
@@ -36,10 +26,10 @@ function PurchaseInfo({
           inputName={'purchaser'}
           placeholderTxt={'e.g. Madeleine Tessandori'}
           isRequired={false}
-          inputValue={purchaserData}
+          inputValue={purchaserData.value}
           changeFunc={changeFunction}
-          inputClass={purchaserData === '' ? '' : purchaserErrors ? 'invalid' : 'valid'}
-          validationErr={purchaserErrors}
+          inputClass={purchaserData.value === '' ? '' : purchaserData.errors ? 'invalid' : 'valid'}
+          validationErr={purchaserData.errors}
         />,
         <FormInput
           key={'paidValue'}
@@ -48,11 +38,11 @@ function PurchaseInfo({
           inputName={'paidValue'}
           placeholderTxt={'e.g. 250.00'}
           isRequired={false}
-          value={paidData}
+          value={paidData.value}
           changeFunc={changeFunction}
-          inputClass={paidData === 0 ? '' : paidErrors ? 'invalid' : 'valid'}
+          inputClass={paidData.value === 0 ? '' : paidData.errors ? 'invalid' : 'valid'}
           hint={"Numeric value only -- exclude '$' symbol."}
-          validationErr={paidErrors}
+          validationErr={paidData.errors}
         />,
         <FormInput
           key={'currentValue'}
@@ -61,11 +51,11 @@ function PurchaseInfo({
           inputName={'activeValue'}
           placeholderTxt={'e.g. 250.00'}
           isRequired={false}
-          value={activeValData}
+          value={activeValData.value}
           changeFunc={changeFunction}
-          inputClass={activeValData === 0 ? '' : activeValErrors ? 'invalid' : 'valid'}
+          inputClass={activeValData.value === 0 ? '' : activeValData.errors ? 'invalid' : 'valid'}
           hint={"Numeric value only -- exclude '$' symbol."}
-          validationErr={activeValErrors}
+          validationErr={activeValData.errors}
         />
       ]}
     />
@@ -73,14 +63,10 @@ function PurchaseInfo({
 }
 
 PurchaseInfo.propTypes = {
-  dateData: PropTypes.string,
-  dateErrors: PropTypes.any,
+  dateData: PropTypes.object,
   purchaserData: PropTypes.string,
-  purchaserErrors: PropTypes.any,
   paidData: PropTypes.number,
-  paidErrors: PropTypes.any,
   activeValData: PropTypes.number,
-  activeValErrors: PropTypes.any,
   changeFunction: PropTypes.func
 }
 

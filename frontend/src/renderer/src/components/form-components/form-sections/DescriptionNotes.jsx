@@ -3,7 +3,7 @@ import FormFieldset from '../FormFieldset'
 import FormInput from '../FormInput'
 import FormTextarea from '../FormTextarea'
 
-function DescriptionNotes({ locationData, locationErrors, descriptionData, notesData, changeFunc }) {
+function DescriptionNotes({ locationData, descriptionData, notesData, changeFunc }) {
   return (
     <FormFieldset
       fieldsetID="description-notes"
@@ -16,11 +16,11 @@ function DescriptionNotes({ locationData, locationErrors, descriptionData, notes
           inputName="location"
           placeholderTxt="e.g. Cabinet 1, row 2"
           isRequired={true}
-          inputValue={locationData}
+          inputValue={locationData.value}
           changeFunc={changeFunc}
-          inputClass={locationData === '' ? '' : locationErrors ? 'invalid' : 'valid'}
+          inputClass={locationData.value === '' ? '' : locationData.errors ? 'invalid' : 'valid'}
           hint="Physical location artifact is stored."
-          validationErr={locationErrors}
+          validationErr={locationData.errors}
         />,
         <FormTextarea
           key="description"
@@ -44,8 +44,7 @@ function DescriptionNotes({ locationData, locationErrors, descriptionData, notes
 }
 
 DescriptionNotes.propTypes = {
-  locationData: PropTypes.string,
-  locationErrors: PropTypes.any,
+  locationData: PropTypes.object,
   descriptionData: PropTypes.string.isRequired,
   notesData: PropTypes.string.isRequired,
   changeFunc: PropTypes.func.isRequired

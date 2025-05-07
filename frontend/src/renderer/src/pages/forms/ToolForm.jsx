@@ -10,7 +10,7 @@ import DiscoveryDetails from '../../components/form-components/form-sections/Dis
 import DescriptionNotes from '../../components/form-components/form-sections/DescriptionNotes'
 import PhotoUpload from '../../components/form-components/PhotoUpload'
 
-const PotteryForm = () => {
+const ToolForm = () => {
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
   const [formData, setFormData] = useState({
@@ -80,9 +80,9 @@ const PotteryForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} id="pottery-form" autoComplete="on">
+    <form onSubmit={handleSubmit} id="tool-form" autoComplete="on">
       <ToastContainer />
-      <h2 className="form-title">Add Pottery</h2>
+      <h2 className="form-title">Add Tool (non-weaponry)</h2>
       <DiscoveryDetails
         anthropologistData={{ value: formData.anthropologist, errors: errors.anthropologist }}
         regionData={{ value: formData.regionFound, errors: errors.regionFound }}
@@ -115,4 +115,4 @@ const PotteryForm = () => {
   )
 }
 
-export default PotteryForm
+export default ToolForm

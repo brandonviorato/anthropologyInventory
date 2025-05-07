@@ -7,9 +7,7 @@ import FormSelect from '../FormSelect'
 
 function DiscoveryDetails({
   anthropologistData,
-  anthropologistErrors,
   regionData,
-  regionErrors,
   countryData,
   changeFunc,
   selectChangeFunc
@@ -26,10 +24,12 @@ function DiscoveryDetails({
           inputName={'anthropologist'}
           placeholderTxt={'e.g. Donald Johanson'}
           isRequired={false}
-          value={anthropologistData}
+          value={anthropologistData.value}
           changeFunc={changeFunc}
-          inputClass={anthropologistData === '' ? '' : anthropologistErrors ? 'invalid' : 'valid'}
-          validationErr={anthropologistErrors}
+          inputClass={
+            anthropologistData.value === '' ? '' : anthropologistData.errors ? 'invalid' : 'valid'
+          }
+          validationErr={anthropologistData.errors}
         />,
         <FormInput
           key={'regionFound'}
@@ -38,10 +38,10 @@ function DiscoveryDetails({
           inputName={'regionFound'}
           placeholderTxt={'e.g. Afar Triangle'}
           isRequired={false}
-          value={regionData}
+          value={regionData.value}
           changeFunc={changeFunc}
-          inputClass={regionData === '' ? '' : regionErrors ? 'invalid' : 'valid'}
-          validationErr={regionErrors}
+          inputClass={regionData.value === '' ? '' : regionData.errors ? 'invalid' : 'valid'}
+          validationErr={regionData.errors}
         />,
         <FormSelect
           key={'country found'}
@@ -58,10 +58,8 @@ function DiscoveryDetails({
 }
 
 DiscoveryDetails.propTypes = {
-  anthropologistData: PropTypes.string,
-  anthropologistErrors: PropTypes.any,
-  regionData: PropTypes.string,
-  regionErrors: PropTypes.any,
+  anthropologistData: PropTypes.object,
+  regionData: PropTypes.object,
   countryData: PropTypes.string,
   changeFunc: PropTypes.func,
   selectChangeFunc: PropTypes.func

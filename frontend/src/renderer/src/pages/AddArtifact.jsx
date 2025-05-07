@@ -2,6 +2,8 @@ import { useState } from 'react'
 import Select from 'react-select'
 import FossilForm from './forms/FossilForm.jsx'
 import PotteryForm from './forms/PotteryForm.jsx'
+import WeaponryForm from './forms/WeaponryForm.jsx'
+import ToolForm from './forms/ToolForm.jsx'
 import StoneToolForm from './forms/StoneToolForm.jsx'
 import { categoryOptions } from '../assets/forms/selectOptions.jsx'
 import { selectStyles } from '../assets/forms/selectStyles.jsx'
@@ -19,6 +21,10 @@ export default function AddArtifact() {
         return <FossilForm />
       case 'Pottery':
         return <PotteryForm />
+      case 'Weaporny':
+        return <WeaponryForm />
+      case 'Tool (non-weaponry)':
+        return <ToolForm />
       case 'Stone Tool':
         return <StoneToolForm />
     }

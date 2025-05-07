@@ -21,6 +21,7 @@ import PhotoUpload from '../../components/form-components/PhotoUpload'
 
 const FossilForm = () => {
   const [errors, setErrors] = useState({})
+  const [touched, setTouched] = useState({})
   const [formData, setFormData] = useState({
     category: 'Fossil',
     genus: '',
@@ -46,9 +47,11 @@ const FossilForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    const input = validateInput(name, value)
     setFormData({ ...formData, [name]: value })
-    setErrors(input)
+    setTouched({ ...touched, [name]: value })
+
+    const input = validateInput(name, value)
+    setErrors({ ...errors, [name]: input[name] || '' })
   }
 
   const handleSelectChange = (selectedOption, name) => {
@@ -73,10 +76,10 @@ const FossilForm = () => {
       console.log('Submitted Data:', formData)
       toast.success('Artifact Added 😄', {
         position: 'top-right',
-        autoClose: 5000,
+        autoClose: 4000,
         hideProgressBar: false,
         closeOnClick: false,
-        pauseOnHover: true,
+        pauseOnHover: false,
         draggable: true,
         progress: undefined,
         theme: 'colored',
@@ -102,7 +105,7 @@ const FossilForm = () => {
             isRequired={true}
             inputValue={formData.genus}
             changeFunc={handleChange}
-            inputClass={formData.genus === '' ? '' : errors.genus ? 'invalid' : 'valid' }
+            inputClass={formData.genus === '' ? '' : errors.genus ? 'invalid' : 'valid'}
             validationErr={errors.genus}
           />,
           <FormInput
@@ -114,7 +117,7 @@ const FossilForm = () => {
             isRequired={true}
             inputValue={formData.species}
             changeFunc={handleChange}
-            inputClass={formData.species === '' ? '' : errors.species ? 'invalid' : 'valid' }
+            inputClass={formData.species === '' ? '' : errors.species ? 'invalid' : 'valid'}
             validationErr={errors.species}
           />,
           <FormInput
@@ -126,7 +129,7 @@ const FossilForm = () => {
             isRequired={false}
             inputValue={formData.nickName}
             changeFunc={handleChange}
-            inputClass={formData.nickName === '' ? '' : errors.nickName ? 'invalid' : 'valid' }
+            inputClass={formData.nickName === '' ? '' : errors.nickName ? 'invalid' : 'valid'}
             validationErr={errors.nickName}
           />,
           <FormInput
@@ -144,17 +147,14 @@ const FossilForm = () => {
         ]}
       />
       <DiscoveryDetails
-        anthropologistData={formData.anthropologist}
-        anthropologistErrors={errors.anthropologist}
-        regionData={formData.regionFound}
-        regionErrors={errors.regionFound}
+        anthropologistData={{ value: formData.anthropologist, errors: errors.anthropologist }}
+        regionData={{ value: formData.regionFound, errors: errors.regionFound }}
         countryData={formData.countryFound}
         changeFunc={handleChange}
         selectChangeFunc={handleSelectChange}
       />
       <DescriptionNotes
-        locationData={formData.location}
-        locationErrors={errors.location}
+        locationData={{ value: formData.location, errors: errors.location }}
         descriptionData={formData.description}
         notesData={formData.notes}
         changeFunc={handleChange}
@@ -182,7 +182,9 @@ const FossilForm = () => {
             isRequired={false}
             inputValue={formData.manufacturerId}
             changeFunc={handleChange}
-            inputClass={formData.manufacturerId === '' ? '' : errors.manufacturerId ? 'invalid' : 'valid' }
+            inputClass={
+              formData.manufacturerId === '' ? '' : errors.manufacturerId ? 'invalid' : 'valid'
+            }
             validationErr={errors.manufacturerId}
           />,
           <FormSelect
@@ -210,13 +212,10 @@ const FossilForm = () => {
         ]}
       />
       <PurchaseInfo
-        dateData={formData.dateOfPurchase}
-        purchaserData={formData.purchaser}
-        purchaserErrors={errors.purchaser}
-        paidData={formData.paidValue}
-        paidErrors={errors.paidValue}
-        activeValData={formData.activeValue}
-        activeValErrors={errors.activeValue}
+        dateData={{ value: formData.dateOfPurchase, errors: errors.dateOfPurchase }}
+        purchaserData={{ value: formData.purchaser, errors: errors.purchaser }}
+        paidData={{ value: formData.paidValue, errors: errors.paidValue }}
+        activeValData={{ value: formData.activeValue, errors: errors.activeValue }}
         changeFunction={handleChange}
       />
       <FormFieldset
