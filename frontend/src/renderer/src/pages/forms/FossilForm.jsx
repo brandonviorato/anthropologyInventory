@@ -38,23 +38,20 @@ const FossilForm = () => {
     purchaser: '',
     regionFound: '',
     countryFound: '',
-    cabinet: 'C1',
-    row: 'R1',
+    location: '',
     description: '',
     notes: '',
     image: null
   })
 
   const handleChange = (e) => {
-    const input = validateInput(e.target.name, e.target.value)
+    const { name, value } = e.target
+    const input = validateInput(name, value)
+    setFormData({ ...formData, [name]: value })
     setErrors(input)
-    if (Object.keys(input).length === 0) {
-      setFormData({ ...formData, [e.target.name]: e.target.value })
-    }
   }
 
   const handleSelectChange = (selectedOption, name) => {
-    console.log(selectedOption)
     const input = validateInput(name, selectedOption.value)
     setErrors(input)
 
@@ -65,8 +62,10 @@ const FossilForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (Object.keys(errors).length > 0) {
+    const hasValidationErrors = Object.values(errors).some(Boolean)
+    if (hasValidationErrors) {
       console.log('Form has validation errors')
+      console.log(errors)
       return // prevent form submission if errors exist
     }
     const result = await addArtifact(formData)
@@ -103,7 +102,8 @@ const FossilForm = () => {
             isRequired={true}
             inputValue={formData.genus}
             changeFunc={handleChange}
-            inputClass={!errors.genus && formData.genus != '' ? 'valid' : ''}
+            inputClass={formData.genus === '' ? '' : errors.genus ? 'invalid' : 'valid' }
+            validationErr={errors.genus}
           />,
           <FormInput
             key={'species'}
@@ -114,7 +114,8 @@ const FossilForm = () => {
             isRequired={true}
             inputValue={formData.species}
             changeFunc={handleChange}
-            inputClass={!errors.species && formData.species != '' ? 'valid' : ''}
+            inputClass={formData.species === '' ? '' : errors.species ? 'invalid' : 'valid' }
+            validationErr={errors.species}
           />,
           <FormInput
             key={'nickname'}
@@ -125,7 +126,8 @@ const FossilForm = () => {
             isRequired={false}
             inputValue={formData.nickName}
             changeFunc={handleChange}
-            inputClass={!errors.nickName && formData.nickName != '' ? 'valid' : ''}
+            inputClass={formData.nickName === '' ? '' : errors.nickName ? 'invalid' : 'valid' }
+            validationErr={errors.nickName}
           />,
           <FormInput
             key={'specimenId'}
@@ -136,19 +138,23 @@ const FossilForm = () => {
             isRequired={true}
             inputValue={formData.specimenId}
             changeFunc={handleChange}
-            inputClass={!errors.specimenId && formData.specimenId != '' ? 'valid' : ''}
+            inputClass={formData.specimenId === '' ? '' : errors.specimenId ? 'invalid' : 'valid'}
+            validationErr={errors.specimenId}
           />
         ]}
       />
       <DiscoveryDetails
         anthropologistData={formData.anthropologist}
-        anthropologistError={errors.anthropologist}
+        anthropologistErrors={errors.anthropologist}
         regionData={formData.regionFound}
+        regionErrors={errors.regionFound}
         countryData={formData.countryFound}
         changeFunc={handleChange}
         selectChangeFunc={handleSelectChange}
       />
       <DescriptionNotes
+        locationData={formData.location}
+        locationErrors={errors.location}
         descriptionData={formData.description}
         notesData={formData.notes}
         changeFunc={handleChange}
@@ -164,7 +170,7 @@ const FossilForm = () => {
             selectValue={formData.manufacturer}
             changeFunc={handleSelectChange}
             selectOptions={manufacturerOptions}
-            selectStyles={selectStyles}
+            selectStyles={selectStyles(!!formData.manufacturer)}
             selectClass={!errors.manufacturer && formData.manufacturer !== '' ? 'valid' : ''}
           />,
           <FormInput
@@ -176,6 +182,8 @@ const FossilForm = () => {
             isRequired={false}
             inputValue={formData.manufacturerId}
             changeFunc={handleChange}
+            inputClass={formData.manufacturerId === '' ? '' : errors.manufacturerId ? 'invalid' : 'valid' }
+            validationErr={errors.manufacturerId}
           />,
           <FormSelect
             key="material"
@@ -184,7 +192,7 @@ const FossilForm = () => {
             selectValue={formData.material}
             changeFunc={handleSelectChange}
             selectOptions={materialOptions}
-            selectStyles={selectStyles}
+            selectStyles={selectStyles(!!formData.material)}
             selectClass={!errors.material && formData.material !== '' ? 'valid' : ''}
           />,
           <FormSelect
@@ -194,7 +202,7 @@ const FossilForm = () => {
             selectValue={formData.countryManufactured}
             changeFunc={handleSelectChange}
             selectOptions={countryOptions}
-            selectStyles={selectStyles}
+            selectStyles={selectStyles(!!formData.countryManufactured)}
             selectClass={
               !errors.countryManufactured && formData.countryManufactured !== '' ? 'valid' : ''
             }
@@ -206,7 +214,9 @@ const FossilForm = () => {
         purchaserData={formData.purchaser}
         purchaserErrors={errors.purchaser}
         paidData={formData.paidValue}
+        paidErrors={errors.paidValue}
         activeValData={formData.activeValue}
+        activeValErrors={errors.activeValue}
         changeFunction={handleChange}
       />
       <FormFieldset

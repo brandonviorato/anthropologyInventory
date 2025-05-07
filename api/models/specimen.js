@@ -66,11 +66,7 @@ const specimenSchema = new Schema({
         type: String,
         required: false
     },
-    cabinet:{
-        type: String,
-        required: true
-    },
-    row:{
+    location:{
         type: String,
         required: true
     },

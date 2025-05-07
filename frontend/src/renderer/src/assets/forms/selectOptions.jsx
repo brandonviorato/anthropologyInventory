@@ -1,9 +1,9 @@
 export const categoryOptions = [
   { value: 'Fossil', label: 'Fossil' },
-  { value: 'Pottery', label: 'Pottery' },
-  { value: 'Weaponry', label: 'Weaponry' },
-  { value: 'Tool (non-weaponry)', label: 'Tool (non-weaponry)' },
-  { value: 'Stone Tool', label: 'Stone Tool' }
+  { value: 'Pottery', label: 'Pottery', isDisabled: true },
+  { value: 'Weaponry', label: 'Weaponry', isDisabled: true },
+  { value: 'Tool (non-weaponry)', label: 'Tool (non-weaponry)', isDisabled: true },
+  { value: 'Stone Tool', label: 'Stone Tool', isDisabled: true }
 ]
 
 export const manufacturerOptions = [

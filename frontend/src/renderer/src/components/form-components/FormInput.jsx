@@ -10,7 +10,8 @@ function FormInput({
   inputValue,
   changeFunc,
   inputClass,
-  hint
+  hint,
+  validationErr
 }) {
   return (
     <section>
@@ -26,6 +27,7 @@ function FormInput({
         className={inputClass}
       />
       {hint && <small className="hint">{hint}</small>}
+      {validationErr && <small className="validation-err">{validationErr}</small>}
     </section>
   )
 }
@@ -40,7 +42,8 @@ FormInput.propTypes = {
   inputValue: PropTypes.string.isRequired,
   changeFunc: PropTypes.func.isRequired,
   inputClass: PropTypes.string,
-  hint: PropTypes.string
+  hint: PropTypes.string,
+  validationErr: PropTypes.string
 }
 
 export default FormInput

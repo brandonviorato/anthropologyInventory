@@ -1,8 +1,9 @@
-export const selectStyles = {
+export const selectStyles = (isSelected) => ({
   control: (baseStyles, state) => ({
     ...baseStyles,
-    border: '1px solid transparent',
+    border: isSelected ? '1px solid green' : '1px solid transparent',
     borderRadius: 6,
+    backgroundColor: isSelected ? '#00800013' : 'white',
     fontSize: 14,
     boxShadow: 'none',
     ':hover': {
@@ -21,4 +22,4 @@ export const selectStyles = {
       cursor: 'pointer'
     }
   })
-}
+})

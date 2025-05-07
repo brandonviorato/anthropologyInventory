@@ -5,7 +5,12 @@ const VALIDATORS = {
   specimenId: validateSpecimenId,
   anthropologist: validateAnthropologist,
   regionFound: validateRegion,
-  purchaser: validatePurchaser
+  location: validateLocation,
+  manufacturerId: validateManufacturerId,
+  dateOfPurchase: validateDateOfPurchase,
+  purchaser: validatePurchaser,
+  paidValue: validatePaidValue,
+  activeValue: validateActiveValue
 }
 
 /**
@@ -43,9 +48,7 @@ export const validateInput = (field, input) => {
  * validateGenus(errors, "Homo1") // errors.genus set to false
  */
 function validateGenus(errors, input) {
-  if (!isAlphabetic(input)) {
-    errors.genus = false
-  }
+  errors.genus = isAlphabetic(input) ? false : 'Genus must contain letters (A-Z)';
 }
 
 /**
@@ -61,9 +64,7 @@ function validateGenus(errors, input) {
  * validateSpecies(errors, "Sapiens1") // errors.species set to false
  */
 function validateSpecies(errors, input) {
-  if (!isAlphabetic(input)) {
-    errors.species = false
-  }
+  errors.species = isAlphabetic(input) ? false : 'Species must contain only letters (A-Z).'
 }
 
 /**
@@ -82,24 +83,8 @@ function validateNickname(errors, input) {
   if (!isAlphabetic(input)) {
     errors.nickName = false
   }
-}
 
-/**
- * Validates the anthropologist input to ensure it contains only alphabetic characters, spaces, dashes, or quotes.
- * If the input is invalid, sets the `errors.anthropologist` to `false`.
- *
- * @param {Object} errors - An object to track validation errors.
- * @param {string} input - The anthropologist input string to validate.
- * @returns {void}
- *
- * @example
- * validateAnthropologist(errors, "Dr. Smith") // errors.anthropologist remains true
- * validateAnthropologist(errors, "Dr. Smith123") // errors.anthropologist set to false
- */
-function validateAnthropologist(errors, input) {
-  if (!isAlphabetic(input)) {
-    errors.anthropologist = false
-  }
+  errors.nickName = isAlphabetic(input) ? false : 'Species must contain only letters (A-Z).'
 }
 
 /**
@@ -115,9 +100,23 @@ function validateAnthropologist(errors, input) {
  * validateSpecimenId(errors, "AL288#1") // errors.specimenId set to false
  */
 function validateSpecimenId(errors, input) {
-  if (!isAlphanumeric(input)) {
-    errors.specimenId = false
-  }
+  errors.specimenId = isAlphanumeric(input) ? false : 'Specimen ID must contain only letters (A-Z), numbers (0-9), spaces and dashes.'
+}
+
+/**
+ * Validates the anthropologist input to ensure it contains only alphabetic characters, spaces, dashes, or quotes.
+ * If the input is invalid, sets the `errors.anthropologist` to `false`.
+ *
+ * @param {Object} errors - An object to track validation errors.
+ * @param {string} input - The anthropologist input string to validate.
+ * @returns {void}
+ *
+ * @example
+ * validateAnthropologist(errors, "Dr. Smith") // errors.anthropologist remains true
+ * validateAnthropologist(errors, "Dr. Smith123") // errors.anthropologist set to false
+ */
+function validateAnthropologist(errors, input) {
+  errors.anthropologist = isAlphabetic(input) ? false : 'Lead Anthropologist must contain only letters (A-Z).'
 }
 
 /**
@@ -136,6 +135,23 @@ function validateRegion(errors, input) {
   if (!isAlphabetic(input)) {
     errors.regionFound = false
   }
+
+  errors.regionFound = isAlphabetic(input) ? false : 'Region Found must contain only letters (A-Z).'
+}
+
+function validateLocation(errors, input) {
+  errors.location = isAlphanumeric(input) ? false : 'Location must contain only letters (A-Z), numbers (0-9), spaces and dashes.'
+}
+
+function validateManufacturerId(errors, input) {
+  // const pattern = /^[A-Z]{2,3}-\d+(?:-[A-Z0-9]+)?$/
+  // errors.manufacturerId = pattern.test(input) ? false : 'Manufacturer ID must contain only letters (A-Z), numbers (0-9), spaces and dashes.'
+
+  errors.manufacturerId = isAlphanumeric(input) ? false : 'Manufacturer ID must contain only letters (A-Z), numbers (0-9), spaces and dashes.'
+}
+
+function validateDateOfPurchase(errors, input) {
+  errors.dateOfPurchase = false
 }
 
 /**
@@ -151,9 +167,15 @@ function validateRegion(errors, input) {
  * validatePurchaser(errors, "John@Doe") // errors.purchaser set to false
  */
 function validatePurchaser(errors, input) {
-  if (!isAlphabetic(input)) {
-    errors.purchaser = false
-  }
+  errors.purchaser = isAlphabetic(input) ? false : 'Purchaser must contain only letters (A-Z).'
+}
+
+function validatePaidValue(errors, input) {
+  errors.paidValue = isNumeric(input) ? false : 'Cost must contain only numbers (0-9).'
+} 
+
+function validateActiveValue(errors, input) {
+  errors.activeValue = isNumeric(input) ? false : 'Current Value must contain only numbers (0-9).'
 }
 
 /**
@@ -211,5 +233,12 @@ function isAlphanumeric(input) {
   if (input.length == 0) {
     return true
   }
-  return /^[a-zA-Z0-9\s\-" "]+$/.test(input)
+  return /^[a-zA-Z0-9\s-]+$/.test(input)
+}
+
+function isNumeric(input) {
+  if (input.length == 0) {
+    return true
+  }
+  return /^[0-9]*\.?[0-9]+$/.test(input)
 }

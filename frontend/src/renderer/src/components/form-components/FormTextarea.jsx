@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-function FormTextarea({ label, textareaId, textareaName, placeholderTxt, value, changeFunc }) {
+function FormTextarea({ label, textareaId, textareaName, placeholderTxt, textareaValue, changeFunc }) {
   return (
     <section>
       <label>{label}</label>
@@ -8,8 +8,9 @@ function FormTextarea({ label, textareaId, textareaName, placeholderTxt, value, 
         id={textareaId}
         name={textareaName}
         placeholder={placeholderTxt}
-        value={value}
+        value={textareaValue}
         onChange={changeFunc}
+        className={!!textareaValue ? 'valid': ''}
       />
     </section>
   )
@@ -20,7 +21,7 @@ FormTextarea.propTypes = {
   textareaId: PropTypes.string,
   textareaName: PropTypes.string.isRequired,
   placeholderTxt: PropTypes.string,
-  value: PropTypes.string.isRequired,
+  textareaValue: PropTypes.string.isRequired,
   changeFunc: PropTypes.func.isRequired
 }
 

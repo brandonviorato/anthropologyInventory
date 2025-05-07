@@ -39,15 +39,15 @@ const PotteryForm = () => {
   })
 
   const handleChange = (e) => {
-    const input = validateInput(e.target.name, e.target.value)
+    const { name, value } = e.target
+    const input = validateInput(name, value)
     setErrors(input)
     if (Object.keys(input).length === 0) {
-      setFormData({ ...formData, [e.target.name]: e.target.value })
+      setFormData({ ...formData, [name]: value })
     }
   }
 
   const handleSelectChange = (selectedOption, name) => {
-    console.log(selectedOption)
     const input = validateInput(name, selectedOption.value)
     setErrors(input)
 
@@ -99,8 +99,11 @@ const PotteryForm = () => {
       <PurchaseInfo
         dateData={formData.dateOfPurchase}
         purchaserData={formData.purchaser}
+        purchaserErrors={errors.purchaser}
         paidData={formData.paidValue}
+        paidErrors={errors.paidValue}
         activeValData={formData.activeValue}
+        activeValErrors={errors.activeValue}
         changeFunction={handleChange}
       />
       <FormFieldset

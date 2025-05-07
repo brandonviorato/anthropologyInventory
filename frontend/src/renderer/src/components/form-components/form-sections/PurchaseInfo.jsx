@@ -4,10 +4,13 @@ import FormInput from '../FormInput'
 
 function PurchaseInfo({
   dateData,
+  dateErrors,
   purchaserData,
   purchaserErrors,
   paidData,
-  currentValData,
+  paidErrors,
+  activeValData,
+  activeValErrors,
   changeFunction
 }) {
   return (
@@ -23,6 +26,8 @@ function PurchaseInfo({
           isRequired={false}
           inputValue={dateData}
           changeFunc={changeFunction}
+          inputClass={dateData === '' ? '' : dateErrors ? 'invalid' : 'valid'}
+          validationErr={dateErrors}
         />,
         <FormInput
           key={'purchaser'}
@@ -33,7 +38,8 @@ function PurchaseInfo({
           isRequired={false}
           inputValue={purchaserData}
           changeFunc={changeFunction}
-          inputClass={!purchaserErrors && purchaserData != '' ? 'valid' : ''}
+          inputClass={purchaserData === '' ? '' : purchaserErrors ? 'invalid' : 'valid'}
+          validationErr={purchaserErrors}
         />,
         <FormInput
           key={'paidValue'}
@@ -44,8 +50,9 @@ function PurchaseInfo({
           isRequired={false}
           value={paidData}
           changeFunc={changeFunction}
-          // hint={"Amount paid for the specimen (exlude '$' symbol)."}
+          inputClass={paidData === 0 ? '' : paidErrors ? 'invalid' : 'valid'}
           hint={"Numeric value only -- exclude '$' symbol."}
+          validationErr={paidErrors}
         />,
         <FormInput
           key={'currentValue'}
@@ -54,10 +61,11 @@ function PurchaseInfo({
           inputName={'activeValue'}
           placeholderTxt={'e.g. 250.00'}
           isRequired={false}
-          value={currentValData}
+          value={activeValData}
           changeFunc={changeFunction}
-          // hint={'Current value of the specimen (exlude \'$\' symbol).'}
+          inputClass={activeValData === 0 ? '' : activeValErrors ? 'invalid' : 'valid'}
           hint={"Numeric value only -- exclude '$' symbol."}
+          validationErr={activeValErrors}
         />
       ]}
     />
@@ -65,11 +73,14 @@ function PurchaseInfo({
 }
 
 PurchaseInfo.propTypes = {
-  dateData: PropTypes.date,
+  dateData: PropTypes.string,
+  dateErrors: PropTypes.any,
   purchaserData: PropTypes.string,
   purchaserErrors: PropTypes.any,
   paidData: PropTypes.number,
-  currentValData: PropTypes.number,
+  paidErrors: PropTypes.any,
+  activeValData: PropTypes.number,
+  activeValErrors: PropTypes.any,
   changeFunction: PropTypes.func
 }
 

@@ -28,7 +28,8 @@ function DiscoveryDetails({
           isRequired={false}
           value={anthropologistData}
           changeFunc={changeFunc}
-          inputClass={!anthropologistErrors && anthropologistData != '' ? 'valid' : ''}
+          inputClass={anthropologistData === '' ? '' : anthropologistErrors ? 'invalid' : 'valid'}
+          validationErr={anthropologistErrors}
         />,
         <FormInput
           key={'regionFound'}
@@ -39,7 +40,8 @@ function DiscoveryDetails({
           isRequired={false}
           value={regionData}
           changeFunc={changeFunc}
-          inputClass={!regionErrors && regionData != '' ? 'valid' : ''}
+          inputClass={regionData === '' ? '' : regionErrors ? 'invalid' : 'valid'}
+          validationErr={regionErrors}
         />,
         <FormSelect
           key={'country found'}
@@ -48,7 +50,7 @@ function DiscoveryDetails({
           selectValue={countryData}
           changeFunc={selectChangeFunc}
           selectOptions={countryOptions}
-          selectStyles={selectStyles}
+          selectStyles={selectStyles(!!countryData)}
         />
       ]}
     />
