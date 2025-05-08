@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'react'
 import { Search } from 'lucide-react'
+import '../styles/searchbar-styles.css'
 
 const SearchBar = () => {
   const [specimens, setSpecimens] = useState(null)
@@ -55,20 +56,18 @@ const SearchBar = () => {
   }
 
   return (
-    <div>
-      <form id="searchbar" onSubmit={(e) => e.preventDefault()}>
-        <div>
+    <>
+      <form id="searchbar-form" onSubmit={(e) => e.preventDefault()}>
+        <div id="searchbar">
           <input
             type="text"
             value={searchTerm}
             onChange={handleInputChange}
             placeholder="Search the inventory..."
           />
-          <div>
-            <button type="submit">
-              <Search size={20} />
-            </button>
-          </div>
+          <button type="submit">
+            <Search size={20} />
+          </button>
         </div>
       </form>
       {searchResults.length > 0 && (
@@ -81,7 +80,7 @@ const SearchBar = () => {
           </ul>
         </div>
       )}
-    </div>
+    </>
   )
 }
 

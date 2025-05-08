@@ -1,0 +1,27 @@
+#searchbar-form {
+    margin: 0;
+    width: 100%;
+    #searchbar {
+      display: flex;
+      width: 100%;
+      input {
+        border-radius: 6px 0 0 6px;
+        border: transparent 1px solid;
+        width: 75%;
+      }
+  
+      input:hover {
+        border: rgb(117, 159, 252) 1px solid;
+      }
+  
+      button {
+        border-radius: 0 6px 6px 0;
+        border: none;
+        background-color: #eeeeee;
+      }
+  
+      button:hover {
+        background-color: #d1d1d1;
+      }
+    }
+}

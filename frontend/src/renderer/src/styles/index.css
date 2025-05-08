@@ -15,7 +15,7 @@ body {
 
 .App {
   display: grid;
-  gap: 80px;
+  gap: 40px;
   font-family: 'Inria Sans', sans-serif;
 
   #navbar {
@@ -84,126 +84,6 @@ body {
   color: rgb(117, 159, 252);
 }
 
-/* Dashboard
-========================================================================== */
-
-#dashboard {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin: auto;
-  padding: 0 20px;
-  max-width: 1200px;
-
-  .collection-financials {
-    grid-row: 1/3;
-    p {
-      font-size: 28px;
-      font-weight: 700;
-
-      small {
-        font-size: 16px;
-        font-weight: 400;
-      }
-    }
-  }
-
-  .total-items {
-    p {
-      text-align: center;
-      font-size: 40px;
-    }
-  }
-
-  .inventory {
-    display: grid;
-
-    #inventory-content {
-      display: grid;
-      row-gap: 10px;
-      justify-content: baseline;
-      height: fit-content;
-    }
-
-    #view-btn,
-    #add-btn {
-      text-decoration: none;
-      text-align: center;
-      border: none;
-      border-radius: 4px;
-      padding: 6px 0;
-      color: white;
-      width: 60%;
-      margin: 0 auto;
-    }
-
-    #view-btn {
-      background-color: rgb(37, 37, 94);
-    }
-
-    #view-btn:hover {
-      background-color: rgb(90, 90, 206);
-    }
-
-    #add-btn {
-      background-color: #1aac83;
-    }
-
-    #add-btn:hover {
-      background-color: #1ecf9d;
-    }
-  }
-
-  .search-inventory {
-  }
-
-  .recently-added {
-    grid-column: 3/4;
-    grid-row: 1/4;
-
-    #recently-added-artifacts {
-      display: grid;
-      row-gap: 16px;
-      margin-top: 30px;
-    }
-  }
-
-  .inventory-breakdown {
-    grid-column: 1/3;
-
-    div {
-      display: inline-flex;
-      min-width: fit-content;
-      width: 100%;
-    }
-
-    #total-artifacts {
-      align-self: center;
-      display: block;
-      text-align: center;
-      p {
-        font-size: 60px;
-        font-weight: 700;
-        margin: 0;
-      }
-      small {
-        font-size: 16px;
-        font-weight: 400;
-      }
-    }
-  }
-}
-
-/* Widget Component
-========================================================================== */
-
-#widget {
-  background-color: rgb(222, 222, 222);
-  border-radius: 12px;
-  padding: 10px 20px;
-  box-shadow: 0px 5px 4px 0px #cccccc;
-}
-
 /* Basic Artifact Card
 ========================================================================== */
 
@@ -216,11 +96,15 @@ body {
 
   div {
     margin-left: 10px;
-    font-size: 14px;
-  }
-
-  p:nth-child(1) {
-    font-weight: bold;
+    align-content: center;
+    p {
+      margin: 6px 0 !important;
+      font-size: 14px !important;
+      font-weight: 100 !important;
+    }
+    p:nth-child(1) {
+      font-weight: bold !important;
+    }
   }
 
   #artifact-img {
@@ -243,31 +127,119 @@ body {
   color: black;
 }
 
-/* Searchbar
+/* Dashboard
 ========================================================================== */
 
-#searchbar {
-  div {
-    display: flex;
-    input {
-      border-radius: 4px 0 0 4px;
-      border: transparent 1px solid;
-      padding: 8px 10px;
-    }
+#dashboard-top {
+  display: flex;
+  column-gap: 10px;
+  justify-content: center;
+  margin: 0 20px 20px 20px;
+}
 
-    input:hover {
-      border: rgb(117, 159, 252) 1px solid;
-    }
+#view-btn,
+#add-btn {
+  text-decoration: none;
+  text-align: center;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 0;
+  color: white;
+  width: 100px;
+  height: fit-content;
+}
 
-    button {
-      border-radius: 0 4px 4px 0;
-      border: none;
-      background-color: #eeeeee;
-    }
+#view-btn {
+  background-color: rgb(37, 37, 94);
+}
 
-    button:hover {
-      background-color: #d1d1d1;
+#view-btn:hover {
+  background-color: rgb(90, 90, 206);
+}
+
+#add-btn {
+  background-color: #1aac83;
+}
+
+#add-btn:hover {
+  background-color: #1ecf9d;
+}
+
+#dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: auto;
+  padding: 0 20px;
+  max-width: 1200px;
+
+  small {
+    color: #4b4b4b;
+  }
+
+  p {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .collection-cost,
+  .collection-value {
+
+
+    .disclaimer {
+      font-style: italic;
     }
+  }
+
+  .collection-value {
+    grid-row: 2/3;
+  }
+
+  .total-artifacts {
+    grid-row: 1/3;
+    p {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 0;
+    }
+  }
+
+  .recently-added {
+    grid-column: 3/4;
+    grid-row: 1/4;
+
+    #recently-added-artifacts {
+      display: grid;
+      row-gap: 16px;
+      margin-top: 30px;
+    }
+  }
+
+  .inventory-breakdown {
+    grid-column: 1/3;
+
+    div {
+      display: inline-flex;
+      min-width: fit-content;
+      width: 100%;
+    }
+  }
+}
+
+/* Widget Component
+========================================================================== */
+
+#widget {
+  background-color: #dedede;
+  border-radius: 12px;
+  padding: 10px 20px;
+  box-shadow: 0px 5px 4px 0px #cccccc;
+
+  h3 {
+    font-weight: 500;
+    margin-bottom: 30px;
+    color: #333;
   }
 }
 

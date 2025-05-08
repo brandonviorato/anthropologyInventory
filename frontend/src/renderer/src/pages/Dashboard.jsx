@@ -33,97 +33,99 @@ const Dashboard = () => {
   }, [])
 
   return (
-    <section id="dashboard">
-      <DashboardWidget
-        identifier={'collection-financials'}
-        title={'Collection Financials'}
-        content={
-          <div>
-            <p>
-              ${totalCost > 0 ? totalCost : '-----'}
+    <>
+      <section id="dashboard-top">
+        <SearchBar />
+        <NavLink id="view-btn" to="/SpecimensExplorer">
+          View
+        </NavLink>
+        <NavLink id="add-btn" to="/AddArtifact">
+          Add
+        </NavLink>
+      </section>
+      <section id="dashboard">
+        <DashboardWidget
+          identifier={'collection-cost'}
+          title={'Collection Cost'}
+          content={
+            <>
+              <p>${totalCost > 0 ? totalCost : '-----'}</p>
+              <small>Amount paid for the collection</small>
+            </>
+          }
+        />
+        <DashboardWidget
+          identifier={'collection-value'}
+          title={'Collection Value'}
+          content={
+            <>
+              <p>${currentVal > 0 ? currentVal : '-----'}</p>
+              <small>Active value of the collection.</small>
               <br />
-              <small>Collection Cost</small>
-            </p>
-            <p>
-              ${currentVal > 0 ? currentVal : '-----'}
-              <br />
-              <small>Collection Value</small>
-            </p>
-          </div>
-        }
-      />
-      <DashboardWidget
-        identifier={'inventory'}
-        title={'Manage Inventory'}
-        content={
-          <div id="inventory-content">
-            <NavLink id="view-btn" to="/SpecimensExplorer">
-              View
-            </NavLink>
-            <NavLink id="add-btn" to="/AddArtifact">
-              Add
-            </NavLink>
-          </div>
-        }
-      />
-      <DashboardWidget
-        identifier={'search-inventory'}
-        title={'Search Inventory'}
-        content={
-          <div>
-            <SearchBar></SearchBar>
-          </div>
-        }
-      />
-      <DashboardWidget
-        identifier={'inventory-breakdown'}
-        title={'Inventory Breakdown'}
-        content={
-          <div>
-            <PieChart
-              colors={cheerfulFiestaPalette}
-              series={[
-                {
-                  data: [
-                    { id: 0, value: totalFossils, label: 'Fossils' },
-                    { id: 1, value: totalPottery, label: 'Pottery' },
-                    { id: 2, value: totalStoneTools, label: 'Stone Tools' },
-                    { id: 3, value: 2, label: 'Weaponry' },
-                    { id: 4, value: 4, label: 'Tools (non-weaponry)' }
-                  ],
-                  cornerRadius: 4,
-                  cx: 100
-                }
-              ]}
-              width={450}
-              height={200}
-            />
-            <div id="total-artifacts">
+              {/* <small className="disclaimer">
+                The total current collection value is based on user-provided estimates and may
+                reflect actual market value. Accuracy depends on the quality and timeliness user
+                user inputs.
+              </small> */}
+            </>
+          }
+        />
+        <DashboardWidget
+          identifier={'total-artifacts'}
+          title={'Total Artifacts'}
+          content={
+            <>
               <p>{totalCount}</p>
               <small>Total Artifacts</small>
-            </div>
-          </div>
-        }
-      />
-
-      <DashboardWidget
-        identifier={'recently-added'}
-        title={'Recent Updates'}
-        content={
-          <div id="recently-added-artifacts">
-            {recentSpecimens?.map((el, idx) => (
-              <DashArtifactCard
-                key={idx}
-                imgSrc={'http://localhost:3001' + el.images[0]}
-                scientificName={el.genus + ' ' + el.species}
-                specimenId={el.specimenId}
-                id={el._id}
+            </>
+          }
+        />
+        <DashboardWidget
+          identifier={'inventory-breakdown'}
+          title={'Inventory Breakdown'}
+          content={
+            <div>
+              <PieChart
+                colors={cheerfulFiestaPalette}
+                series={[
+                  {
+                    data: [
+                      { id: 0, value: totalFossils, label: 'Fossils' },
+                      { id: 1, value: totalPottery, label: 'Pottery' },
+                      { id: 2, value: totalStoneTools, label: 'Stone Tools' },
+                      { id: 3, value: 0, label: 'Weaponry' },
+                      { id: 4, value: 0, label: 'Tools (non-weaponry)' }
+                    ],
+                    cornerRadius: 4,
+                    cx: 100
+                  }
+                ]}
+                width={450}
+                height={200}
               />
-            ))}
-          </div>
-        }
-      />
-    </section>
+            </div>
+          }
+        />
+        <DashboardWidget
+          identifier={'recently-added'}
+          title={'Recent Updates'}
+          content={
+            <div id="recently-added-artifacts">
+              {recentSpecimens?.map((el, idx) => (
+                <DashArtifactCard
+                  key={idx}
+                  imgSrc={'http://localhost:3001' + el.images[0]}
+                  // name={el.genus + ' ' + el.species}
+                  name={el.nickName ? el.nickName : el.genus + ' ' + el.species}
+                  specimenId={el.specimenId}
+                  id={el._id}
+                />
+              ))}
+            </div>
+          }
+        />
+      </section>
+    </>
   )
 }
 
