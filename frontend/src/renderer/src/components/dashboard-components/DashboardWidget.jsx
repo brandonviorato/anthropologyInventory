@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 /**
  * Widget component meant for the dashboard.
  *
@@ -14,6 +16,12 @@ function DashboardWidget({ title, content, identifier }) {
       {content}
     </div>
   )
+}
+
+DashboardWidget.propTypes = {
+  title: PropTypes.string.isRequired,
+  content: PropTypes.any.isRequired,
+  identifier: PropTypes.string
 }
 
 export default DashboardWidget

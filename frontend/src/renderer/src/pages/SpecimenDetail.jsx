@@ -29,6 +29,7 @@ export default function SpecimenDetail() {
 
   useEffect(() => {
     const fetchSpecimen = async () => {
+      console.log(id)
       const data = await fetchSpecimenById(id)
       if (data) {
         setSpecimen(data)

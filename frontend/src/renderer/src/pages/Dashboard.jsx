@@ -116,7 +116,8 @@ const Dashboard = () => {
                 key={idx}
                 imgSrc={'http://localhost:3001' + el.images[0]}
                 scientificName={el.genus + ' ' + el.species}
-                id={el.specimenId}
+                specimenId={el.specimenId}
+                id={el._id}
               />
             ))}
           </div>

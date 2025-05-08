@@ -5,6 +5,7 @@ import { ToastContainer, toast, Bounce } from 'react-toastify'
 
 import { manufacturerOptions, materialOptions, countryOptions } from '../assets/forms/selectOptions'
 import { selectStyles } from '../assets/forms/selectStyles'
+import '../styles/form-styles.css'
 import Select from 'react-select'
 
 const UpdateProduct = () => {

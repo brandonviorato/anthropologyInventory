@@ -1,10 +1,10 @@
 // SpecimenCard is a component that shows in grid view
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const SpecimenCard = ({ specimen, onDelete }) => {
   // Card Menu Btns
-  const [showMenu, setShowMenu] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
 
   // DELETE target card that user clicked the trash button
@@ -55,6 +55,9 @@ const SpecimenCard = ({ specimen, onDelete }) => {
         <p>{specimen.nickName ? specimen.nickName : 'N/A'}</p>
 
         <div className="specimen-card-btns">
+          <Link className="specimen-card-btns-update" to={`/UpdateProduct/${specimen._id}`}>
+            <button>Update</button>
+          </Link>
           <button
             className="specimen-card-btns-delete"
             onClick={handleDelete}
@@ -62,9 +65,6 @@ const SpecimenCard = ({ specimen, onDelete }) => {
           >
             Delete
           </button>
-          <Link className="specimen-card-btns-update" to={`/UpdateProduct/${specimen._id}`}>
-            <button>Update</button>
-          </Link>
         </div>
       </div>
 
@@ -80,6 +80,11 @@ const SpecimenCard = ({ specimen, onDelete }) => {
       </div> */}
     </div>
   )
+}
+
+SpecimenCard.propTypes = {
+  specimen: PropTypes.any,
+  onDelete: PropTypes.func
 }
 
 export default SpecimenCard
