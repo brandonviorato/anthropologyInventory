@@ -105,6 +105,10 @@ body {
     p:nth-child(1) {
       font-weight: bold !important;
     }
+
+    small {
+      font-size: 12px;
+    }
   }
 
   #artifact-img {
@@ -143,10 +147,11 @@ body {
   text-align: center;
   border: none;
   border-radius: 4px;
-  padding: 6px 0;
+  padding: 6px 20px;
   color: white;
-  width: 100px;
-  height: fit-content;
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
 }
 
 #view-btn {
@@ -236,10 +241,34 @@ body {
   padding: 10px 20px;
   box-shadow: 0px 5px 4px 0px #cccccc;
 
-  h3 {
-    font-weight: 500;
-    margin-bottom: 30px;
-    color: #333;
+  .widget-head {
+    display: flex;
+    column-gap: 4px;
+    margin-bottom: 20px;
+
+    h3 {
+      font-weight: 500;
+      color: #333;
+    }
+
+    svg {
+      width: 16px;
+      align-self: center;
+    }
+
+    .tooltip-icon {
+      background-color: transparent;
+      padding-left: 4px;
+      svg {
+        fill: #333;
+      }
+    }
+  
+    .tooltip-icon:hover {
+      svg {
+        fill: #759ffc;
+      }
+    }
   }
 }
 

@@ -1,4 +1,7 @@
 import PropTypes from 'prop-types'
+import { BsInfoCircle } from 'react-icons/bs'
+import Tooltip from '@mui/material/Tooltip'
+import IconButton from '@mui/material/IconButton'
 
 /**
  * Widget component meant for the dashboard.
@@ -9,17 +12,28 @@ import PropTypes from 'prop-types'
  * @param {String} identifier - Class to identify widget.
  * @returns {JSX.Element} The rendered DashboardWidget component.
  */
-function DashboardWidget({ title, content, identifier }) {
+function DashboardWidget({ widgetTitle, hasTooltip, tooltipTxt, content, identifier }) {
   return (
     <div id="widget" className={identifier}>
-      <h3>{title}</h3>
+      <div className="widget-head">
+        <h3>{widgetTitle}</h3>
+        {hasTooltip && (
+          <Tooltip title={tooltipTxt} placement="left-end" arrow>
+            <IconButton className="tooltip-icon">
+              <BsInfoCircle />
+            </IconButton>
+          </Tooltip>
+        )}
+      </div>
       {content}
     </div>
   )
 }
 
 DashboardWidget.propTypes = {
-  title: PropTypes.string.isRequired,
+  widgetTitle: PropTypes.string.isRequired,
+  hasTooltip: PropTypes.bool,
+  tooltipTxt: PropTypes.string,
   content: PropTypes.any.isRequired,
   identifier: PropTypes.string
 }

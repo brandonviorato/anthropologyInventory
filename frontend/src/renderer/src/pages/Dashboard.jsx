@@ -2,6 +2,7 @@ import DashArtifactCard from '../components/dashboard-components/DashArtifactCar
 import DashboardWidget from '../components/dashboard-components/DashboardWidget'
 import { PieChart } from '@mui/x-charts/PieChart'
 import { cheerfulFiestaPalette } from '@mui/x-charts'
+import { BsPlusCircle, BsEye } from 'react-icons/bs'
 import SearchBar from '../components/SearchBar'
 import { useEffect, useState } from 'react'
 import {
@@ -37,16 +38,22 @@ const Dashboard = () => {
       <section id="dashboard-top">
         <SearchBar />
         <NavLink id="view-btn" to="/SpecimensExplorer">
-          View
+          <BsEye />
+          View collection
         </NavLink>
         <NavLink id="add-btn" to="/AddArtifact">
+          <BsPlusCircle />
           Add
         </NavLink>
       </section>
       <section id="dashboard">
         <DashboardWidget
           identifier={'collection-cost'}
-          title={'Collection Cost'}
+          hasTooltip={true}
+          tooltipTxt={
+            'Collection cost is based on user-provided estimates. Accuracy depends on the quality and timeliness user user inputs.'
+          }
+          widgetTitle={'Collection Cost'}
           content={
             <>
               <p>${totalCost > 0 ? totalCost : '-----'}</p>
@@ -56,23 +63,21 @@ const Dashboard = () => {
         />
         <DashboardWidget
           identifier={'collection-value'}
-          title={'Collection Value'}
+          hasTooltip={true}
+          tooltipTxt={
+            'Collection value is based on user-provided estimates. Accuracy depends on the quality and timeliness user user inputs.'
+          }
+          widgetTitle={'Collection Value'}
           content={
             <>
               <p>${currentVal > 0 ? currentVal : '-----'}</p>
               <small>Active value of the collection.</small>
-              <br />
-              {/* <small className="disclaimer">
-                The total current collection value is based on user-provided estimates and may
-                reflect actual market value. Accuracy depends on the quality and timeliness user
-                user inputs.
-              </small> */}
             </>
           }
         />
         <DashboardWidget
           identifier={'total-artifacts'}
-          title={'Total Artifacts'}
+          widgetTitle={'Total Artifacts'}
           content={
             <>
               <p>{totalCount}</p>
@@ -82,7 +87,7 @@ const Dashboard = () => {
         />
         <DashboardWidget
           identifier={'inventory-breakdown'}
-          title={'Inventory Breakdown'}
+          widgetTitle={'Inventory Breakdown'}
           content={
             <div>
               <PieChart
@@ -108,7 +113,7 @@ const Dashboard = () => {
         />
         <DashboardWidget
           identifier={'recently-added'}
-          title={'Recent Updates'}
+          widgetTitle={'Recent Updates'}
           content={
             <div id="recently-added-artifacts">
               {recentSpecimens?.map((el, idx) => (
@@ -118,6 +123,7 @@ const Dashboard = () => {
                   // name={el.genus + ' ' + el.species}
                   name={el.nickName ? el.nickName : el.genus + ' ' + el.species}
                   specimenId={el.specimenId}
+                  dateUpdated={el.updatedAt}
                   id={el._id}
                 />
               ))}
