@@ -20,7 +20,7 @@ function App() {
             <Route path="/SpecimensExplorer" element={<SpecimensExplorer />} />
             <Route path="/specimen/:id" element={<SpecimenDetail />} />
             <Route path="/AddArtifact" element={<AddArtifact />} />
-            <Route path="/UpdateProduct/:id" element={<UpdateProduct />} />
+            <Route path="/UpdateProduct/:id" element={<AddArtifact />} />
           </Routes>
         </div>
       </Router>
