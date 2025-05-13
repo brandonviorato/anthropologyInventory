@@ -1,7 +1,8 @@
-import { useState } from 'react'
-import { addArtifact } from '../../utils/api'
+import { useState, useEffect } from 'react'
+import { addArtifact, getArtifactById, updateArtifact } from '../../utils/api'
 import { validateInput } from '../../utils/add_artifact_validation'
 import { ToastContainer, toast, Bounce } from 'react-toastify'
+import { useParams } from 'react-router-dom'
 
 import {
   manufacturerOptions,
@@ -19,7 +20,12 @@ import DiscoveryDetails from '../../components/form-components/form-sections/Dis
 import DescriptionNotes from '../../components/form-components/form-sections/DescriptionNotes'
 import PhotoUpload from '../../components/form-components/PhotoUpload'
 
-const FossilForm = () => {
+const FossilForm = ({ mode = 'add', artifactId }) => {
+  // Gets the id from the params or the artifact id, a double check for getting the correct ID if there
+  const { id: paramId } = useParams()
+  const id = artifactId || paramId
+  const [preview, setPreview] = useState(null) // For previewing the image
+
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
   const [formData, setFormData] = useState({
@@ -44,6 +50,52 @@ const FossilForm = () => {
     notes: '',
     image: null
   })
+
+  useEffect(() => {
+    if (mode === 'update' && id) {
+      const fetchArtifact = async () => {
+        try {
+          const artifact = await getArtifactById(id)
+
+          if (!artifact) {
+            toast.error('Artifact not found.', {
+              position: 'top-right',
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'colored',
+              transition: Bounce
+            })
+          }
+
+          setFormData(artifact)
+
+          // If there is an artifact image, we'll show the preview
+          if (artifact.image) {
+            setPreview(artifact.image)
+          }
+        } catch (err) {
+          toast.error('Artifact not found.', {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored',
+            transition: Bounce
+          })
+        } finally {
+          setLoading(false)
+        }
+      }
+      fetchArtifact()
+    }
+  }, [id, mode])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -71,15 +123,30 @@ const FossilForm = () => {
       console.log(errors)
       return // prevent form submission if errors exist
     }
-    const result = await addArtifact(formData)
+
+    // add or update artifact depending on mode
+    const result = mode === 'add' ? await addArtifact(formData) : await updateArtifact(id, formData)
+
     if (result) {
       console.log('Submitted Data:', formData)
-      toast.success('Artifact Added 😄', {
+      toast.success(`Artifact ${mode === 'add' ? 'Added' : 'Updated'} 😄`, {
         position: 'top-right',
         autoClose: 4000,
         hideProgressBar: false,
         closeOnClick: false,
         pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+        transition: Bounce
+      })
+    } else {
+      toast.error(`Failed to ${mode === 'add' ? 'add' : 'update'} artifact.`, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
         draggable: true,
         progress: undefined,
         theme: 'colored',
@@ -91,7 +158,7 @@ const FossilForm = () => {
   return (
     <form onSubmit={handleSubmit} id="fossil-form" autoComplete="on">
       <ToastContainer />
-      <h2 className="form-title">Add Fossil</h2>
+      <h2 className="form-title">{mode === 'add' ? 'Add Fossil' : 'Update Artifact'}</h2>
       <FormFieldset
         fieldsetID={'specimen-info'}
         title={'Specimen Information'}
@@ -221,10 +288,18 @@ const FossilForm = () => {
       <FormFieldset
         fieldsetID={'file-upload'}
         title={'Photo Upload'}
-        fields={[<PhotoUpload key={'photoupload'} formData={formData} setFormData={setFormData} />]}
+        fields={[
+          <PhotoUpload
+            key={'photoupload'}
+            formData={formData}
+            setFormData={setFormData}
+            preview={preview}
+            setPreview={setPreview}
+          />
+        ]}
       />
       <button type="submit" id="submit-btn">
-        Add to collection
+        {mode === 'add' ? 'Add to collection' : 'Update to collection'}
       </button>
     </form>
   )
