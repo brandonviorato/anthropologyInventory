@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { BsHouse, BsClipboardData, BsClipboardPlus } from 'react-icons/bs'
+import { BsHouse, BsClipboardData, BsClipboardPlus, BsPersonLock } from 'react-icons/bs'
 
 const NavBar = () => {
   return (
@@ -19,6 +19,10 @@ const NavBar = () => {
         <NavLink to="/AddArtifact" className="nav-link">
           <BsClipboardPlus />
           Manage Inventory
+        </NavLink>
+        <NavLink to="/LoginForm" className="nav-link">
+          <BsPersonLock />
+          Sign In
         </NavLink>
       </div>
     </header>

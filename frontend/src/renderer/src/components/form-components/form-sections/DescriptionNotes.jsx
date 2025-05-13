@@ -19,8 +19,9 @@ function DescriptionNotes({ locationData, descriptionData, notesData, changeFunc
           inputValue={locationData.value}
           changeFunc={changeFunc}
           inputClass={locationData.value === '' ? '' : locationData.errors ? 'invalid' : 'valid'}
-          hint="Physical location artifact is stored."
           validationErr={locationData.errors}
+          hasTooltip={true}
+          tooltipTxt={'Physical location artifact is stored.'}
         />,
         <FormTextarea
           key="description"

@@ -7,6 +7,7 @@ import SpecimensExplorer from './pages/SpecimensExplorer.jsx'
 import AddArtifact from './pages/AddArtifact.jsx'
 import SpecimenDetail from './pages/SpecimenDetail.jsx'
 import UpdateProduct from './pages/UpdateProduct.jsx'
+import LoginForm from './pages/forms/LoginForm.jsx'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/specimen/:id" element={<SpecimenDetail />} />
             <Route path="/AddArtifact" element={<AddArtifact />} />
             <Route path="/UpdateProduct/:id" element={<UpdateProduct />} />
+            <Route path="/LoginForm" element={<LoginForm />} />
           </Routes>
         </div>
       </Router>

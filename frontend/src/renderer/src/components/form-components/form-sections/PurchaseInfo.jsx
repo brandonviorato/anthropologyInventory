@@ -43,6 +43,8 @@ function PurchaseInfo({ dateData, purchaserData, paidData, activeValData, change
           inputClass={paidData.value === 0 ? '' : paidData.errors ? 'invalid' : 'valid'}
           hint={"Numeric value only -- exclude '$' symbol."}
           validationErr={paidData.errors}
+          hasTooltip={true}
+          tooltipTxt={'Amount paid for artifact.'}
         />,
         <FormInput
           key={'currentValue'}
@@ -56,6 +58,8 @@ function PurchaseInfo({ dateData, purchaserData, paidData, activeValData, change
           inputClass={activeValData.value === 0 ? '' : activeValData.errors ? 'invalid' : 'valid'}
           hint={"Numeric value only -- exclude '$' symbol."}
           validationErr={activeValData.errors}
+          hasTooltip={true}
+          tooltipTxt={'Current value of the artifact.'}
         />
       ]}
     />
