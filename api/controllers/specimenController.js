@@ -158,7 +158,7 @@ const getAllSpecimensByCategory = async (req, res) => {
 
 // Get the most recently added artifacts
 const getRecentSpecimens = async (req, res) => {
-    const NUMBER_OF_SPECIMENS = 3;
+    const NUMBER_OF_SPECIMENS = 6;
 
     try {
         const recentSpecimens = await Specimen.find({}).sort({ createdAt: -1 }).limit(NUMBER_OF_SPECIMENS);

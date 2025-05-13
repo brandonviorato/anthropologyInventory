@@ -39,7 +39,7 @@ DashArtifactCard.propTypes = {
 
 function formatDate(date) {
   const [year, month, day] = date.split('-').map((num) => parseInt(num, 10))
-  const d = new Date(year, month - 1, day)
+  const d = new Date(year, month - 1, day - 1)
   const formatted = d.toLocaleString('en-US', {
     timeZone: 'UTC', // forces display in UTC
     year: 'numeric',

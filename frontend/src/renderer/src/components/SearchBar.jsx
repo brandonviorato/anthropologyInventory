@@ -63,7 +63,7 @@ const SearchBar = () => {
             type="text"
             value={searchTerm}
             onChange={handleInputChange}
-            placeholder="Search the inventory..."
+            placeholder="Search by nickname, genus, species..."
           />
           <button type="submit">
             <Search size={20} />

@@ -18,7 +18,7 @@ function DashboardWidget({ widgetTitle, hasTooltip, tooltipTxt, content, identif
       <div className="widget-head">
         <h3>{widgetTitle}</h3>
         {hasTooltip && (
-          <Tooltip title={tooltipTxt} placement="left-end" arrow>
+          <Tooltip title={tooltipTxt} placement="right-end" arrow>
             <IconButton className="tooltip-icon">
               <BsInfoCircle />
             </IconButton>
