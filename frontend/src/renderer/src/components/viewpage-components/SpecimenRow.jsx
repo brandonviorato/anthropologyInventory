@@ -3,14 +3,14 @@ const SpecimenRow = ({ specimen, tableColumns }) => {
   return (
     <tr
       className="specimen-link"
-      onClick={() => (window.location.href = `/specimen/${specimen._id}`)}
+      onClick={() => (window.location.href = `/#/specimen/${specimen._id}`)}
     >
       <td className="specimen-image">
         <img
           src={
             specimen.images?.[0]
               ? `http://localhost:3001${specimen.images[0]}`
-              : 'src/images/image-not-found.jpg'
+              : 'http://localhost:3001/uploads/image-not-found.jpg'
           }
           alt="Specimen"
           className="table-img"
