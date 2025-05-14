@@ -298,6 +298,9 @@ body {
 .sd-back-btn {
   background-color: rgb(10, 10, 21) !important;
 }
+.sd-edit-btn {
+  background-color: rgb(10, 10, 21) !important;
+}
 .sd-table-container .sd-table-bold {
   font-weight: bold;
 }
@@ -308,15 +311,20 @@ body {
 }
 
 .sd-card {
-  max-width: 400px;
+  /* max-width: 400px; */
   padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+.sd-img-card {
+  height: 446px;
+}
+
 .sd-img {
-  max-width: 50%;
+  max-width: 80%;
+  max-height: 300px;
   height: auto;
 }
 
