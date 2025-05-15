@@ -5,7 +5,6 @@ const VALIDATORS = {
   specimenId: validateSpecimenId,
   anthropologist: validateAnthropologist,
   regionFound: validateRegion,
-  location: validateLocation,
   manufacturerId: validateManufacturerId,
   dateOfPurchase: validateDateOfPurchase,
   purchaser: validatePurchaser,
@@ -162,22 +161,6 @@ function validateRegion(errors, input) {
   }
 
   errors.regionFound = isAlphabetic(input) ? false : createErrorMsg('Region Found', 'alphabetic')
-}
-
-/**
- * Validates the location input to ensure it contains only alphanumeric characters, spaces, and dashes.
- * If the input is invalid, sets the `errors.location` property to a formatted error message.
- *
- * @param {Object} errors - An object to record validation errors.
- * @param {string} input - The location input string to validate.
- * @returns {void}
- *
- * @example
- * validateLocation("Location", errors, "Site-42A") // errors.location remains false
- * validateLocation("Location", errors, "Site@42A") // errors.location set to "Location must contain only letters (A-Z), numbers (0-9), spaces and dashes."
- */
-function validateLocation(errors, input) {
-  errors.location = isAlphanumeric(input) ? false : createErrorMsg('Location', 'alphanumeric')
 }
 
 function validateManufacturerId(errors, input) {

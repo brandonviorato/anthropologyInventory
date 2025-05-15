@@ -6,6 +6,56 @@ export const categoryOptions = [
   { value: 'Stone Tool', label: 'Stone Tool', isDisabled: true }
 ]
 
+export const locationOptions = [
+  { value: 'cabinet-row', label: 'Cabinet & Row' },
+  { value: 'drawer', label: 'Drawer' },
+  { value: 'shelf', label: 'Shelf' }
+]
+
+export const cabinetAndRowOptions = [
+  {
+    label: 'Cabinets',
+    options: [
+      { value: 'Cabinet 1', label: 'Cabinet 1' },
+      { value: 'Cabinet 2', label: 'Cabinet 2' },
+      { value: 'Cabinet 3', label: 'Cabinet 3' },
+      { value: 'Cabinet 4', label: 'Cabinet 4' },
+      { value: 'Cabinet 5', label: 'Cabinet 5' },
+      { value: 'Cabinet 6', label: 'Cabinet 6' },
+      { value: 'Cabinet 7', label: 'Cabinet 7' },
+      { value: 'Cabinet 8', label: 'Cabinet 8' },
+      { value: 'Cabinet 9', label: 'Cabinet 9' },
+      { value: 'Cabinet 10', label: 'Cabinet 10' }
+    ]
+  },
+  {
+    label: 'Row',
+    options: [
+      { value: 'Row 1', label: 'Row 1' },
+      { value: 'Row 2', label: 'Row 2' },
+      { value: 'Row 3', label: 'Row 3' },
+      { value: 'Row 4', label: 'Row 4' },
+      { value: 'Row 5', label: 'Row 5' },
+      { value: 'Row 6', label: 'Row 6' }
+    ]
+  }
+]
+
+export const drawerOptions = [
+  { value: 'Drawer 1', label: 'Drawer 1' },
+  { value: 'Drawer 2', label: 'Drawer 2' },
+  { value: 'Drawer 3', label: 'Drawer 3' },
+  { value: 'Drawer 4', label: 'Drawer 4' },
+  { value: 'Drawer 5', label: 'Drawer 5' },
+  { value: 'Drawer 6', label: 'Drawer 6' },
+  { value: 'Drawer 7', label: 'Drawer 7' },
+  { value: 'Drawer 8', label: 'Drawer 8' },
+  { value: 'Drawer 9', label: 'Drawer 9' },
+  { value: 'Drawer 10', label: 'Drawer 10' },
+  { value: 'Drawer 11', label: 'Drawer 11' },
+  { value: 'Drawer 12', label: 'Drawer 12' }
+]
+
 export const manufacturerOptions = [
   { value: 'Bones Clones', label: 'Bones Clones' },
   { value: 'Skulls Unlimited', label: 'Skulls Unlimited' },

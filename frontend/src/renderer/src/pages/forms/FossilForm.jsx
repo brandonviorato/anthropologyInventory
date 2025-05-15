@@ -107,12 +107,28 @@ const FossilForm = ({ mode = 'add', artifactId }) => {
   }
 
   const handleSelectChange = (selectedOption, name) => {
-    const input = validateInput(name, selectedOption.value)
-    setErrors(input)
+    // const input = validateInput(name, selectedOption.value)
+    // setErrors(input)
+    if (Array.isArray(selectedOption)) {
+      const cabinet = selectedOption.find((opt) => opt.value.startsWith('Cabinet'))
+      const row = selectedOption.find((opt) => opt.value.startsWith('Row'))
 
-    if (Object.keys(input).length === 0) {
+      const filteredSelection = []
+      if (cabinet) filteredSelection.push(cabinet)
+      if (row) filteredSelection.push(row)
+
+      const combinedLocation = [cabinet?.value, row?.value].filter(Boolean).join(', ')
+
+      setFormData((prev) => ({ ...prev, [name]: combinedLocation }))
+      console.log(formData.location)
+    } else {
       setFormData((prev) => ({ ...prev, [name]: selectedOption.value }))
+      console.log(formData.location)
     }
+
+    // if (Object.keys(input).length === 0) {
+    //   setFormData((prev) => ({ ...prev, [name]: selectedOption.value }))
+    // }
   }
 
   const handleSubmit = async (e) => {
@@ -225,6 +241,7 @@ const FossilForm = ({ mode = 'add', artifactId }) => {
         descriptionData={formData.description}
         notesData={formData.notes}
         changeFunc={handleChange}
+        selectChangeFunc={handleSelectChange}
       />
       <FormFieldset
         fieldsetID="manufacturing-details"
@@ -232,8 +249,9 @@ const FossilForm = ({ mode = 'add', artifactId }) => {
         fields={[
           <FormSelect
             key="manufacturer"
-            label="Manufacturer"
+            label="Manufacturer (optional)"
             selectName="manufacturer"
+            isRequired={false}
             selectValue={formData.manufacturer}
             changeFunc={handleSelectChange}
             selectOptions={manufacturerOptions}
@@ -242,7 +260,7 @@ const FossilForm = ({ mode = 'add', artifactId }) => {
           />,
           <FormInput
             key="manufacturerId"
-            label="Manufacturer ID"
+            label="Manufacturer ID (optional)"
             inputType="text"
             inputName="manufacturerId"
             placeholderTxt="e.g. BC-001"
@@ -256,8 +274,9 @@ const FossilForm = ({ mode = 'add', artifactId }) => {
           />,
           <FormSelect
             key="material"
-            label="Material"
+            label="Material (optional)"
             selectName="material"
+            isRequired={false}
             selectValue={formData.material}
             changeFunc={handleSelectChange}
             selectOptions={materialOptions}
@@ -266,8 +285,9 @@ const FossilForm = ({ mode = 'add', artifactId }) => {
           />,
           <FormSelect
             key="countryManufactured"
-            label="Country Manufactured"
+            label="Country Manufactured (optional)"
             selectName="countryManufactured"
+            isRequired={false}
             selectValue={formData.countryManufactured}
             changeFunc={handleSelectChange}
             selectOptions={countryOptions}

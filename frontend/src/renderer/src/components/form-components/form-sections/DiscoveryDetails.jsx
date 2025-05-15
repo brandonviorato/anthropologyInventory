@@ -19,12 +19,12 @@ function DiscoveryDetails({
       fields={[
         <FormInput
           key={'anthropologist'}
-          label={'Lead Anthropologist'}
+          label={'Lead Anthropologist (optional)'}
           inputType={'text'}
           inputName={'anthropologist'}
           placeholderTxt={'e.g. Donald Johanson'}
           isRequired={false}
-          value={anthropologistData.value}
+          inputValue={anthropologistData.value}
           changeFunc={changeFunc}
           inputClass={
             anthropologistData.value === '' ? '' : anthropologistData.errors ? 'invalid' : 'valid'
@@ -33,7 +33,7 @@ function DiscoveryDetails({
         />,
         <FormInput
           key={'regionFound'}
-          label={'Region Found'}
+          label={'Site/Region Found'}
           inputType={'text'}
           inputName={'regionFound'}
           placeholderTxt={'e.g. Afar Triangle'}

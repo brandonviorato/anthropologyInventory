@@ -164,3 +164,41 @@ textarea {
     border-color: green !important;
     background-color: #00800013 !important;
 }
+
+#locations {
+    width: 75%;
+    margin: 0 auto;
+
+    #location-label {
+        margin-right: 4px;
+    }
+}
+
+#location-radio-btns {
+    background-color: white;
+    border: solid 1px transparent; 
+    font-size: 14px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    .radio-btn {
+        display: flex;
+        align-content: center;
+        column-gap: 6px;
+
+        input {
+            margin: 0;
+            width: 16px;
+        }
+
+        input:hover {
+            cursor: pointer;
+            box-shadow: none;
+        }
+
+        label {
+            align-self: center;
+            margin: 0;
+        }
+    }
+}
+

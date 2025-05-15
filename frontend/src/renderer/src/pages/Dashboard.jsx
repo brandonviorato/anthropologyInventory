@@ -16,8 +16,8 @@ import { NavLink } from 'react-router-dom'
 
 const Dashboard = () => {
   const [totalCount, setTotalCount] = useState(0)
-  const [currentVal, setCurrentVal] = useState(0)
-  const [totalCost, setTotalCost] = useState(0)
+  const [currentVal, setCurrentVal] = useState('')
+  const [totalCost, setTotalCost] = useState('')
   const [totalFossils, setTotalFossils] = useState(0)
   const [totalStoneTools, setTotalStoneTools] = useState(0)
   const [totalPottery, setTotalPottery] = useState(0)
@@ -56,7 +56,7 @@ const Dashboard = () => {
           widgetTitle={'Collection Cost'}
           content={
             <>
-              <p>${totalCost > 0 ? totalCost : '-----'}</p>
+              <p>${totalCost ? totalCost : '-----'}</p>
               <small>Amount paid for the collection</small>
             </>
           }
@@ -70,7 +70,7 @@ const Dashboard = () => {
           widgetTitle={'Collection Value'}
           content={
             <>
-              <p>${currentVal > 0 ? currentVal : '-----'}</p>
+              <p>${currentVal ? currentVal : '-----'}</p>
               <small>Active value of the collection.</small>
             </>
           }

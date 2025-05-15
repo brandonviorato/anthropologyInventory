@@ -86,6 +86,7 @@ export default function AddArtifact() {
           <Select
             id="category"
             name="category"
+            placeholder="Select a category..."
             required
             onChange={handleChange}
             value={categoryOptions.find((option) => option.value === selectedCategory)}
