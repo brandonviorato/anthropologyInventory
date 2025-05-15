@@ -45,7 +45,7 @@ export const fetchTotalCost = async () => {
       console.log('Error fetching total cost')
     }
     const data = await response.json()
-    return data.totalCost
+    return Number(data.totalCost).toLocaleString()
   } catch (error) {
     console.log('Error fetching total cost')
     return 0
@@ -62,7 +62,7 @@ export const fetchCurrentValue = async () => {
       console.log('Error fetching collection value')
     }
     const data = await response.json()
-    return data.currentVal
+    return Number(data.currentVal).toLocaleString()
   } catch (error) {
     console.error('Error fetching collection value', error)
     return 0
