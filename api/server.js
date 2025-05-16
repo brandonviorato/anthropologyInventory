@@ -1,6 +1,7 @@
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const specimensRouter = require('./routes/specimens.js');
+const authRouter = require("./routes/auth.js");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
@@ -35,6 +36,7 @@ app.use("/svg", express.static("../svg")); // path needs to be hardcoded for dep
 
 // routes
 app.use('/api/specimens', specimensRouter);
+app.use('/api', authRouter);
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI)
