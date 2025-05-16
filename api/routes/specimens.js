@@ -1,7 +1,7 @@
-const express = require("express");
+const { Router } = require("express");
 const { getAllSpecimens, createSpecimen, getSingleSpecimenById, updateSpecimen, getRecordCount, getTotalCost, deleteSpecimen, getRecentSpecimens, getAllSpecimensByCategory, getCurrentValue, } = require('../controllers/specimenController');
 
-const specimensRouter = express.Router();
+const specimensRouter = Router();
 
 // GET all specimens
 specimensRouter.get('/', getAllSpecimens);
