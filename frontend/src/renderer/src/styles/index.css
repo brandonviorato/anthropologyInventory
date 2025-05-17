@@ -174,7 +174,7 @@ body {
 
 #view-btn:hover,
 #add-btn:hover {
-  filter:brightness(1.2)
+  filter: brightness(1.2);
 }
 
 #dashboard {
@@ -198,8 +198,6 @@ body {
 
   .collection-cost,
   .collection-value {
-
-
     .disclaimer {
       font-style: italic;
     }
@@ -271,7 +269,7 @@ body {
         fill: #333;
       }
     }
-  
+
     .tooltip-icon:hover {
       svg {
         fill: #759ffc;
