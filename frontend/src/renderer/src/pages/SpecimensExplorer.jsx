@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 // Components
 import Sidebar from '../components/viewpage-components/Sidebar'
@@ -14,6 +15,15 @@ export default function View() {
   const [viewType, setViewType] = useState('grid') // Grid or list
   const [specimens, setSpecimens] = useState([]) // specimens which we will fetch from the database
   const [fetchError, setFetchError] = useState(null)
+
+  const location = useLocation()
+  useEffect(() => {
+    const params = new URLSearchParams(location.search)
+    const query = params.get('search')
+    if (query) {
+      setSearchTerm(query)
+    }
+  }, [location.search])
 
   // Load up will fetches for the specimens which should return a json for us to use and show to the view page
   useEffect(() => {
