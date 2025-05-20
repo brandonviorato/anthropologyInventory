@@ -14,10 +14,15 @@ const SpecimenCard = ({ specimen, onDelete }) => {
 
     setIsDeleting(true) // Extra protection for the delete btn
 
+    const token = localStorage.getItem('token')
+
     try {
       const response = await fetch(`http://localhost:3001/api/specimens/${specimen._id}`, {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' }
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
       })
 
       const data = await response.json()

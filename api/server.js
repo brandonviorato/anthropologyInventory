@@ -25,7 +25,6 @@ app.use((req, res, next) => {
     next();
 });
 
-// middleware to parse JSON request bodies
 app.use(express.json());
 
 // serve the uploads folder statically at /uploads
