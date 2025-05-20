@@ -246,6 +246,7 @@ const FossilForm = ({ mode = 'add', artifactId }) => {
       <FormFieldset
         fieldsetID="manufacturing-details"
         title="Manufacturing Details"
+        isOptional={true}
         fields={[
           <FormSelect
             key="manufacturer"

@@ -7,6 +7,7 @@ function PurchaseInfo({ dateData, purchaserData, paidData, activeValData, change
     <FormFieldset
       fieldsetID={'purchase-info'}
       title={'Acquisition Information'}
+      isOptional={true}
       fields={[
         <FormInput
           key={'dateOfPurchase'}

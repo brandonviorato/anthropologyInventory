@@ -42,6 +42,7 @@ function FormSelect({
         options={selectOptions}
         styles={selectStyles}
         className={selectClass}
+        isDisabled={disable}
       />
       {hint && <small className="hint">{hint}</small>}
     </section>
@@ -62,6 +63,7 @@ FormSelect.propTypes = {
   hasTooltip: PropTypes.bool,
   tooltipTxt: PropTypes.string,
   hint: PropTypes.string,
+  disable: PropTypes.bool
 }
 
 export default FormSelect

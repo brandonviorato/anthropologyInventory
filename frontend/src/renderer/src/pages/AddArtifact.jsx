@@ -91,7 +91,7 @@ export default function AddArtifact() {
             onChange={handleChange}
             value={categoryOptions.find((option) => option.value === selectedCategory)}
             options={categoryOptions}
-            styles={selectStyles}
+            styles={selectStyles(!!selectedCategory)}
           />
           <small className="hint">Category of artifact being added.</small>
         </section>

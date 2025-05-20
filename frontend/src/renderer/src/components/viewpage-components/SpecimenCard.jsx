@@ -2,6 +2,9 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { BsPencilSquare, BsTrash3Fill } from 'react-icons/bs'
+import Tooltip from '@mui/material/Tooltip'
+import IconButton from '@mui/material/IconButton'
 
 const SpecimenCard = ({ specimen, onDelete }) => {
   // Card Menu Btns
@@ -52,32 +55,25 @@ const SpecimenCard = ({ specimen, onDelete }) => {
         </div>
       </Link>
       <div className="specimen-info">
-        <p>{specimen.nickName ? specimen.nickName : 'N/A'}</p>
-
+        <h3>{specimen.nickName ? specimen.nickName : specimen.genus + ' ' + specimen.species}</h3>
+        <p>{specimen.specimenId}</p>
         <div className="specimen-card-btns">
-          <Link className="specimen-card-btns-update" to={`/UpdateProduct/${specimen._id}`}>
-            <button>Update</button>
-          </Link>
-          <button
-            className="specimen-card-btns-delete"
-            onClick={handleDelete}
-            disabled={isDeleting}
-          >
-            Delete
-          </button>
+          <Tooltip title="Edit artifact" placement="top" arrow>
+            <IconButton id="edit-btn">
+              <BsPencilSquare />
+              <Link className="specimen-card-btns-update" to={`/UpdateProduct/${specimen._id}`}>
+                Update
+              </Link>
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Delete artifact" placement="top" arrow>
+            <IconButton id="delete-btn" onClick={handleDelete} disabled={isDeleting}>
+              <BsTrash3Fill />
+              Delete
+            </IconButton>
+          </Tooltip>
         </div>
       </div>
-
-      {/* <div className="specimen-card-menu">
-        <button onClick={handleDelete} disabled={isDeleting}>
-          <img src="http://localhost:3001/svg/trash.svg" alt="" />
-        </button>
-        <Link to={`/UpdateProduct/${specimen._id}`}>
-          <button>
-            <img src="http://localhost:3001/svg/edit.svg" alt="" />
-          </button>
-        </Link>
-      </div> */}
     </div>
   )
 }

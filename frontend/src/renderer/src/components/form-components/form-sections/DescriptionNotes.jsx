@@ -129,6 +129,7 @@ function locationDropdown(selection, locationData, selectChangeFunc) {
         selectStyles={selectStyles(true)}
         hasTooltip={true}
         tooltipTxt="Shelf the artifact is stored."
+        disable={true}
       />
     )
   }
