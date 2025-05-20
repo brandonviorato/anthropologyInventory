@@ -16,7 +16,7 @@ function validateEmail(errors, input) {
 }
 
 function validatePassword(errors, input) {
-  errors.password = isAlphanumeric(input) ? false : 'Password is incorrect.'
+  errors.password = isValidPassword(input) ? false : 'Password is invalid.'
 }
 
 /**
@@ -37,22 +37,19 @@ function cleanInput(input) {
 }
 
 /**
- * Checks if a given string contains only alphanumeric characters, spaces, dashes, or quotes.
+ * Validates whether a password is strong enough.
+ * Allows letters, numbers, and most common special characters.
  *
- * @param {string} input - The string to be checked.
- * @returns {boolean} - Returns `true` if the input is alphanumeric (with allowed characters), `false` otherwise.
+ * @param {string} input - The password string to be checked.
+ * @returns {boolean} - Returns `true` if the password is valid, `false` otherwise.
  *
  * @example
- * isAlphanumeric("Hello World") // true
- * isAlphanumeric("Hello-World") // true
- * isAlphanumeric("12345") // true
- * isAlphanumeric("Hello@World") // false
+ * isValidPassword("P@ssw0rd!") // true
+ * isValidPassword("abc123")    // false (too short or too weak)
  */
-function isAlphanumeric(input) {
-  if (input.length == 0) {
-    return true
-  }
-  return /^[a-zA-Z0-9\s-]+$/.test(input)
+function isValidPassword(input) {
+  if (input.length < 8) return false; // Enforce minimum length
+  return /^[\w!@#$%^&*()\-_=+[\]{};:'",.<>/?\\|`~]+$/.test(input);
 }
 
 function isValidEmail(input) {

@@ -8,7 +8,8 @@ import AddArtifact from './pages/AddArtifact.jsx'
 import SpecimenDetail from './pages/SpecimenDetail.jsx'
 import UpdateProduct from './pages/UpdateProduct.jsx'
 import LoginForm from './pages/forms/LoginForm.jsx'
-import ProtectedRoutes from './utils/protectedRoutes.jsx'
+import Logout from './pages/logout.jsx'
+// import ProtectedRoutes from './utils/protectedRoutes.jsx'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/AddArtifact" element={<AddArtifact />} />
             <Route path="/UpdateProduct/:id" element={<UpdateProduct />} />
             <Route path="/LoginForm" element={<LoginForm />} />
+            <Route path="/Logout" element={<Logout />} />
           </Routes>
         </div>
       </Router>

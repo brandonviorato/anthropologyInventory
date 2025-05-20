@@ -28,9 +28,17 @@ export default function View() {
   // Load up will fetches for the specimens which should return a json for us to use and show to the view page
   useEffect(() => {
     const fetchSpecimens = async () => {
+      const token = localStorage.getItem('token')
+
       // try to get a response from the api
       try {
-        const response = await fetch('http://localhost:3001/api/specimens')
+        const response = await fetch('http://localhost:3001/api/specimens', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        })
         if (!response.ok) {
           throw new Error('Failed to fetch specimens')
         }

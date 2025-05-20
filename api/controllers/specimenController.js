@@ -3,10 +3,14 @@ const path = require("path");
 
 // get all specimens
 const getAllSpecimens = async (req, res) => {
-    const specimens = await Specimen.find({}).sort({createdAt: -1})
-
-    res.status(200);
-    res.json(specimens);
+    try {
+        const specimens = await Specimen.find({}).sort({createdAt: -1});
+        res.status(200);
+        res.json(specimens);
+    } catch (err) {
+        res.status(500);
+        res.json({ error: 'failed to get specimens' });
+    }
 }
 
 // get a single specimen by id
