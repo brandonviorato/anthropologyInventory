@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import { IconButton, Tooltip } from '@mui/material'
+import { BsPlusCircle, BsFillGridFill, BsListUl } from 'react-icons/bs'
 
 // Components
 import Sidebar from '../components/viewpage-components/Sidebar'
@@ -9,6 +12,7 @@ import CollectionView from '../components/viewpage-components/CollectionView.jsx
 import '../styles/index.css'
 import '../styles/specimensExplorer.css'
 import { Link } from 'react-router-dom'
+import SearchBar from '../components/SearchBar.jsx'
 
 export default function View() {
   const [searchTerm, setSearchTerm] = useState('') // For inventory search bar
@@ -67,37 +71,25 @@ export default function View() {
   return (
     <div className="view-page">
       <Sidebar specimens={specimens} setSearchTerm={setSearchTerm} />
-
       <div className="specimens-view-container">
-        <div className="view-add-btn">
-          <Link to={`/AddArtifact`}>Add Product</Link>
+        {/* <NavLink className="view-add-btn" to="/AddArtifact">
+          <BsPlusCircle />
+          Add artifact
+        </NavLink> */}
+        <SearchBar />
+        <div className='view-controls' id="grid-list-toggle" onClick={toggleView}>
+          <Tooltip title="Grid view" arrow>
+            <IconButton  
+            className={viewType === 'grid' ? 'active' : ''} >
+              <BsFillGridFill/>
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="List view" arrow>
+            <IconButton className={viewType === 'list' ? 'active' : ''}>
+              <BsListUl />
+            </IconButton>
+          </Tooltip>
         </div>
-
-        <div className="view-controls">
-          <input
-            type="text"
-            placeholder="Inventory Search..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-
-          <button id="grid-list-toggle" type="button" onClick={toggleView}>
-            <img
-              src="http://localhost:3001/svg/grid.svg"
-              alt="Grid Icon"
-              id="grid-view"
-              className={viewType === 'grid' ? 'active' : ''}
-            />
-            <img
-              src="http://localhost:3001/svg/list.svg"
-              alt="List Icon"
-              id="list-view"
-              className={viewType === 'list' ? 'active' : ''}
-            />
-          </button>
-        </div>
-
-        {/* error message if fetch fails */}
         {fetchError ? (
           <h1 className="error">{fetchError}</h1>
         ) : (
